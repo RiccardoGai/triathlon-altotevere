@@ -1,0 +1,28 @@
+{
+  "header": {
+    "header_links": [
+      {
+        "name": "menu 3",
+        "href": "/"
+      },
+      {
+        "name": "Menu 2",
+        "href": "",
+        "sub_menu": [
+          {
+            "name": "Inner Menu 2",
+            "href": "/"
+          },
+          {
+            "name": "Inner Menu",
+            "href": "/"
+          }
+        ]
+      },
+      {
+        "name": "Menu 1",
+        "href": "/home"
+      }
+    ]
+  }
+}

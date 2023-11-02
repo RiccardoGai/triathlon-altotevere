@@ -1,0 +1,14 @@
+@import './theme.scss';
+@import './settings/';
+@import './components/';
+@import './tailwind';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  margin-top: $header-height;
+}
