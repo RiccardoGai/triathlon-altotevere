@@ -8,6 +8,20 @@ const Page: Collection = {
   name: 'page',
   path: 'content/pages',
   format: 'mdx',
+  ui: {
+    router: ({ document }) => {
+      if (document._sys.filename === 'home') {
+        return `/`;
+      }
+      return `/${document._sys.filename}`;
+    },
+    filename: {
+      readonly: true,
+      slugify: (values) => {
+        return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
+      }
+    }
+  },
   fields: [
     {
       type: 'string',
@@ -28,14 +42,6 @@ const Page: Collection = {
       },
       templates: [HeroBannerTemplate, TextTemplate, GridTemplate]
     }
-  ],
-  ui: {
-    filename: {
-      readonly: true,
-      slugify: (values) => {
-        return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
-      }
-    }
-  }
+  ]
 };
 export default Page;

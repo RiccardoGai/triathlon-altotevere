@@ -1,9 +1,10 @@
 {
   "header": {
+    "logo": "",
     "header_links": [
       {
         "name": "menu 3",
-        "href": "/"
+        "href": "/demo-page"
       },
       {
         "name": "Menu 2",
@@ -23,6 +24,10 @@
         "name": "Menu 1",
         "href": "/home"
       }
-    ]
+    ],
+    "social": {
+      "facebook": "#",
+      "instagram": "#"
+    }
   }
 }

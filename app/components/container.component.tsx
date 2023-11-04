@@ -1,4 +1,4 @@
-export const Container = ({
+export default function Container({
   children,
   className = '',
   ...props
@@ -6,10 +6,10 @@ export const Container = ({
   children: React.ReactNode;
   className?: string;
   props?: any;
-}) => {
+}) {
   return (
     <div className={`container mx-auto px-6 sm:px-8 ${className}`} {...props}>
       {children}
     </div>
   );
-};
+}

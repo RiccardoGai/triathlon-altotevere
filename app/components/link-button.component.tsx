@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export const LinkButton = ({
+export default function LinkButton({
   href,
   type = 'button',
   className,
@@ -10,7 +10,7 @@ export const LinkButton = ({
   type?: 'button' | 'outline' | 'text';
   className?: string;
   children?: React.ReactNode;
-}) => {
+}) {
   let cssClass = `link-button ${className ?? ''}`;
   if (type === 'outline') {
     cssClass = `${cssClass} link-button__outline`;
@@ -23,4 +23,4 @@ export const LinkButton = ({
       {children}
     </Link>
   );
-};
+}

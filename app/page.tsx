@@ -1,4 +1,4 @@
-import { SlugPage } from './[slug]/page';
+import { default as SlugPage } from './[slug]/page';
 export default function Page() {
-  return <SlugPage props={{ slug: 'home' }}></SlugPage>;
+  return <SlugPage params={{ slug: 'home' }}></SlugPage>;
 }

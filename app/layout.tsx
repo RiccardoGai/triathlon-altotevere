@@ -28,13 +28,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headerData = (await client.queries.globalConnection()).data
-    .globalConnection.edges?.[0]?.node?.header;
+  const global = await client.queries.global({
+    relativePath: 'global.json'
+  });
 
   return (
     <html lang='en'>
       <body className={font.className}>
-        <Header data={headerData as any}></Header>
+        <Header props={global}></Header>
         <div className='main'>{children}</div>
       </body>
     </html>

@@ -1,16 +1,28 @@
 'use client';
 import {
   GlobalHeader,
-  GlobalHeaderHeader_Links
+  GlobalHeaderHeader_Links,
+  GlobalHeaderSocial,
+  GlobalQuery,
+  GlobalQueryVariables
 } from '@/tina/__generated__/types';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { tinaField, useTina } from 'tinacms/dist/react';
+import { ITinaResponse } from '../models/tina-response.interface';
 
-export default function Header(props: { data: GlobalHeader }) {
+export default function Header({
+  props
+}: {
+  props: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
+}) {
+  const data = useTina(props);
+  const headerData = data.data.global.header as GlobalHeader;
   const pathname = usePathname();
   //  console.log(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +44,18 @@ export default function Header(props: { data: GlobalHeader }) {
       <nav className='header'>
         <div className='container mx-auto flex flex-row items-center'>
           <Link href='/' className='header__brand'>
-            Triathlon Altotevere
+            {headerData.logo ? (
+              <Image
+                data-tina-field={tinaField(headerData, 'logo')}
+                src={headerData.logo}
+                width={300}
+                height={250}
+                alt='Triathlon Altotevere'
+                loading='eager'
+              />
+            ) : (
+              'Triathlon Altotevere'
+            )}
           </Link>
           <div className='md:hidden ml-auto flex align-center'>
             <FontAwesomeIcon
@@ -43,15 +66,20 @@ export default function Header(props: { data: GlobalHeader }) {
             />
           </div>
           <div className='hidden md:flex items-center flex-row ml-auto gap-4 md:gap-8 '>
-            {props.data?.header_links?.map((link, index) => (
+            {headerData?.header_links?.map((link, index) => (
               <div key={index} className='header__link__container'>
-                <Link className='header__link' href={link?.href ?? '#'}>
+                <Link
+                  data-tina-field={tinaField(link!)}
+                  className='header__link'
+                  href={link?.href ?? '#'}
+                >
                   {link?.name}
                 </Link>
                 {link?.sub_menu?.length && (
                   <div className='header__link__sub-menu gap-4'>
                     {link?.sub_menu?.map((subMenu, index) => (
                       <Link
+                        data-tina-field={tinaField(subMenu!)}
                         key={index}
                         className='header__link'
                         href={subMenu?.href ?? '#'}
@@ -65,16 +93,7 @@ export default function Header(props: { data: GlobalHeader }) {
             ))}
           </div>
           <div className='hidden md:flex md:ml-5 lg:ml-7 items-center'>
-            <FontAwesomeIcon
-              icon={faFacebook}
-              className='mr-4 cursor-pointer'
-              style={{ fontSize: 20, color: 'white' }}
-            />
-            <FontAwesomeIcon
-              className='mr-4 cursor-pointer'
-              icon={faInstagram}
-              style={{ fontSize: 20, color: 'white' }}
-            />
+            {<Social props={headerData.social!}></Social>}
           </div>
         </div>
       </nav>
@@ -83,10 +102,11 @@ export default function Header(props: { data: GlobalHeader }) {
           isMenuOpen ? 'opacity-100' : 'opacity-0 h-0'
         }`}
       >
-        {props.data?.header_links?.map((link, index) => (
+        {headerData?.header_links?.map((link, index) => (
           <div key={index} className='flex flex-col items-center'>
             {link?.sub_menu?.length && (
               <a
+                data-tina-field={tinaField(link!)}
                 className={`header__link ${
                   isSubMenuMobileOpen[link!.name] ? 'active' : ''
                 }`}
@@ -97,6 +117,7 @@ export default function Header(props: { data: GlobalHeader }) {
             )}
             {!link?.sub_menu?.length && (
               <Link
+                data-tina-field={tinaField(link!)}
                 className={'header__link'}
                 href={''}
                 onClick={() => onClickMenuMobile(link!)}
@@ -114,6 +135,7 @@ export default function Header(props: { data: GlobalHeader }) {
               >
                 {link?.sub_menu?.map((subMenu, index) => (
                   <Link
+                    data-tina-field={tinaField(subMenu!)}
                     key={index}
                     className='header__link'
                     href={subMenu?.href ?? '#'}
@@ -126,18 +148,36 @@ export default function Header(props: { data: GlobalHeader }) {
           </div>
         ))}
         <div className='flex items-center mt-2 mb-6'>
-          <FontAwesomeIcon
-            icon={faFacebook}
-            className='mr-4 cursor-pointer'
-            style={{ fontSize: 20, color: 'white' }}
-          />
-          <FontAwesomeIcon
-            className='mr-4 cursor-pointer'
-            icon={faInstagram}
-            style={{ fontSize: 20, color: 'white' }}
-          />
+          {<Social props={headerData.social!}></Social>}
         </div>
       </div>
     </>
   );
 }
+
+const Social = ({ props }: { props: GlobalHeaderSocial }) => {
+  return (
+    <>
+      <Link
+        href={props?.facebook ?? '#'}
+        className='mr-4'
+        data-tina-field={tinaField(props, 'facebook')}
+      >
+        <FontAwesomeIcon
+          icon={faFacebook}
+          style={{ fontSize: 20, color: 'white' }}
+        />
+      </Link>
+      <Link
+        href={props?.instagram ?? '#'}
+        className='mr-4'
+        data-tina-field={tinaField(props, 'instagram')}
+      >
+        <FontAwesomeIcon
+          icon={faInstagram}
+          style={{ fontSize: 20, color: 'white' }}
+        />
+      </Link>
+    </>
+  );
+};

@@ -1,9 +1,10 @@
 import { PageBlocksGrid } from '@/tina/__generated__/types';
+import { tinaField } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { Container } from './container.component';
-import { Section } from './section.component';
+import Container from './container.component';
+import Section from './section.component';
 
-export const Grid = ({ data }: { data: PageBlocksGrid }) => {
+export default function Grid({ data }: { data: PageBlocksGrid }) {
   const widthClass = {
     '25%': `col-span-1`,
     '50%': `col-span-2`,
@@ -13,9 +14,13 @@ export const Grid = ({ data }: { data: PageBlocksGrid }) => {
   return (
     <Section>
       <Container>
-        <div className={`grid grid-cols-1 md:grid-cols-4 gap-16`}>
+        <div
+          data-tina-field={tinaField(data, 'grid_columns')}
+          className={`grid grid-cols-1 md:grid-cols-4 gap-16`}
+        >
           {data.grid_columns?.map((item, i) => (
             <div
+              data-tina-field={tinaField(item!)}
               key={i}
               className={`${
                 widthClass[
@@ -30,4 +35,4 @@ export const Grid = ({ data }: { data: PageBlocksGrid }) => {
       </Container>
     </Section>
   );
-};
+}
