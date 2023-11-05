@@ -33,7 +33,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!page) {
     // TODO - 404
   }
-
   return (
     <main className='flex flex-col w-full'>
       <PageBlock props={page} />
