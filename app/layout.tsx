@@ -1,15 +1,10 @@
+import client from '@/tina/__generated__/client';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import Header from './components/header.component';
 import './styles/index.scss';
-
-// import Font Awesome CSS
-import '@fortawesome/fontawesome-svg-core/styles.css';
-
-import client from '@/tina/__generated__/client';
-import { config } from '@fortawesome/fontawesome-svg-core';
-// Tell Font Awesome to skip adding the CSS automatically
-// since it's already imported above
 config.autoAddCss = false;
 
 const font = Poppins({
