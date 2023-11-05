@@ -35,8 +35,12 @@
   text-decoration: none !important;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  &.active,
-  &:hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--primary-color) !important;
+    }
+  }
+  &.active {
     color: var(--primary-color) !important;
   }
 }

@@ -15,7 +15,7 @@ export default function HeroBanner({ data }: { data: PageBlocksHero_Banner }) {
       }}
     >
       <Container className='flex flex-col justify-center items-center'>
-        <div className='mt-[10rem] text-center'>
+        <div className='mt-[5rem] md:mt-[8rem] lg:mt-[10rem] text-center'>
           {data.hero_tagline && (
             <h6 data-tina-field={tinaField(data, 'hero_tagline')}>
               {data.hero_tagline}

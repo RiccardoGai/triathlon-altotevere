@@ -5,8 +5,7 @@ export default function Container({
 }: {
   children: React.ReactNode;
   className?: string;
-  props?: any;
-}) {
+} & React.HTMLProps<HTMLDivElement>) {
   return (
     <div className={`container mx-auto px-6 sm:px-8 ${className}`} {...props}>
       {children}

@@ -1,4 +1,5 @@
 import type { Collection } from 'tinacms';
+import { GlobalHeaderHeader_Links } from '../__generated__/types';
 
 const Global: Collection = {
   label: 'Global',
@@ -43,7 +44,22 @@ const Global: Collection = {
             {
               type: 'string',
               label: 'Link',
-              name: 'href'
+              name: 'href',
+              ui: {
+                validate(value, allValues, meta) {
+                  const property = ((meta as any).name as string)?.split('.');
+                  if (property && allValues) {
+                    property.pop();
+                    const object = getPropertyFromObject(
+                      allValues,
+                      property?.join('.')
+                    ) as GlobalHeaderHeader_Links;
+                    if (value && (object?.sub_menu?.length ?? 0) > 0) {
+                      return 'When you have a sub menu, you cannot have a link';
+                    }
+                  }
+                }
+              }
             },
             {
               type: 'object',
@@ -51,6 +67,19 @@ const Global: Collection = {
               name: 'sub_menu',
               list: true,
               ui: {
+                validate(value, allValues, meta) {
+                  const property = ((meta as any).name as string)?.split('.');
+                  if (property && allValues) {
+                    property.pop();
+                    const object = getPropertyFromObject(
+                      allValues,
+                      property?.join('.')
+                    ) as GlobalHeaderHeader_Links;
+                    if (value && value.length > 0 && object.href) {
+                      return 'When you have a link, you cannot have a sub menu';
+                    }
+                  }
+                },
                 itemProps(item) {
                   return { label: item?.name };
                 }
@@ -123,5 +152,20 @@ const Global: Collection = {
     }
   ]
 };
+
+function getPropertyFromObject(object: any, key: string) {
+  key = key.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+  key = key.replace(/^\./, ''); // strip a leading dot
+  var a = key.split('.');
+  for (var i = 0, n = a.length; i < n; ++i) {
+    var k = a[i];
+    if (k in object) {
+      object = object[k];
+    } else {
+      return;
+    }
+  }
+  return object;
+}
 
 export default Global;

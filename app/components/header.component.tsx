@@ -11,10 +11,10 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { ITinaResponse } from '../models/tina-response.interface';
+import ActiveLink from './active-link.component';
 
 export default function Header({
   props
@@ -23,18 +23,16 @@ export default function Header({
 }) {
   const data = useTina(props);
   const headerData = data.data.global.header as GlobalHeader;
-  const pathname = usePathname();
-  //  console.log(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSubMenuMobileOpen, setIsSubMenuMobileOpen] = useState<{
+  const [isMenuMobileOpen, setIsMenuMobileOpen] = useState<{
     [key: string]: boolean;
   }>({});
 
   function onClickMenuMobile(link: GlobalHeaderHeader_Links): void {
     if (link?.sub_menu?.length) {
-      setIsSubMenuMobileOpen({
-        ...isSubMenuMobileOpen,
-        [link.name]: !isSubMenuMobileOpen[link.name]
+      setIsMenuMobileOpen({
+        ...isMenuMobileOpen,
+        [link.name]: !isMenuMobileOpen[link.name]
       });
     }
   }
@@ -66,31 +64,14 @@ export default function Header({
             />
           </div>
           <div className='hidden md:flex items-center flex-row ml-auto gap-4 md:gap-8 '>
-            {headerData?.header_links?.map((link, index) => (
-              <div key={index} className='header__link__container'>
-                <Link
-                  data-tina-field={tinaField(link!)}
-                  className='header__link'
-                  href={link?.href ?? '#'}
-                >
-                  {link?.name}
-                </Link>
-                {link?.sub_menu?.length && (
-                  <div className='header__link__sub-menu gap-4'>
-                    {link?.sub_menu?.map((subMenu, index) => (
-                      <Link
-                        data-tina-field={tinaField(subMenu!)}
-                        key={index}
-                        className='header__link'
-                        href={subMenu?.href ?? '#'}
-                      >
-                        {subMenu?.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            <MenuLinks
+              props={
+                headerData.header_links as unknown as GlobalHeaderHeader_Links[]
+              }
+              isMobile={false}
+              isMenuMobileOpen={isMenuMobileOpen}
+              onClickMenuMobile={onClickMenuMobile}
+            ></MenuLinks>
           </div>
           <div className='hidden md:flex md:ml-5 lg:ml-7 items-center'>
             {<Social props={headerData.social!}></Social>}
@@ -102,51 +83,14 @@ export default function Header({
           isMenuOpen ? 'opacity-100' : 'opacity-0 h-0'
         }`}
       >
-        {headerData?.header_links?.map((link, index) => (
-          <div key={index} className='flex flex-col items-center'>
-            {link?.sub_menu?.length && (
-              <a
-                data-tina-field={tinaField(link!)}
-                className={`header__link ${
-                  isSubMenuMobileOpen[link!.name] ? 'active' : ''
-                }`}
-                onClick={() => onClickMenuMobile(link!)}
-              >
-                {link?.name}
-              </a>
-            )}
-            {!link?.sub_menu?.length && (
-              <Link
-                data-tina-field={tinaField(link!)}
-                className={'header__link'}
-                href={''}
-                onClick={() => onClickMenuMobile(link!)}
-              >
-                {link?.name}
-              </Link>
-            )}
-            {link?.sub_menu?.length && (
-              <div
-                className={`header__mobile__link__sub-menu ${
-                  isSubMenuMobileOpen[link.name]
-                    ? 'opacity-100'
-                    : 'opacity-0 h-0'
-                }`}
-              >
-                {link?.sub_menu?.map((subMenu, index) => (
-                  <Link
-                    data-tina-field={tinaField(subMenu!)}
-                    key={index}
-                    className='header__link'
-                    href={subMenu?.href ?? '#'}
-                  >
-                    {subMenu?.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+        <MenuLinks
+          props={
+            headerData.header_links as unknown as GlobalHeaderHeader_Links[]
+          }
+          isMobile={true}
+          isMenuMobileOpen={isMenuMobileOpen}
+          onClickMenuMobile={onClickMenuMobile}
+        ></MenuLinks>
         <div className='flex items-center mt-2 mb-6'>
           {<Social props={headerData.social!}></Social>}
         </div>
@@ -154,6 +98,66 @@ export default function Header({
     </>
   );
 }
+
+const MenuLinks = ({
+  props,
+  isMobile,
+  isMenuMobileOpen,
+  onClickMenuMobile
+}: {
+  props: GlobalHeaderHeader_Links[];
+  isMobile: boolean;
+  isMenuMobileOpen: { [key: string]: boolean };
+  onClickMenuMobile: (link: GlobalHeaderHeader_Links) => void;
+}) => {
+  return (
+    <>
+      {props.map((link, index) => (
+        <div
+          key={index}
+          className={`${
+            isMobile ? 'flex flex-col items-center' : 'header__link__container'
+          }`}
+        >
+          <ActiveLink
+            data-tina-field={tinaField(link!)}
+            className={`header__link ${
+              isMobile && isMenuMobileOpen[link.name!] ? 'active' : ''
+            }`}
+            href={link?.href ?? '#'}
+            onClick={() => (isMobile ? onClickMenuMobile(link!) : null)}
+          >
+            {link?.name}
+          </ActiveLink>
+          {link?.sub_menu?.length && (
+            <div
+              className={`${
+                isMobile
+                  ? `header__mobile__link__sub-menu ${
+                      isMenuMobileOpen[link.name]
+                        ? 'opacity-100'
+                        : 'opacity-0 h-0'
+                    }`
+                  : 'header__link__sub-menu gap-4'
+              }`}
+            >
+              {link?.sub_menu?.map((subMenu, index) => (
+                <ActiveLink
+                  data-tina-field={tinaField(subMenu!)}
+                  key={index}
+                  className='header__link'
+                  href={subMenu?.href ?? '#'}
+                >
+                  {subMenu?.name}
+                </ActiveLink>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </>
+  );
+};
 
 const Social = ({ props }: { props: GlobalHeaderSocial }) => {
   return (
@@ -170,7 +174,6 @@ const Social = ({ props }: { props: GlobalHeaderSocial }) => {
       </Link>
       <Link
         href={props?.instagram ?? '#'}
-        className='mr-4'
         data-tina-field={tinaField(props, 'instagram')}
       >
         <FontAwesomeIcon

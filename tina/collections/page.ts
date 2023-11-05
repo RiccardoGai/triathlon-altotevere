@@ -24,13 +24,14 @@ const Page: Collection = {
   },
   fields: [
     {
-      type: 'string',
-      label: 'Title',
-      name: 'title',
-      description:
-        'The title of the page. This is used to display the title in the CMS',
-      isTitle: true,
-      required: true
+      type: 'object',
+      label: 'SEO',
+      name: 'seo',
+      fields: [
+        { type: 'string', label: 'Title', name: 'title' },
+        { type: 'string', label: 'Description', name: 'description' },
+        { type: 'string', label: 'Keywords', name: 'keywords' }
+      ]
     },
     {
       type: 'object',
