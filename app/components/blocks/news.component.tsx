@@ -21,7 +21,7 @@ export default function NewsBlock({ data }: { data: PageBlocksNews }) {
 function NewsItem({ data }: { data: PageBlocksNewsNews_Children }) {
   return (
     <article className='mb-6 transition text-center'>
-      <div className='relative md:h-64 bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6'>
+      <div className='relative h-48 md:h-64 bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6'>
         {data.news_image && (
           <Link href={parsePageToHref(data.news_href)}>
             <Image
