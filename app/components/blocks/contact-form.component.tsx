@@ -1,4 +1,5 @@
 // import sendEmail from '@/app/actions/send-mail.action';
+import sendEmail from '@/app/actions/send-mail.action';
 import {
   PageBlocksContactForm,
   PageBlocksGridGrid_ColumnsBlocksContactForm
@@ -32,10 +33,10 @@ export default function ContactFormBlock({
         )}
       </div>
       <form
-        // action={async (formData: FormData) => {
-        //   await sendEmail(formData);
-        //   setShowSuccessMessage(true);
-        // }}
+        action={async (formData: FormData) => {
+          await sendEmail(formData);
+          setShowSuccessMessage(true);
+        }}
       >
         <div className='mb-6'>
           <label htmlFor='name' className='block text-sm font-medium mb-1'>
