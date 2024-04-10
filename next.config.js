@@ -2,7 +2,14 @@
 const nextConfig = {
   // output: 'export',
   images: {
-    domains: ['assets.tina.io'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '"assets.tina.io',
+        port: '',
+        pathname: '**',
+      },
+    ],
     // loader: 'custom',
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
