@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev --port 4002 --datalayer-port 9001 -c \"next dev -p 3001\"",
-    "build": "tinacms build && next build && next-image-export-optimizer",
+    "build": "tinacms build && next build",
     "start": "tinacms build && next start ",
     "lint": "next lint"
   },
@@ -15,11 +15,9 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@tinacms/cli": "^1.5.43",
     "next": "^14.1.4",
-    "next-image-export-optimizer": "^1.12.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "resend": "^3.2.0",
-    "sharp": "0.33.1",
     "tinacms": "^1.6.1"
   },
   "devDependencies": {
