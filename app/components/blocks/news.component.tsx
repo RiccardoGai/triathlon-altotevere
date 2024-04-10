@@ -2,7 +2,7 @@ import {
   PageBlocksNews,
   PageBlocksNewsNews_Children
 } from '@/tina/__generated__/types';
-import ExportedImage from 'next-image-export-optimizer';
+import Image from 'next/image';
 import Link from 'next/link';
 import { tinaField } from 'tinacms/dist/react';
 import { parsePageToHref } from '../../utils/utils';
@@ -24,7 +24,7 @@ function NewsItem({ data }: { data: PageBlocksNewsNews_Children }) {
       <div className='relative md:h-64 bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6'>
         {data.news_image && (
           <Link href={parsePageToHref(data.news_href)}>
-            <ExportedImage
+            <Image
               data-tina-field={tinaField(data, 'news_image')}
               src={data.news_image}
               fill

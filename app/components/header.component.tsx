@@ -6,7 +6,7 @@ import {
 } from '@/tina/__generated__/types';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ExportedImage from 'next-image-export-optimizer';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
@@ -74,7 +74,7 @@ export default function Header({
         <div className='flex justify-between'>
           <Link href='/' className='flex items-center' onClick={onNavClick}>
             {headerData.logo ? (
-              <ExportedImage
+              <Image
                 data-tina-field={tinaField(headerData, 'logo')}
                 src={headerData.logo}
                 width={300}

@@ -2,7 +2,7 @@ import {
   PageBlocksGridGrid_ColumnsBlocksImage,
   PageBlocksImage
 } from '@/tina/__generated__/types';
-import ExportedImage from 'next-image-export-optimizer';
+import Image from 'next/image';
 import { tinaField } from 'tinacms/dist/react';
 
 export default function ImageBlock({
@@ -18,7 +18,7 @@ export default function ImageBlock({
     height = undefined;
   }
   return (
-    <ExportedImage
+    <Image
       data-tina-field={tinaField(data)}
       src={data.image_ref}
       width={width ?? undefined}
