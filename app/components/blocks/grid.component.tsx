@@ -28,7 +28,7 @@ export default function GridBlock({ data }: { data: PageBlocksGrid }) {
             widthClass[
               column?.grid_column_size as '25%' | '50%' | '75%' | '100%'
             ]
-          } w-full relative`}
+          } w-full relative min-h-40`}
         >
           {column?.blocks &&
             (column?.blocks).map((block, y) => (

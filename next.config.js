@@ -5,8 +5,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '"assets.tina.io',
+        hostname: 'assets.tina.io',
         port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3001',
         pathname: '**',
       },
     ],
