@@ -1,7 +1,12 @@
 import type { Collection } from 'tinacms';
+import { CONFIG } from '../../app/config/config';
+import { ContactFormTemplate } from './templates/contact-form.template';
 import { GridTemplate } from './templates/grid.template';
 import { HeroBannerTemplate } from './templates/hero-banner.template';
-import { TextTemplate } from './templates/text.template';
+import { ImageTemplate } from './templates/image.template';
+import { NewsTemplate } from './templates/news.template';
+import { PriceTemplate } from './templates/price.template';
+import { RichTextTemplate } from './templates/rich-text.template';
 
 const Page: Collection = {
   label: 'Pages',
@@ -10,13 +15,12 @@ const Page: Collection = {
   format: 'mdx',
   ui: {
     router: ({ document }) => {
-      if (document._sys.filename === 'home') {
+      if (document._sys.filename === CONFIG.HOME_PAGE) {
         return `/`;
       }
       return `/${document._sys.filename}`;
     },
     filename: {
-      readonly: true,
       slugify: (values) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
       }
@@ -41,7 +45,16 @@ const Page: Collection = {
       ui: {
         visualSelector: true
       },
-      templates: [HeroBannerTemplate, TextTemplate, GridTemplate]
+      templates: [
+        HeroBannerTemplate,
+        RichTextTemplate,
+        GridTemplate,
+        NewsTemplate,
+        ImageTemplate,
+        PriceTemplate,
+        ContactFormTemplate
+        //  sponsorTemplate
+      ]
     }
   ]
 };

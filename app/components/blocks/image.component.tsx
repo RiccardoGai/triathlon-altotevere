@@ -1,0 +1,32 @@
+import {
+  PageBlocksGridGrid_ColumnsBlocksImage,
+  PageBlocksImage
+} from '@/tina/__generated__/types';
+import ExportedImage from 'next-image-export-optimizer';
+import { tinaField } from 'tinacms/dist/react';
+
+export default function ImageBlock({
+  data
+}: {
+  data: PageBlocksImage | PageBlocksGridGrid_ColumnsBlocksImage;
+}) {
+  let width = data.width;
+  let height = data.height;
+  const fill = data.width && data.height ? false : true;
+  if (fill) {
+    width = undefined;
+    height = undefined;
+  }
+  return (
+    <ExportedImage
+      data-tina-field={tinaField(data)}
+      src={data.image_ref}
+      width={width ?? undefined}
+      height={height ?? undefined}
+      fill={fill}
+      loading='lazy'
+      className='object-cover'
+      alt={data.image_name}
+    />
+  );
+}
