@@ -1,6 +1,7 @@
 import client from '@tina-client';
 import { Metadata } from 'next';
-import PageBlock from '../components/page-block.component';
+import { notFound } from 'next/navigation';
+import PageBlock from '../components/blocks/page-block.component';
 
 export const generateStaticParams = async () => {
   const pages =
@@ -27,11 +28,17 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
+  const slug = params.slug?.toLowerCase();
+  //console.log('slug', slug);
+  // if (slug === CONFIG.HOME_PAGE) {
+  //   redirect('/');
+  // }
+
   const page = await client.queries.page({
-    relativePath: `${params.slug?.toLowerCase()}.mdx`
+    relativePath: `${slug}.mdx`
   });
   if (!page) {
-    // TODO - 404
+    return notFound();
   }
   return (
     <main className='flex flex-col w-full'>

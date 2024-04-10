@@ -3,28 +3,20 @@ import { Template } from 'tinacms';
 export const HeroBannerTemplate: Template = {
   name: 'hero_banner',
   label: 'Hero Banner',
-  // ui: {
-  //   previewSrc: "/blocks/hero.png",
-  //   defaultItem: {
-  //     tagline: "Here's some text above the other text",
-  //     headline: "This Big Text is Totally Awesome",
-  //     text: "Phasellus scelerisque, libero eu finibus rutrum, risus risus accumsan libero, nec molestie urna dui a leo.",
-  //   },
-  // },
   fields: [
     {
-      type: 'string',
       label: 'Tagline',
-      name: 'hero_tagline'
+      name: 'hero_tagline',
+      type: 'string'
     },
     {
-      type: 'string',
-      label: 'Headline',
-      name: 'hero_headline'
+      label: 'Title',
+      name: 'hero_title',
+      type: 'rich-text'
     },
     {
-      label: 'Text',
-      name: 'hero_rich_text',
+      label: 'Subtitle',
+      name: 'hero_subtitle',
       type: 'rich-text'
     },
     {
@@ -38,31 +30,32 @@ export const HeroBannerTemplate: Template = {
           type: 'button',
           href: '/'
         },
-        itemProps: (item) => ({ label: item.hero_action_label })
+        itemProps: (item) => ({ label: item.hero_action_text })
       },
       fields: [
         {
-          label: 'Label',
-          name: 'hero_action_label',
+          label: 'Text',
+          name: 'hero_action_text',
           type: 'string',
           required: true
         },
         {
-          label: 'Type',
-          name: 'hero_action_type',
+          label: 'Variant',
+          name: 'hero_action_variant',
           type: 'string',
           options: [
-            { label: 'Button', value: 'button' },
-            { label: 'Button Outline', value: 'outline' },
-            { label: 'Button Text', value: 'text' }
+            { label: 'Primary', value: 'primary' },
+            { label: 'Secondary', value: 'secondary' },
+            { label: 'Tertiary', value: 'tertiary' },
+            { label: 'Link', value: 'link' }
           ],
           required: true
         },
         {
-          label: 'Link',
+          label: 'Href',
           name: 'hero_action_href',
-          type: 'string',
-          required: true
+          type: 'reference',
+          collections: ['page']
         }
       ]
     },

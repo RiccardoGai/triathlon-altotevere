@@ -1,89 +1,81 @@
 ---
-title: Home Page
 blocks:
-  - hero_tagline: Tagline
-    hero_headline: Headline
-    hero_rich_text: >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. In tellus integer
-      feugiat scelerisque varius morbi enim nunc. Sit amet purus gravida quis.
-      Ullamcorper dignissim cras tincidunt lobortis. Egestas quis ipsum
-      suspendisse ultrices. Fermentum posuere urna nec tincidunt praesent semper
+  - hero_tagline: Triathlon altotevere
+    hero_title: |
+      # Corri, nuota, pedala: la nostra passione, la tua squadra.
+    hero_subtitle: ''
     hero_actions:
-      - hero_action_label: Action 1
-        hero_action_type: button
-        hero_action_href: /
-      - hero_action_label: Action 2
-        hero_action_type: outline
-        hero_action_href: /
-      - hero_action_label: Action 3
-        hero_action_type: text
-        hero_action_href: /
+      - hero_action_text: Unisciti a noi
+        hero_action_variant: primary
+        hero_action_href: content/pages/entra-in-squadra.mdx
     hero_image: /uploads/8772_20230916_071929_314349130_original.JPG
     _template: hero_banner
   - grid_name: Grid
     grid_columns:
-      - grid_column_name: Column 50 %
+      - grid_column_name: Immagine
         grid_column_size: 50%
-        grid_column_rich_text: >
-          ### Esempio 50%
+        blocks:
+          - image_name: demo
+            image_ref: /uploads/8772_20230916_152545_314433120_original.JPG
+            width: 0
+            height: 0
+            _template: image
+      - grid_column_name: Chi Siamo
+        grid_column_size: 50%
+        blocks:
+          - rich_text_name: Chi Siamo
+            rich_text_text: >
+              La **Triathlon Altotevere** è
+
+              una società che promuove il triathlon per tutti, qualunque sia
+              l’età, la
+
+              capacità, l’ esperienza. Insegna **la disciplina** di uno sport
+              che richiede
+
+              impegno, sacrificio e umiltà **per portare ogni persona a
+              migliorare se stessa** in gara e fuori.
 
 
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus
-          integer feugiat scelerisque varius morbi enim nunc. Sit amet purus
-          gravida quis. Ullamcorper dignissim cras tincidunt lobortis. Egestas
-          quis ipsum suspendisse ultrices. Fermentum posuere urna nec tincidunt
-          praesent semper
-      - grid_column_name: Column 50%
-        grid_column_size: 50%
-        grid_column_rich_text: |
-          ![](/uploads/8772_20230916_152545_314433120_original.JPG)
-      - grid_column_name: Column 25%
-        grid_column_size: 25%
-        grid_column_rich_text: |
-          Esempio 25%
-      - grid_column_name: Column 25%
-        grid_column_size: 25%
-        grid_column_rich_text: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus
-          integer feugiat scelerisque varius morbi enim nunc. Sit amet purus
-          gravida quis. Ullamcorper dignissim cras tincidunt lobortis. Egestas
-          quis ipsum suspendisse ultrices. Fermentum posuere urna nec tincidunt
-          praesent semper
+              La Triathlon Altotevere si
+
+              ispira **ai principi etici** e sociali propri dello sport e della
+              vita. La
+
+              società crea senso di appartenenza e dà motivazioni ed Emozioni,
+              qualunque sia
+
+              il risultato.
+
+
+              Vantiamo nel
+
+              nostro staff **professionisti a tutti i livelli**: Tecnici
+              federali,
+
+              Fisioterapisti, osteopati, massaggiatori podologi e tecnici bici
+              esperti.
+            _template: richText
     _template: grid
-  - text_name: Testo
-    text_rich_text: >
-      # Heading
-
-
-      ## Heading
-
-
-      ### Heading
-
-
-      ##### Heading
-
-
-      ###### Heading
-
-
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. In tellus integer
-      feugiat scelerisque varius morbi enim nunc. Sit amet purus gravida quis.
-      Ullamcorper dignissim cras tincidunt lobortis. Egestas quis ipsum
-      suspendisse ultrices. Fermentum posuere urna nec tincidunt praesent
-      semper. Vulputate odio ut enim blandit volutpat maecenas. Sagittis purus
-      sit amet volutpat consequat mauris nunc congue. Nisl purus in mollis nunc
-      sed id semper. Congue eu consequat ac felis. Vel pharetra vel turpis nunc.
-      Mauris pharetra et ultrices neque. Aenean vel elit scelerisque mauris.
-      Lectus magna fringilla urna porttitor rhoncus dolor. Non diam phasellus
-      vestibulum lorem sed risus ultricies tristique nulla. Purus ut faucibus
-      pulvinar elementum integer enim. Urna porttitor rhoncus dolor purus non
-      enim praesent elementum. Velit scelerisque in dictum non consectetur a
-      erat nam.
-    _template: text
+  - news_children:
+      - news_title: News 1
+        news_description: >-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam.
+        news_image: /uploads/8772_20230916_152545_314433120_original.JPG
+      - news_title: News 2
+        news_description: >-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam.
+        news_image: /uploads/8772_20230916_152545_314433120_original.JPG
+      - news_title: News 3
+        news_description: >-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam.
+        news_image: /uploads/8772_20230916_152545_314433120_original.JPG
+    _template: news
 ---
 
