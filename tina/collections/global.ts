@@ -1,11 +1,11 @@
 import type { Collection } from 'tinacms';
-import { GlobalHeaderHeader_Links } from '../__generated__/types';
+import { GlobalHeaderLinks } from '../__generated__/types';
 
 const Global: Collection = {
   label: 'Global',
   name: 'global',
   path: 'content/global',
-  format: 'json',
+  format: 'mdx',
   ui: {
     global: true,
     allowedActions: {
@@ -26,25 +26,25 @@ const Global: Collection = {
         },
         {
           type: 'object',
-          label: 'Header Links',
-          name: 'header_links',
+          label: 'Links',
+          name: 'links',
           list: true,
           ui: {
             itemProps(item) {
-              return { label: item?.name };
+              return { label: item?.text };
             }
           },
           fields: [
             {
               type: 'string',
-              label: 'Name',
-              name: 'name',
-              required: true
+              label: 'Text',
+              name: 'text'
             },
             {
-              type: 'string',
-              label: 'Link',
+              type: 'reference',
+              label: 'Href',
               name: 'href',
+              collections: ['page'],
               ui: {
                 validate(value, allValues, meta) {
                   const property = ((meta as any).name as string)?.split('.');
@@ -53,8 +53,8 @@ const Global: Collection = {
                     const object = getPropertyFromObject(
                       allValues,
                       property?.join('.')
-                    ) as GlobalHeaderHeader_Links;
-                    if (value && (object?.sub_menu?.length ?? 0) > 0) {
+                    ) as GlobalHeaderLinks;
+                    if (value && (object?.links?.length ?? 0) > 0) {
                       return 'When you have a sub menu, you cannot have a link';
                     }
                   }
@@ -63,8 +63,8 @@ const Global: Collection = {
             },
             {
               type: 'object',
-              label: 'Sub Menu',
-              name: 'sub_menu',
+              label: 'Links',
+              name: 'links',
               list: true,
               ui: {
                 validate(value, allValues, meta) {
@@ -74,29 +74,59 @@ const Global: Collection = {
                     const object = getPropertyFromObject(
                       allValues,
                       property?.join('.')
-                    ) as GlobalHeaderHeader_Links;
+                    ) as GlobalHeaderLinks;
                     if (value && value.length > 0 && object.href) {
                       return 'When you have a link, you cannot have a sub menu';
                     }
                   }
                 },
                 itemProps(item) {
-                  return { label: item?.name };
+                  return { label: item?.text };
                 }
               },
               fields: [
                 {
                   type: 'string',
-                  label: 'Name of the sub menu',
-                  name: 'name',
+                  label: 'Text',
+                  name: 'text',
                   required: true
                 },
                 {
-                  type: 'string',
-                  label: 'Link',
+                  type: 'reference',
+                  collections: ['page'],
+                  label: 'Href',
                   name: 'href'
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: 'object',
+      label: 'Footer',
+      name: 'footer',
+      fields: [
+        {
+          type: 'object',
+          label: 'Links secondari',
+          name: 'secondary_links',
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item.text })
+          },
+          fields: [
+            {
+              type: 'reference',
+              collections: ['page'],
+              label: 'href',
+              name: 'href'
+            },
+            {
+              type: 'string',
+              label: 'text',
+              name: 'text'
             }
           ]
         },
@@ -114,37 +144,6 @@ const Global: Collection = {
               type: 'string',
               label: 'Instagram',
               name: 'instagram'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      type: 'object',
-      label: 'Footer',
-      name: 'footer',
-      fields: [
-        {
-          type: 'string',
-          label: 'Name of Group of Links',
-          name: 'group'
-        },
-        {
-          type: 'object',
-          label: 'Nav Links',
-          name: 'nav_links',
-          list: true,
-          fields: [
-            {
-              type: 'string',
-              label: 'Name of the menu on the footer',
-              name: 'name',
-              required: true
-            },
-            {
-              type: 'string',
-              label: 'Link',
-              name: 'href'
             }
           ]
         }

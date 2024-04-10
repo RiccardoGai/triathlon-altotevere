@@ -1,49 +1,80 @@
 'use client';
 import {
   GlobalHeader,
-  GlobalHeaderHeader_Links,
-  GlobalHeaderSocial,
   GlobalQuery,
   GlobalQueryVariables
 } from '@/tina/__generated__/types';
-import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import Link from 'next/link';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { ITinaResponse } from '../models/tina-response.interface';
-import ActiveLink from './active-link.component';
+import { parsePageToHref } from '../utils/utils';
+
+// TODO: refactor the components avoid using the global query
 
 export default function Header({
   props
 }: {
   props: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
 }) {
-  const data = useTina(props);
-  const headerData = data.data.global.header as GlobalHeader;
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMenuMobileOpen, setIsMenuMobileOpen] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const { data } = useTina(props);
+  const headerData = data.global.header as GlobalHeader;
+  const currentPath =
+    usePathname()
+      ?.replace(/^\/|\/$/g, '')
+      ?.toLowerCase() ?? '';
 
-  function onClickMenuMobile(link: GlobalHeaderHeader_Links): void {
-    if (link?.sub_menu?.length) {
-      setIsMenuMobileOpen({
-        ...isMenuMobileOpen,
-        [link.name]: !isMenuMobileOpen[link.name]
-      });
-    }
-  }
+  useEffect(() => {
+    const handleScreenSizeChange = () => {
+      document
+        .querySelector('[data-aw-toggle-menu]')
+        ?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      //document.getElementById('header')?.classList.remove('bg-page');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      document
+        .querySelector('#header > div > div:last-child')
+        ?.classList.add('hidden');
+    };
+
+    const screenSizeListener = window.matchMedia('(max-width: 767px)');
+    screenSizeListener.addEventListener('change', handleScreenSizeChange);
+
+    return () => {
+      screenSizeListener.removeEventListener('change', handleScreenSizeChange);
+    };
+  }, []);
+
+  const onNavClick = () => {
+    document
+      .querySelector('[data-aw-toggle-menu]')
+      ?.classList.remove('expanded');
+    document.body.classList.remove('overflow-hidden');
+    document.getElementById('header')?.classList.remove('h-screen');
+    document.getElementById('header')?.classList.remove('expanded');
+    // document.getElementById('header')?.classList.remove('bg-page');
+    document.querySelector('#header nav')?.classList.add('hidden');
+    document
+      .querySelector('#header > div > div:last-child')
+      ?.classList.add('hidden');
+  };
 
   return (
-    <>
-      <nav className='header'>
-        <div className='container mx-auto flex flex-row items-center'>
-          <Link href='/' className='header__brand'>
+    <header
+      id='header'
+      className='sticky top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out bg-page shadow-lg'
+    >
+      <div className='relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between'>
+        <div className='flex justify-between'>
+          <Link href='/' className='flex items-center' onClick={onNavClick}>
             {headerData.logo ? (
-              <Image
+              <ExportedImage
                 data-tina-field={tinaField(headerData, 'logo')}
                 src={headerData.logo}
                 width={300}
@@ -52,135 +83,112 @@ export default function Header({
                 loading='eager'
               />
             ) : (
-              'Triathlon Altotevere'
+              <span className='font-bold text-xl'>LOGO</span>
             )}
           </Link>
-          <div className='md:hidden ml-auto flex align-center'>
-            <FontAwesomeIcon
-              className='mr-4 cursor-pointer'
-              icon={faBars}
-              style={{ fontSize: 25, color: 'white' }}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            />
-          </div>
-          <div className='hidden md:flex items-center flex-row ml-auto gap-4 md:gap-8 '>
-            <MenuLinks
-              props={
-                headerData.header_links as unknown as GlobalHeaderHeader_Links[]
-              }
-              isMobile={false}
-              isMenuMobileOpen={isMenuMobileOpen}
-              onClickMenuMobile={onClickMenuMobile}
-            ></MenuLinks>
-          </div>
-          <div className='hidden md:flex md:ml-5 lg:ml-7 items-center'>
-            {<Social props={headerData.social!}></Social>}
+          <div className='flex items-center md:hidden'>
+            <ToggleMenu />
           </div>
         </div>
-      </nav>
-      <div
-        className={`header__mobile-menu-container md:hidden gap-2 ${
-          isMenuOpen ? 'opacity-100' : 'opacity-0 h-0'
-        }`}
-      >
-        <MenuLinks
-          props={
-            headerData.header_links as unknown as GlobalHeaderHeader_Links[]
-          }
-          isMobile={true}
-          isMenuMobileOpen={isMenuMobileOpen}
-          onClickMenuMobile={onClickMenuMobile}
-        ></MenuLinks>
-        <div className='flex items-center mt-2 mb-6'>
-          {<Social props={headerData.social!}></Social>}
-        </div>
+        <nav className='items-center w-full md:w-auto hidden md:flex text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:mx-5'>
+          <ul
+            className='flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium'
+            data-tina-field={tinaField(headerData, 'links')}
+          >
+            {headerData.links?.map((link, index) => (
+              <li key={index} className={link?.links?.length ? 'dropdown' : ''}>
+                {link?.links?.length ? (
+                  <>
+                    <button
+                      className='hover:text-link  px-4 py-3 flex items-center'
+                      data-tina-field={tinaField(link!)}
+                    >
+                      {link.text}
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className='w-3.5 h-3.5 ml-2 rtl:ml-0 rtl:mr-0.5 hidden md:inline'
+                        style={{ fontSize: 20, color: 'black' }}
+                      />
+                    </button>
+                    <ul className='dropdown-menu md:backdrop-blur-md rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl'>
+                      {link?.links?.map((subLink, subIndex) => (
+                        <li key={index + '_' + subIndex}>
+                          <Link
+                            data-tina-field={tinaField(subLink!)}
+                            onClick={onNavClick}
+                            className={`first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link py-2 px-5 block whitespace-no-wrap ${
+                              parsePageToHref(subLink?.href) === currentPath
+                                ? 'aw-link-active'
+                                : ''
+                            }`}
+                            href={parsePageToHref(subLink?.href)}
+                          >
+                            {subLink?.text}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <Link
+                    data-tina-field={tinaField(link!)}
+                    onClick={onNavClick}
+                    className={`hover:text-link px-4 py-3 flex items-centers ${
+                      parsePageToHref(link?.href) === currentPath
+                        ? 'aw-link-active'
+                        : ''
+                    }`}
+                    href={parsePageToHref(link?.href)}
+                  >
+                    {link?.text}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-    </>
+    </header>
   );
 }
 
-const MenuLinks = ({
-  props,
-  isMobile,
-  isMenuMobileOpen,
-  onClickMenuMobile
-}: {
-  props: GlobalHeaderHeader_Links[];
-  isMobile: boolean;
-  isMenuMobileOpen: { [key: string]: boolean };
-  onClickMenuMobile: (link: GlobalHeaderHeader_Links) => void;
-}) => {
-  return (
-    <>
-      {props.map((link, index) => (
-        <div
-          key={index}
-          className={`${
-            isMobile ? 'flex flex-col items-center' : 'header__link__container'
-          }`}
-        >
-          <ActiveLink
-            data-tina-field={tinaField(link!)}
-            className={`header__link ${
-              isMobile && isMenuMobileOpen[link.name!] ? 'active' : ''
-            }`}
-            href={link?.href ?? '#'}
-            onClick={() => (isMobile ? onClickMenuMobile(link!) : null)}
-          >
-            {link?.name}
-          </ActiveLink>
-          {link?.sub_menu?.length && (
-            <div
-              className={`${
-                isMobile
-                  ? `header__mobile__link__sub-menu ${
-                      isMenuMobileOpen[link.name]
-                        ? 'opacity-100'
-                        : 'opacity-0 h-0'
-                    }`
-                  : 'header__link__sub-menu gap-4'
-              }`}
-            >
-              {link?.sub_menu?.map((subMenu, index) => (
-                <ActiveLink
-                  data-tina-field={tinaField(subMenu!)}
-                  key={index}
-                  className='header__link'
-                  href={subMenu?.href ?? '#'}
-                >
-                  {subMenu?.name}
-                </ActiveLink>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-    </>
-  );
-};
+function ToggleMenu() {
+  const onToggleMenuClick = () => {
+    document
+      .querySelector('[data-aw-toggle-menu]')
+      ?.classList.toggle('expanded');
+    document.body.classList.toggle('overflow-hidden');
+    document.getElementById('header')?.classList.toggle('h-screen');
+    document.getElementById('header')?.classList.toggle('expanded');
+    // document.getElementById('header')?.classList.toggle('bg-page');
+    document.querySelector('#header nav')?.classList.toggle('hidden');
+    document
+      .querySelector('#header > div > div:last-child')
+      ?.classList.toggle('hidden');
+  };
 
-const Social = ({ props }: { props: GlobalHeaderSocial }) => {
   return (
-    <>
-      <Link
-        href={props?.facebook ?? '#'}
-        className='mr-4'
-        data-tina-field={tinaField(props, 'facebook')}
-      >
-        <FontAwesomeIcon
-          icon={faFacebook}
-          style={{ fontSize: 20, color: 'white' }}
-        />
-      </Link>
-      <Link
-        href={props?.instagram ?? '#'}
-        data-tina-field={tinaField(props, 'instagram')}
-      >
-        <FontAwesomeIcon
-          icon={faInstagram}
-          style={{ fontSize: 20, color: 'white' }}
-        />
-      </Link>
-    </>
+    <button
+      className='flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group'
+      aria-label='Toggle Menu'
+      onClick={onToggleMenuClick}
+      data-aw-toggle-menu
+    >
+      <span className='sr-only'>Toggle Menu</span>
+      <slot>
+        <span
+          aria-hidden='true'
+          className='h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 opacity-80 group-[.expanded]:rotate-45 group-[.expanded]:translate-y-2.5'
+        ></span>
+        <span
+          aria-hidden='true'
+          className='h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 opacity-80 group-[.expanded]:opacity-0'
+        ></span>
+        <span
+          aria-hidden='true'
+          className='h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 opacity-80 group-[.expanded]:-rotate-45 group-[.expanded]:-translate-y-2.5'
+        ></span>
+      </slot>
+    </button>
   );
-};
+}

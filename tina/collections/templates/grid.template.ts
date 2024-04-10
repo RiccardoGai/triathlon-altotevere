@@ -1,11 +1,15 @@
 import { Template } from 'tinacms';
+import { ContactFormTemplate } from './contact-form.template';
+import { ImageTemplate } from './image.template';
+import { PriceTemplate } from './price.template';
+import { RichTextTemplate } from './rich-text.template';
 
 export const GridTemplate: Template = {
   name: 'grid',
   label: 'Grid',
   ui: {
     itemProps(item) {
-      return { label: item?.name };
+      return { label: item?.grid_name };
     }
   },
   fields: [
@@ -38,10 +42,20 @@ export const GridTemplate: Template = {
           required: true
         },
         {
+          type: 'object',
+          list: true,
+          name: 'blocks',
           label: 'Content',
-          name: 'grid_column_rich_text',
-          type: 'rich-text',
-          required: true
+          ui: {
+            visualSelector: true
+          },
+          templates: [
+            RichTextTemplate,
+            ImageTemplate,
+            PriceTemplate,
+            ContactFormTemplate
+            // sponsorTemplate
+          ]
         }
       ]
     }

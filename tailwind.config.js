@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -6,14 +8,32 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
-    // screens: {
-    //   sm: '320px',
-    //   md: '672px',
-    //   lg: '1056px',
-    //   xl: '1312px',
-    //   '2xl': '1584px'
-    // },
-    extend: {}
+    extend: {
+      colors: {
+        primary: 'var(--aw-color-primary)',
+        secondary: 'var(--aw-color-secondary)',
+        accent: 'var(--aw-color-accent)',
+        default: 'var(--aw-color-text-default)',
+        muted: 'var(--aw-color-text-muted)'
+      },
+      fontFamily: {
+        sans: [
+          'var(--aw-font-sans, ui-sans-serif)',
+          ...defaultTheme.fontFamily.sans
+        ],
+        serif: [
+          'var(--aw-font-serif, ui-serif)',
+          ...defaultTheme.fontFamily.serif
+        ],
+        heading: [
+          'var(--aw-font-heading, ui-sans-serif)',
+          ...defaultTheme.fontFamily.sans
+        ]
+      },
+      gridTemplateColumns: {
+        'auto-fit-200px': 'repeat(auto-fit, minmax(200px, 1fr))'
+      }
+    }
   },
-  plugins: []
+  plugins: [require('@tailwindcss/typography')]
 };
