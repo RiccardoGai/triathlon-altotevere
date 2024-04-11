@@ -53,10 +53,10 @@ export default function PriceBlock({
                       )}
                       <div className='my-8'>
                         <div className='flex items-center justify-center text-center mb-1'>
-                          <span className='text-5xl'>€</span>
                           <span className='text-6xl font-extrabold'>
                             {price.price_price}
                           </span>
+                          <span className='text-5xl'>€</span>
                         </div>
                       </div>
                     </div>

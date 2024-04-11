@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { tinaField, useTina } from 'tinacms/dist/react';
+import { CONFIG } from '../config/config';
 import { ITinaResponse } from '../models/tina-response.interface';
 import { parsePageToHref } from '../utils/utils';
 
@@ -77,13 +78,18 @@ export default function Header({
               <Image
                 data-tina-field={tinaField(headerData, 'logo')}
                 src={headerData.logo}
-                width={300}
-                height={250}
-                alt='Triathlon Altotevere'
+                width={80}
+                height={80}
+                alt={CONFIG.APP_NAME}
                 loading='eager'
               />
             ) : (
-              <span className='font-bold text-xl'>LOGO</span>
+              <span
+                data-tina-field={tinaField(headerData, 'logo')}
+                className='font-bold text-xl'
+              >
+                LOGO
+              </span>
             )}
           </Link>
           <div className='flex items-center md:hidden'>
