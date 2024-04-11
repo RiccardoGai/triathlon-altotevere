@@ -21,8 +21,7 @@ export const NewsTemplate: Template = {
         {
           type: 'string',
           label: 'Title',
-          name: 'news_title',
-          required: true
+          name: 'news_title'
         },
         {
           type: 'string',
