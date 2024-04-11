@@ -30,7 +30,7 @@ function NewsItem({ data }: { data: PageBlocksNewsNews_Children }) {
               fill
               loading='lazy'
               className='object-cover'
-              alt={data.news_title}
+              alt={data.news_title ?? ''}
             />
           </Link>
         )}
