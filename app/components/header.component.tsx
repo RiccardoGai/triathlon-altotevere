@@ -75,15 +75,26 @@ export default function Header({
         <div className='flex justify-between'>
           <Link href='/' className='flex items-center' onClick={onNavClick}>
             {headerData.logo ? (
-              <Image
-                data-tina-field={tinaField(headerData, 'logo')}
-                src={headerData.logo}
-                width={80}
-                height={80}
-                alt={CONFIG.APP_NAME}
-                loading='eager'
-                className='w-full h-auto'
-              />
+              <>
+                <Image
+                  data-tina-field={tinaField(headerData, 'logo')}
+                  src={headerData.logo}
+                  width={70}
+                  height={70}
+                  alt={CONFIG.APP_NAME}
+                  loading='eager'
+                  className='w-full h-auto hidden md:block'
+                />
+                <Image
+                  data-tina-field={tinaField(headerData, 'logo')}
+                  src={headerData.logo}
+                  width={50}
+                  height={50}
+                  alt={CONFIG.APP_NAME}
+                  loading='eager'
+                  className='w-full h-auto md:hidden'
+                />
+              </>
             ) : (
               <span
                 data-tina-field={tinaField(headerData, 'logo')}
