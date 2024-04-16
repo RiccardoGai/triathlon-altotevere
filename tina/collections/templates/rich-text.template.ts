@@ -5,7 +5,7 @@ export const RichTextTemplate: Template = {
   label: 'Rich Text',
   ui: {
     itemProps(item) {
-      return { label: item?.rich_text_name };
+      return { label: 'Rich Text ' + item?.rich_text_name ?? '' };
     }
   },
   fields: [

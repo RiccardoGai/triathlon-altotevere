@@ -15,9 +15,22 @@ export const HeroBannerTemplate: Template = {
       type: 'rich-text'
     },
     {
-      label: 'Subtitle',
+      label: 'SubTitle',
       name: 'hero_subtitle',
       type: 'rich-text'
+    },
+    {
+      label: 'Height',
+      name: 'hero_height',
+      type: 'string',
+      options: [
+        { label: '50%', value: '50%' },
+        { label: '60%', value: '60%' },
+        { label: '70%', value: '70%' },
+        { label: '80%', value: '80%' },
+        { label: '90%', value: '90%' },
+        { label: '100%', value: '100%' }
+      ]
     },
     {
       label: 'Actions',

@@ -9705,6 +9705,11 @@ yarn@^1.22.17:
   resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.22.tgz#ac34549e6aa8e7ead463a7407e1c7390f61a6610"
   integrity sha512-prL3kGtyG7o9Z9Sv8IPfBNrWTDmXB4Qbes8A9rEzt6wkJV8mUvoirjU0Mp3GGAU06Y0XQyA3/2/RQFVuK7MTfg==
 
+yet-another-react-lightbox@^3.17.3:
+  version "3.17.3"
+  resolved "https://registry.yarnpkg.com/yet-another-react-lightbox/-/yet-another-react-lightbox-3.17.3.tgz#80d1058ab3c739cd8996368b4785436fd18b3d7e"
+  integrity sha512-V6QxKZQXZVE1dKFNocI+vOWwDMXNeNWNLYqiYN2f+TW3nmPX6sCzm/NkXGXAy7X6+pCoi9IHqch9LzQNdIblAw==
+
 yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"

@@ -82,6 +82,7 @@ export default function Header({
                 height={80}
                 alt={CONFIG.APP_NAME}
                 loading='eager'
+                className='w-full h-auto'
               />
             ) : (
               <span

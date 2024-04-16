@@ -11,10 +11,12 @@ import Section from '../section.component';
 import ContactFormBlock from './contact-form.component';
 import GridBlock from './grid.component';
 import HeroBannerBlock from './hero-banner.component';
+import ImageGallery from './image-gallery.component';
 import ImageBlock from './image.component';
 import NewsBlock from './news.component';
 import PriceBlock from './price.component';
 import RichTextBlock from './rich-text.component';
+import Sponsor from './sponsor.component';
 
 export default function PageBlock({
   props
@@ -59,6 +61,10 @@ const Block = (block: PageBlocks) => {
       return <PriceBlock data={block} />;
     case 'PageBlocksContactForm':
       return <ContactFormBlock data={block} />;
+    case 'PageBlocksImage_gallery':
+      return <ImageGallery data={block} />;
+    case 'PageBlocksSponsor':
+      return <Sponsor data={block} />;
     default:
       return null;
   }

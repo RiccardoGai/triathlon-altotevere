@@ -5,7 +5,7 @@ export const ImageTemplate: Template = {
   label: 'Image',
   ui: {
     itemProps(item) {
-      return { label: item?.name };
+      return { label: 'Image ' + item?.name ?? ''};
     }
   },
   fields: [
@@ -17,7 +17,7 @@ export const ImageTemplate: Template = {
     },
     {
       type: 'image',
-      label: 'Name',
+      label: 'Image',
       name: 'image_ref',
       required: true
     },

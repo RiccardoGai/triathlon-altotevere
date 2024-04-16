@@ -1,11 +1,11 @@
 import { Template } from 'tinacms';
 
-export const sponsorTemplate: Template = {
+export const SponsorTemplate: Template = {
   name: 'sponsor',
   label: 'Sponsor',
   ui: {
     itemProps(item) {
-      return { label: item.sponsor_title };
+      return { label: 'Sponsor ' + item?.sponsor_title ?? '' };
     }
   },
   fields: [
@@ -15,8 +15,18 @@ export const sponsorTemplate: Template = {
       name: 'sponsor_title'
     },
     {
+      type: 'number',
+      label: 'Image Width',
+      name: 'sponsor_image_width'
+    },
+    {
+      type: 'number',
+      label: 'Image Height',
+      name: 'sponsor_image_height'
+    },
+    {
       type: 'image',
-      label: 'Immagine',
+      label: 'Image',
       name: 'sponsor_image',
       list: true
     }
