@@ -36,7 +36,7 @@ export default function HeroBannerBlock({
         backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55)), url(${data.hero_image})`
       }}
     >
-      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-center h-full'>
+      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-[7rem] md:pt-0 h-full'>
         <div className='text-center max-w-5xl mx-auto'>
           {data.hero_tagline && (
             <h5
