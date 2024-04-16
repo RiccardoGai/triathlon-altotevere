@@ -47,7 +47,7 @@ export default function ImageGallery({
         ))}
       </div>
       <Lightbox
-        open={indexLightBox > 0}
+        open={indexLightBox >= 0}
         index={indexLightBox}
         close={() => setIndexLightBox(-1)}
         slides={(data.image_gallery_images ?? []).map((image, i) => ({
