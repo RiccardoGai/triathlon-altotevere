@@ -5,7 +5,7 @@ export const NewsTemplate: Template = {
   label: 'News',
   ui: {
     itemProps(item) {
-      return { label: item?.news_title };
+      return { label: 'News ' + item?.news_title ?? '' };
     }
   },
   fields: [

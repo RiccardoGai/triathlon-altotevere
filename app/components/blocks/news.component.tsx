@@ -39,7 +39,7 @@ function NewsItem({ data }: { data: PageBlocksNewsNews_Children }) {
         {
           <Link
             href={parsePageToHref(data.news_href)}
-            className='hover:text-primary dark:hover:text-blue-700  transition ease-in duration-200'
+            className='hover:text-primary dark:hover:text-blue-700 transition ease-in duration-200'
           >
             {data.news_title}
           </Link>

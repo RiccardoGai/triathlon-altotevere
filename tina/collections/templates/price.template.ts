@@ -5,7 +5,7 @@ export const PriceTemplate: Template = {
   label: 'Price',
   ui: {
     itemProps(item) {
-      return { label: item?.price_title };
+      return { label: 'Price ' + item?.price_title ?? '' };
     }
   },
   fields: [
@@ -20,7 +20,7 @@ export const PriceTemplate: Template = {
       name: 'price_subtitle'
     },
     {
-      label: 'Pezzi',
+      label: 'Prices',
       name: 'price_children',
       type: 'object',
       list: true,

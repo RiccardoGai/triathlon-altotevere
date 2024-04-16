@@ -3,10 +3,12 @@ import { CONFIG } from '../../app/config/config';
 import { ContactFormTemplate } from './templates/contact-form.template';
 import { GridTemplate } from './templates/grid.template';
 import { HeroBannerTemplate } from './templates/hero-banner.template';
+import { ImageGalleryTemplate } from './templates/image-gallery.template';
 import { ImageTemplate } from './templates/image.template';
 import { NewsTemplate } from './templates/news.template';
 import { PriceTemplate } from './templates/price.template';
 import { RichTextTemplate } from './templates/rich-text.template';
+import { SponsorTemplate } from './templates/sponsor.template';
 
 const Page: Collection = {
   label: 'Pages',
@@ -52,8 +54,9 @@ const Page: Collection = {
         NewsTemplate,
         ImageTemplate,
         PriceTemplate,
-        ContactFormTemplate
-        //  sponsorTemplate
+        ContactFormTemplate,
+        ImageGalleryTemplate,
+        SponsorTemplate
       ]
     }
   ]

@@ -4,9 +4,11 @@ import {
 } from '@/tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import ContactFormBlock from './contact-form.component';
+import ImageGallery from './image-gallery.component';
 import ImageBlock from './image.component';
 import PriceBlock from './price.component';
 import RichTextBlock from './rich-text.component';
+import Sponsor from './sponsor.component';
 
 export default function GridBlock({ data }: { data: PageBlocksGrid }) {
   const widthClass = {
@@ -52,6 +54,10 @@ const Block = (block: PageBlocksGridGrid_ColumnsBlocks) => {
       return <PriceBlock data={block} />;
     case 'PageBlocksGridGrid_columnsBlocksContactForm':
       return <ContactFormBlock data={block} />;
+    case 'PageBlocksGridGrid_columnsBlocksImage_gallery':
+      return <ImageGallery data={block} />;
+    case 'PageBlocksGridGrid_columnsBlocksSponsor':
+      return <Sponsor data={block} />;
     default:
       return null;
   }

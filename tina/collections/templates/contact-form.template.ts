@@ -4,8 +4,8 @@ export const ContactFormTemplate: Template = {
   name: 'contactForm',
   label: 'Contact Form',
   ui: {
-    itemProps(_item) {
-      return { label: 'Contact Form' };
+    itemProps(item) {
+      return { label: 'Contact Form ' + item?.contact_form_title ?? '' };
     }
   },
   fields: [
