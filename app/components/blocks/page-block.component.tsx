@@ -17,6 +17,7 @@ import NewsBlock from './news.component';
 import PriceBlock from './price.component';
 import RichTextBlock from './rich-text.component';
 import Sponsor from './sponsor.component';
+import VideoBlock from './video.component';
 
 export default function PageBlock({
   props
@@ -57,6 +58,8 @@ const Block = (block: PageBlocks) => {
       return <NewsBlock data={block} />;
     case 'PageBlocksImage':
       return <ImageBlock data={block} />;
+    case 'PageBlocksVideo':
+      return <VideoBlock data={block} />;
     case 'PageBlocksPrice':
       return <PriceBlock data={block} />;
     case 'PageBlocksContactForm':

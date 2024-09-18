@@ -10,7 +10,7 @@ blocks:
         hero_action_href: content/pages/entra-in-squadra.mdx
     hero_image: /uploads/8772_20230916_071929_314349130_original.JPG
     _template: hero_banner
-  - grid_name: Grid
+  - grid_name: Home
     grid_columns:
       - grid_column_name: Chi Siamo
         grid_column_size: 50%
@@ -48,14 +48,15 @@ blocks:
               Fisioterapisti, osteopati, massaggiatori podologi e tecnici bici
               esperti.
             _template: richText
-      - grid_column_name: Immagine
+      - grid_column_name: Video Body
         grid_column_size: 50%
         blocks:
-          - image_name: demo
-            image_ref: /uploads/8772_20230916_152545_314433120_original.JPG
-            width: 0
-            height: 0
-            _template: image
+          - video_name: Body
+            video_ref: /uploads/body.mp4
+            autoplay: true
+            loop: true
+            muted: true
+            _template: video
     _template: grid
   - news_children:
       - news_title: News 1
