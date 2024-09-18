@@ -1,11 +1,13 @@
 import client from '@/tina/__generated__/client';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Footer from './components/footer.component';
 import Header from './components/header.component';
 import './styles/index.scss';
+
 config.autoAddCss = false;
 
 const font = Inter({
@@ -37,6 +39,7 @@ export default async function RootLayout({
         <div className='main'>{children}</div>
         <Footer props={global}></Footer>
       </body>
+      <GoogleAnalytics gaId="G-490D1B1EXP" />
     </html>
   );
 }
