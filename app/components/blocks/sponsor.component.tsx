@@ -12,6 +12,7 @@ export default function Sponsor({
 }) {
   const width = data.sponsor_image_width ?? 350;
   const height = data.sponsor_image_height ?? 350;
+
   return (
     <div data-tina-field={tinaField(data)}>
       <div className={'mb-8 md:mx-auto md:mb-12 text-center'}>
@@ -34,7 +35,7 @@ export default function Sponsor({
             loading='lazy'
             width={width}
             height={height}
-            className='cursor-pointer object-cover'
+            className='cursor-pointer'
           ></Image>
         ))}
       </div>

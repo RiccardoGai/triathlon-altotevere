@@ -9,6 +9,7 @@ import { NewsTemplate } from './templates/news.template';
 import { PriceTemplate } from './templates/price.template';
 import { RichTextTemplate } from './templates/rich-text.template';
 import { SponsorTemplate } from './templates/sponsor.template';
+import { VideoTemplate } from './templates/video.template';
 
 const Page: Collection = {
   label: 'Pages',
@@ -53,6 +54,7 @@ const Page: Collection = {
         GridTemplate,
         NewsTemplate,
         ImageTemplate,
+        VideoTemplate,
         PriceTemplate,
         ContactFormTemplate,
         ImageGalleryTemplate,

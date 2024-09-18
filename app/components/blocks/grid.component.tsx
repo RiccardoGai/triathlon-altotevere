@@ -9,6 +9,7 @@ import ImageBlock from './image.component';
 import PriceBlock from './price.component';
 import RichTextBlock from './rich-text.component';
 import Sponsor from './sponsor.component';
+import VideoBlock from './video.component';
 
 export default function GridBlock({ data }: { data: PageBlocksGrid }) {
   const widthClass = {
@@ -26,11 +27,10 @@ export default function GridBlock({ data }: { data: PageBlocksGrid }) {
         <div
           data-tina-field={tinaField(column!)}
           key={i}
-          className={`${
-            widthClass[
-              column?.grid_column_size as '25%' | '50%' | '75%' | '100%'
-            ]
-          } w-full relative min-h-40`}
+          className={`${widthClass[
+            column?.grid_column_size as '25%' | '50%' | '75%' | '100%'
+          ]
+            } w-full relative min-h-40`}
         >
           {column?.blocks &&
             (column?.blocks).map((block, y) => (
@@ -48,6 +48,8 @@ const Block = (block: PageBlocksGridGrid_ColumnsBlocks) => {
   switch (block.__typename) {
     case 'PageBlocksGridGrid_columnsBlocksImage':
       return <ImageBlock data={block} />;
+    case 'PageBlocksGridGrid_columnsBlocksVideo':
+      return <VideoBlock data={block} />;
     case 'PageBlocksGridGrid_columnsBlocksRichText':
       return <RichTextBlock data={block} />;
     case 'PageBlocksGridGrid_columnsBlocksPrice':

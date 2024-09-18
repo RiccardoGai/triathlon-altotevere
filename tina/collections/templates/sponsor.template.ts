@@ -17,12 +17,28 @@ export const SponsorTemplate: Template = {
     {
       type: 'number',
       label: 'Image Width',
-      name: 'sponsor_image_width'
+      name: 'sponsor_image_width',
+      ui: {
+        parse: (val) => {
+          if (isNaN(parseFloat(val as any))) {
+            return undefined as any;
+          }
+          return val;
+        }
+      }
     },
     {
       type: 'number',
       label: 'Image Height',
-      name: 'sponsor_image_height'
+      name: 'sponsor_image_height',
+      ui: {
+        parse: (val) => {
+          if (isNaN(parseFloat(val as any))) {
+            return undefined as any;
+          }
+          return val;
+        }
+      }
     },
     {
       type: 'image',

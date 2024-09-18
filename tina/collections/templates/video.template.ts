@@ -1,24 +1,24 @@
 import { Template } from 'tinacms';
 
-export const ImageTemplate: Template = {
-  name: 'image',
-  label: 'Image',
+export const VideoTemplate: Template = {
+  name: 'video',
+  label: 'Video',
   ui: {
     itemProps(item) {
-      return { label: 'Image ' + item?.image_name ?? '' };
+      return { label: 'Video ' + item?.video_name ?? '' };
     }
   },
   fields: [
     {
       type: 'string',
       label: 'Name',
-      name: 'image_name',
+      name: 'video_name',
       required: true
     },
     {
       type: 'image',
-      label: 'Image',
-      name: 'image_ref',
+      label: 'Video',
+      name: 'video_ref',
       required: true
     },
     {
@@ -46,6 +46,26 @@ export const ImageTemplate: Template = {
           return val;
         }
       }
+    },
+    {
+      type: 'boolean',
+      label: 'Autoplay',
+      name: 'autoplay'
+    },
+    {
+      type: 'boolean',
+      label: 'Loop',
+      name: 'loop'
+    },
+    {
+      type: 'boolean',
+      label: 'Muted',
+      name: 'muted'
+    },
+    {
+      type: 'boolean',
+      label: 'Controls',
+      name: 'controls'
     }
   ]
 };

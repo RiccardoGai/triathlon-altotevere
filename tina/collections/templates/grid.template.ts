@@ -5,6 +5,7 @@ import { ImageTemplate } from './image.template';
 import { PriceTemplate } from './price.template';
 import { RichTextTemplate } from './rich-text.template';
 import { SponsorTemplate } from './sponsor.template';
+import { VideoTemplate } from './video.template';
 
 export const GridTemplate: Template = {
   name: 'grid',
@@ -52,6 +53,7 @@ export const GridTemplate: Template = {
           templates: [
             RichTextTemplate,
             ImageTemplate,
+            VideoTemplate,
             PriceTemplate,
             ContactFormTemplate,
             ImageGalleryTemplate,

@@ -42,7 +42,15 @@ export const PriceTemplate: Template = {
         {
           label: 'Price',
           name: 'price_price',
-          type: 'number'
+          type: 'number',
+          ui: {
+            parse: (val) => {
+              if (isNaN(parseFloat(val as any))) {
+                return undefined as any;
+              }
+              return val;
+            }
+          }
         }
       ]
     }
