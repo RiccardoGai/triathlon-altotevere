@@ -3,11 +3,6 @@ import { Template } from 'tinacms';
 export const NewsTemplate: Template = {
   name: 'news',
   label: 'News',
-  ui: {
-    itemProps(item) {
-      return { label: 'News ' + item?.news_title ?? '' };
-    }
-  },
   fields: [
     {
       label: 'news',

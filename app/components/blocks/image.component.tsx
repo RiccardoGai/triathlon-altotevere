@@ -12,7 +12,7 @@ export default function ImageBlock({
 }) {
   let width = data.width;
   let height = data.height;
-  const fill = data.width && data.height ? false : true;
+  const fill = width && height ? false : true;
   if (fill) {
     width = undefined;
     height = undefined;
