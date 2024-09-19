@@ -109,6 +109,16 @@ const Global: Collection = {
       name: 'footer',
       fields: [
         {
+          type: 'string',
+          label: 'Privacy Policy',
+          name: 'privacy_policy'
+        },
+        {
+          type: 'string',
+          label: 'Cookie Policy',
+          name: 'cookie_policy'
+        },
+        {
           type: 'object',
           label: 'Links secondari',
           name: 'secondary_links',
