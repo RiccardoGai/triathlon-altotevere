@@ -1,20 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: 'export',
+  transpilePackages: ['@mep-agency/next-iubenda'],
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'assets.tina.io',
         port: '',
-        pathname: '**',
+        pathname: '**'
       },
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '3001',
-        pathname: '**',
-      },
+        pathname: '**'
+      }
     ],
     // loader: 'custom',
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -27,7 +28,6 @@ const nextConfig = {
     // nextImageExportOptimizer_quality: '70',
     // nextImageExportOptimizer_storePicturesInWEBP: 'true',
     // nextImageExportOptimizer_exportFolderName: 'nextImageExportOptimizer',
-
     // If you do not want to use blurry placeholder images, then you can set
     // nextImageExportOptimizer_generateAndUseBlurImages to false and pass
     // `placeholder="empty"` to all <ExportedImage> components.

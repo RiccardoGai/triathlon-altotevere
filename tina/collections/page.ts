@@ -17,14 +17,14 @@ const Page: Collection = {
   path: 'content/pages',
   format: 'mdx',
   ui: {
-    router: ({ document }) => {
+    router: ({ document }: { document: { _sys: { filename: string } } }) => {
       if (document._sys.filename === CONFIG.HOME_PAGE) {
         return `/`;
       }
       return `/${document._sys.filename}`;
     },
     filename: {
-      slugify: (values) => {
+      slugify: (values: { title: string }) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
       }
     }
