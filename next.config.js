@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: 'export',
+  transpilePackages: ['@mep-agency/next-iubenda'],
   images: {
     remotePatterns: [
       {

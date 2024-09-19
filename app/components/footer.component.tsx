@@ -20,7 +20,7 @@ export default function Footer({
 }) {
   const data = useTina(props);
   const footerData = data.data.global.footer as GlobalFooter;
-
+  const linkClassNames = 'block text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2';
   return (
     <footer className='relative border-t border-gray-200 not-prose'>
       <div
@@ -35,20 +35,40 @@ export default function Footer({
                 {CONFIG.APP_NAME}
               </Link>
             </div>
-            <div
-              className='text-sm text-muted'
-              data-tina-field={tinaField(footerData, 'secondary_links')}
-            >
-              {footerData?.secondary_links?.map((link, i) => (
+            <div className='flex items-start'>
+              <div className='text-sm text-muted grid grid-rows-2 grid-flow-col gap-y-2 mr-10'>
                 <Link
-                  data-tina-field={tinaField(link!)}
-                  key={i}
-                  className='block mb-2 text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2'
-                  href={parsePageToHref(link?.href)}
+                  data-tina-field={tinaField(footerData, 'privacy_policy')}
+                  className={linkClassNames}
+                  target='_blank'
+                  href={footerData?.privacy_policy ?? '#'}
                 >
-                  {link?.text}
+                  Privacy
                 </Link>
-              ))}
+                <Link
+                  data-tina-field={tinaField(footerData, 'cookie_policy')}
+                  className={linkClassNames}
+                  target='_blank'
+                  href={footerData?.cookie_policy ?? '#'}
+                >
+                  Cookie Policy
+                </Link>
+              </div>
+              <div
+                className='text-sm text-muted grid grid-rows-4 grid-flow-col gap-y-2 gap-x-10'
+                data-tina-field={tinaField(footerData, 'secondary_links')}
+              >
+                {footerData?.secondary_links?.map((link, i) => (
+                  <Link
+                    data-tina-field={tinaField(link!)}
+                    key={i}
+                    className={linkClassNames}
+                    href={parsePageToHref(link?.href)}
+                  >
+                    {link?.text}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
           <div className='flex justify-end'>
