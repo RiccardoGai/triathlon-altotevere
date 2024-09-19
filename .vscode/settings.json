@@ -24,5 +24,9 @@
   },
   "files.exclude": {
     "**/node_modules": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

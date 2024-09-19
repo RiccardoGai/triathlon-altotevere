@@ -23,6 +23,7 @@
     "yet-another-react-lightbox": "^3.17.3"
   },
   "devDependencies": {
+    "@mep-agency/next-iubenda": "^1.0.0-alpha5",
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20",
     "@types/react": "^18.2.75",
