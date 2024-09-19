@@ -30,7 +30,7 @@ const Global: Collection = {
           name: 'links',
           list: true,
           ui: {
-            itemProps(item: { text: any }) {
+            itemProps: (item: Record<string, any>) => {
               return { label: item?.text };
             }
           },
@@ -46,7 +46,7 @@ const Global: Collection = {
               name: 'href',
               collections: ['page'],
               ui: {
-                validate(value: any, allValues: any, meta: any) {
+                validate: (value: any, allValues: any, meta: any) => {
                   const property = ((meta as any).name as string)?.split('.');
                   if (property && allValues) {
                     property.pop();
@@ -67,7 +67,7 @@ const Global: Collection = {
               name: 'links',
               list: true,
               ui: {
-                validate(value: string | any[], allValues: any, meta: any) {
+                validate: (value: any[], allValues: any, meta: any) => {
                   const property = ((meta as any).name as string)?.split('.');
                   if (property && allValues) {
                     property.pop();
@@ -80,7 +80,7 @@ const Global: Collection = {
                     }
                   }
                 },
-                itemProps(item: { text: any }) {
+                itemProps: (item: Record<string, any>) => {
                   return { label: item?.text };
                 }
               },
@@ -114,7 +114,7 @@ const Global: Collection = {
           name: 'secondary_links',
           list: true,
           ui: {
-            itemProps: (item: { text: any }) => ({ label: item.text })
+            itemProps: (item: Record<string, any>) => ({ label: item.text })
           },
           fields: [
             {
