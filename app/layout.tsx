@@ -1,15 +1,14 @@
 import client from '@/tina/__generated__/client';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import {
-  IubendaCookieSolutionBannerConfigInterface
-} from '@mep-agency/next-iubenda';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Footer from './components/footer.component';
 import Header from './components/header.component';
-import { CONFIG } from './config/config';
+
+import Script from 'next/script';
 import './styles/index.scss';
 
 config.autoAddCss = false;
@@ -19,12 +18,6 @@ const font = Inter({
   style: 'normal',
   subsets: ['latin']
 });
-
-const iubendaBannerConfig: IubendaCookieSolutionBannerConfigInterface = {
-  siteId: CONFIG.IUBENDA.SITE_ID,
-  cookiePolicyId: CONFIG.IUBENDA.COOKIE_POLICY_ID,
-  lang: CONFIG.IUBENDA.LANG
-};
 
 export const metadata: Metadata = {
   title: 'Triathlon Altotevere',
@@ -42,16 +35,32 @@ export default async function RootLayout({
 
   return (
     <html lang='it' className='2xl:text-[20px] motion-safe:scroll-smooth'>
+      <head>
+        <Script
+          id='Cookiebot'
+          src='https://consent.cookiebot.com/uc.js'
+          data-cbid='378d9990-f6c1-4dc2-ad7a-69f0d740d4dd'
+          data-blockingmode='auto'
+          type='text/javascript'
+        ></Script>
+        <Script
+          id='CookieDeclaration'
+          src='https://consent.cookiebot.com/378d9990-f6c1-4dc2-ad7a-69f0d740d4dd/cd.js'
+          type='text/javascript'
+          async
+        ></Script>
+      </head>
       <body
         className={`${font.className} antialiased text-default bg-page tracking-tight`}
       >
-        {/* <IubendaProvider bannerConfig={iubendaBannerConfig}> */}
         <Header props={global}></Header>
         <div className='main'>{children}</div>
         <Footer props={global}></Footer>
-        {/* </IubendaProvider> */}
+        <Analytics />
+        <SpeedInsights />
       </body>
-      <GoogleAnalytics gaId={CONFIG.GOOGLE_ANALYTICS_ID} />
+
+
     </html>
   );
 }
