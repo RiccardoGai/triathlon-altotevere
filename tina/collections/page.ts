@@ -24,7 +24,7 @@ const Page: Collection = {
       return `/${document._sys.filename}`;
     },
     filename: {
-      slugify: (values: { title: string }) => {
+      slugify: (values: Record<string, any>) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
       }
     }
