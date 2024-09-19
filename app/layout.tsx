@@ -2,8 +2,7 @@ import client from '@/tina/__generated__/client';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import {
-  IubendaCookieSolutionBannerConfigInterface,
-  IubendaProvider
+  IubendaCookieSolutionBannerConfigInterface
 } from '@mep-agency/next-iubenda';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
@@ -46,11 +45,11 @@ export default async function RootLayout({
       <body
         className={`${font.className} antialiased text-default bg-page tracking-tight`}
       >
-        <IubendaProvider bannerConfig={iubendaBannerConfig}>
-          <Header props={global}></Header>
-          <div className='main'>{children}</div>
-          <Footer props={global}></Footer>
-        </IubendaProvider>
+        {/* <IubendaProvider bannerConfig={iubendaBannerConfig}> */}
+        <Header props={global}></Header>
+        <div className='main'>{children}</div>
+        <Footer props={global}></Footer>
+        {/* </IubendaProvider> */}
       </body>
       <GoogleAnalytics gaId={CONFIG.GOOGLE_ANALYTICS_ID} />
     </html>
