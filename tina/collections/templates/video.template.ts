@@ -30,7 +30,7 @@ export const VideoTemplate: Template = {
           if (isNaN(parseFloat(val as any))) {
             return undefined as any;
           }
-          return val;
+          return parseFloat(val as any);
         }
       }
     },
@@ -43,7 +43,7 @@ export const VideoTemplate: Template = {
           if (isNaN(parseFloat(val as any))) {
             return undefined as any;
           }
-          return val;
+          return parseFloat(val as any);
         }
       }
     },

@@ -1,14 +1,19 @@
-import type { Collection } from 'tinacms';
+import type { Collection, Form, TinaCMS } from 'tinacms';
 import { CONFIG } from '../../app/config/config';
+import { auditBeforeSubmit, auditFields } from './audit.utility';
+import { seoFields } from './seo.utility';
 import { ContactFormTemplate } from './templates/contact-form.template';
+import { ContactInfoTemplate } from './templates/contact-info.template';
 import { GridTemplate } from './templates/grid.template';
 import { HeroBannerTemplate } from './templates/hero-banner.template';
 import { ImageGalleryTemplate } from './templates/image-gallery.template';
 import { ImageTemplate } from './templates/image.template';
-import { NewsTemplate } from './templates/news.template';
+import { PostHighlightTemplate } from './templates/post-highlight.template';
+import { PostListTemplate } from './templates/post-list.template';
 import { PriceTemplate } from './templates/price.template';
 import { RichTextTemplate } from './templates/rich-text.template';
 import { SponsorTemplate } from './templates/sponsor.template';
+import { StaffTemplate } from './templates/staff.template';
 import { VideoTemplate } from './templates/video.template';
 
 const Page: Collection = {
@@ -27,19 +32,23 @@ const Page: Collection = {
       slugify: (values: Record<string, any>) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
       }
+    },
+    beforeSubmit: async ({
+      form,
+      cms,
+      values
+    }: {
+      form: Form;
+      cms: TinaCMS;
+      values: Record<string, any>;
+    }) => {
+      const auditValues = await auditBeforeSubmit({ form, cms, values });
+      return auditValues;
     }
   },
   fields: [
-    {
-      type: 'object',
-      label: 'SEO',
-      name: 'seo',
-      fields: [
-        { type: 'string', label: 'Title', name: 'title' },
-        { type: 'string', label: 'Description', name: 'description' },
-        { type: 'string', label: 'Keywords', name: 'keywords' }
-      ]
-    },
+    ...auditFields,
+    ...seoFields,
     {
       type: 'object',
       list: true,
@@ -52,13 +61,16 @@ const Page: Collection = {
         HeroBannerTemplate,
         RichTextTemplate,
         GridTemplate,
-        NewsTemplate,
+        PostHighlightTemplate,
+        PostListTemplate,
         ImageTemplate,
         VideoTemplate,
         PriceTemplate,
         ContactFormTemplate,
         ImageGalleryTemplate,
-        SponsorTemplate
+        SponsorTemplate,
+        StaffTemplate,
+        ContactInfoTemplate
       ]
     }
   ]

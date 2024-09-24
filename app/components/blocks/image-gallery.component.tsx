@@ -1,16 +1,16 @@
 import {
-  PageBlocksGridGrid_ColumnsBlocksImage_Gallery,
-  PageBlocksImage_Gallery
+  PageBlocksGridGrid_ColumnsBlocksImageGallery,
+  PageBlocksImageGallery
 } from '@/tina/__generated__/types';
 import Image from 'next/image';
 import { useState } from 'react';
 import { tinaField } from 'tinacms/dist/react';
 import Lightbox from 'yet-another-react-lightbox';
 
-export default function ImageGallery({
+export default function ImageGalleryBlock({
   data
 }: {
-  data: PageBlocksImage_Gallery | PageBlocksGridGrid_ColumnsBlocksImage_Gallery;
+  data: PageBlocksImageGallery | PageBlocksGridGrid_ColumnsBlocksImageGallery;
 }) {
   const [indexLightBox, setIndexLightBox] = useState(-1);
   const width = data.image_gallery_width ?? 350;
@@ -29,7 +29,7 @@ export default function ImageGallery({
         )}
 
         {data.image_gallery_subtitle && (
-          <p className={'mt-4 text-muted'}>{data.image_gallery_subtitle}</p>
+          <p className={'mt-4 text-gray-500'}>{data.image_gallery_subtitle}</p>
         )}
       </div>
       <div className='flex gap-4 overflow-x-auto pb-2 flex-nowrap	'>

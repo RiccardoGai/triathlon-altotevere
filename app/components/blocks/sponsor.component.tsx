@@ -5,7 +5,7 @@ import {
 import Image from 'next/image';
 import { tinaField } from 'tinacms/dist/react';
 
-export default function Sponsor({
+export default function SponsorBlock({
   data
 }: {
   data: PageBlocksSponsor | PageBlocksGridGrid_ColumnsBlocksSponsor;
