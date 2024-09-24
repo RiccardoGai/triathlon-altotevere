@@ -25,7 +25,18 @@ export async function generateMetadata({
     return {
       title: seo?.title,
       description: seo?.description,
-      keywords: seo?.keywords
+      keywords: seo?.keywords,
+      openGraph: {
+        type: 'website',
+        title: seo?.title as string,
+        description: seo?.description as string,
+        url: process.env.BASE_URL + path.join(...params.slug)
+      },
+      twitter: {
+        title: seo?.title as string,
+        description: seo?.description as string,
+        card: 'summary_large_image'
+      }
     };
   } catch (error) {
     console.error(error);

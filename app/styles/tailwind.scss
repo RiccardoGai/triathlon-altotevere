@@ -4,13 +4,55 @@
 
 @layer utilities {
   .bg-page {
-    background-color: var(--aw-color-bg-page);
+    background-color: var(--color-bg-page);
   }
   .bg-light {
-    background-color: var(--aw-color-bg-page);
+    background-color: var(--color-bg-page);
   }
   .text-page {
-    color: var(--aw-color-text-page);
+    color: var(--color-text-page);
+  }
+
+  .tina-markdown-content {
+    h1 {
+      @apply text-3xl font-bold mb-4 leading-tight;
+    }
+
+    h2 {
+      @apply text-2xl font-semibold mb-3 leading-snug;
+    }
+
+    h3 {
+      @apply text-xl font-semibold mb-3 leading-snug;
+    }
+
+    h4 {
+      @apply text-lg font-medium mb-2 leading-snug;
+    }
+
+    h5 {
+      @apply text-base font-medium mb-2 leading-snug;
+    }
+
+    h6 {
+      @apply text-sm font-medium mb-2 leading-snug;
+    }
+
+    p {
+      @apply text-base mb-5 leading-relaxed;
+    }
+
+    ul {
+      @apply list-disc ml-6 mb-5;
+    }
+
+    ol {
+      @apply list-decimal ml-6 mb-5;
+    }
+
+    blockquote {
+      @apply text-lg italic pl-4 border-l-4 border-gray-300 my-4;
+    }
   }
 }
 
@@ -45,17 +87,17 @@
   display: block;
 }
 
-[data-aw-toggle-menu] path {
+[data-toggle-menu] path {
   @apply transition;
 }
-[data-aw-toggle-menu].expanded g > path:first-child {
+[data-toggle-menu].expanded g > path:first-child {
   @apply -rotate-45 translate-y-[15px] translate-x-[-3px];
 }
 
-[data-aw-toggle-menu].expanded g > path:last-child {
+[data-toggle-menu].expanded g > path:last-child {
   @apply rotate-45 translate-y-[-8px] translate-x-[14px];
 }
 
-.aw-link-active {
+.link-active {
   @apply text-primary;
 }

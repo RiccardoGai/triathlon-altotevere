@@ -11,9 +11,11 @@ export default function RichTextBlock({
   data: PageBlocksRichText | PageBlocksGridGrid_ColumnsBlocksRichText;
 }) {
   return (
-    <TinaMarkdown
-      data-tina-field={tinaField(data)}
-      content={data.rich_text_text}
-    />
+    <div className='tina-markdown-content'>
+      <TinaMarkdown
+        data-tina-field={tinaField(data)}
+        content={data.rich_text_text}
+      />
+    </div>
   );
 }

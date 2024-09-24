@@ -8,7 +8,7 @@ export const seoFields = [
     fields: [
       { type: 'string', label: 'Title', name: 'title' },
       { type: 'string', label: 'Description', name: 'description' },
-      { type: 'string', label: 'Keywords', name: 'keywords' }
+      { type: 'string', label: 'Keywords', name: 'keywords', list: true }
     ]
   }
 ] as TinaField[];
