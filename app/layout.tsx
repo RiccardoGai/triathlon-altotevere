@@ -8,7 +8,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Footer from './components/footer.component';
 import Header from './components/header.component';
-
 import { CONFIG } from './config/config';
 import './styles/index.scss';
 
@@ -35,20 +34,18 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang='it' className='2xl:text-[20px] motion-safe:scroll-smooth'>
+    <html lang='it'>
       <body
-        className={`${font.className} antialiased text-default bg-page tracking-tight`}
+        className={`${font.className} antialiased text-default bg-page tracking-tight flex flex-col`}
       >
         <IubendaProvider bannerConfig={CONFIG.IUBENDA}>
           <Header props={global}></Header>
-          <div className='main'>{children}</div>
+          <main className='flex flex-col w-full h-full'>{children}</main>
           <Footer props={global}></Footer>
           <Analytics />
           <SpeedInsights />
         </IubendaProvider>
       </body>
-
-
     </html>
   );
 }

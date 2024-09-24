@@ -4,11 +4,13 @@ import {
 } from '@/tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import ContactFormBlock from './contact-form.component';
+import ContactInfoBlock from './contact-info.component';
 import ImageGallery from './image-gallery.component';
 import ImageBlock from './image.component';
 import PriceBlock from './price.component';
 import RichTextBlock from './rich-text.component';
-import Sponsor from './sponsor.component';
+import SponsorBlock from './sponsor.component';
+import StaffBlock from './staff.component';
 import VideoBlock from './video.component';
 
 export default function GridBlock({ data }: { data: PageBlocksGrid }) {
@@ -27,10 +29,11 @@ export default function GridBlock({ data }: { data: PageBlocksGrid }) {
         <div
           data-tina-field={tinaField(column!)}
           key={i}
-          className={`${widthClass[
-            column?.grid_column_size as '25%' | '50%' | '75%' | '100%'
-          ]
-            } w-full relative min-h-40`}
+          className={`${
+            widthClass[
+              column?.grid_column_size as '25%' | '50%' | '75%' | '100%'
+            ]
+          } w-full relative min-h-40`}
         >
           {column?.blocks &&
             (column?.blocks).map((block, y) => (
@@ -56,10 +59,14 @@ const Block = (block: PageBlocksGridGrid_ColumnsBlocks) => {
       return <PriceBlock data={block} />;
     case 'PageBlocksGridGrid_columnsBlocksContactForm':
       return <ContactFormBlock data={block} />;
-    case 'PageBlocksGridGrid_columnsBlocksImage_gallery':
+    case 'PageBlocksGridGrid_columnsBlocksImageGallery':
       return <ImageGallery data={block} />;
     case 'PageBlocksGridGrid_columnsBlocksSponsor':
-      return <Sponsor data={block} />;
+      return <SponsorBlock data={block} />;
+    case 'PageBlocksGridGrid_columnsBlocksStaff':
+      return <StaffBlock data={block} />;
+    case 'PageBlocksGridGrid_columnsBlocksContactInfo':
+      return <ContactInfoBlock data={block} />;
     default:
       return null;
   }

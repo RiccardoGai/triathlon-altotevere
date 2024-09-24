@@ -12,9 +12,6 @@
   .text-page {
     color: var(--aw-color-text-page);
   }
-  .text-muted {
-    color: var(--aw-color-text-muted);
-  }
 }
 
 @layer components {
@@ -31,7 +28,7 @@
   }
 
   .btn-tertiary {
-    @apply btn border-none shadow-none text-muted hover:text-gray-900;
+    @apply btn border-none shadow-none text-gray-500 hover:text-gray-900;
   }
 }
 

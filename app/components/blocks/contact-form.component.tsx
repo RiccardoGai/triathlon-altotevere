@@ -29,7 +29,7 @@ export default function ContactFormBlock({
         )}
 
         {data.contact_form_subtitle && (
-          <p className={'mt-4 text-muted'}>{data.contact_form_subtitle}</p>
+          <p className={'mt-4 text-gray-500'}>{data.contact_form_subtitle}</p>
         )}
       </div>
       <form
@@ -96,12 +96,9 @@ export default function ContactFormBlock({
         </div>
 
         <div className='mt-10 grid justify-center'>
-          <Button
-            className='w-40'
-            variant='primary'
-            type='submit'
-            text='Invia'
-          ></Button>
+          <Button className='w-40' variant='primary' type='submit'>
+            <span>Invia</span>
+          </Button>
         </div>
       </form>
       {showSuccessMessage && (

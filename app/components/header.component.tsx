@@ -1,6 +1,6 @@
 'use client';
 import {
-  GlobalHeader,
+  Global,
   GlobalQuery,
   GlobalQueryVariables
 } from '@/tina/__generated__/types';
@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { CONFIG } from '../config/config';
 import { ITinaResponse } from '../models/tina-response.interface';
-import { parsePageToHref } from '../utils/utils';
+import { parseSystemInfoToHref } from '../utils/utils';
 
 // TODO: refactor the components avoid using the global query
 
@@ -23,12 +23,8 @@ export default function Header({
   props: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
 }) {
   const { data } = useTina(props);
-  const headerData = data.global.header as GlobalHeader;
-  const currentPath =
-    usePathname()
-      ?.replace(/^\/|\/$/g, '')
-      ?.toLowerCase() ?? '';
-
+  const globalData = data.global as Global;
+  const currentPath = usePathname();
   useEffect(() => {
     const handleScreenSizeChange = () => {
       document
@@ -74,11 +70,11 @@ export default function Header({
       <div className='relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between'>
         <div className='flex justify-between'>
           <Link href='/' className='flex items-center' onClick={onNavClick}>
-            {headerData.logo ? (
+            {globalData.logo ? (
               <>
                 <Image
-                  data-tina-field={tinaField(headerData, 'logo')}
-                  src={headerData.logo}
+                  data-tina-field={tinaField(globalData, 'logo')}
+                  src={globalData.logo}
                   width={70}
                   height={70}
                   alt={CONFIG.APP_NAME}
@@ -86,8 +82,8 @@ export default function Header({
                   className='w-full h-auto hidden md:block'
                 />
                 <Image
-                  data-tina-field={tinaField(headerData, 'logo')}
-                  src={headerData.logo}
+                  data-tina-field={tinaField(globalData, 'logo')}
+                  src={globalData.logo}
                   width={50}
                   height={50}
                   alt={CONFIG.APP_NAME}
@@ -97,8 +93,8 @@ export default function Header({
               </>
             ) : (
               <span
-                data-tina-field={tinaField(headerData, 'logo')}
-                className='font-bold text-xl'
+                data-tina-field={tinaField(globalData, 'logo')}
+                className='font-bold text-lg'
               >
                 LOGO
               </span>
@@ -110,15 +106,15 @@ export default function Header({
         </div>
         <nav className='items-center w-full md:w-auto hidden md:flex text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:mx-5'>
           <ul
-            className='flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium'
-            data-tina-field={tinaField(headerData, 'links')}
+            className='flex flex-col md:flex-row md:self-center w-full md:w-auto text-lg md:text-[0.9375rem] tracking-[0.01rem] font-medium'
+            data-tina-field={tinaField(globalData, 'links')}
           >
-            {headerData.links?.map((link, index) => (
+            {globalData.links?.map((link, index) => (
               <li key={index} className={link?.links?.length ? 'dropdown' : ''}>
                 {link?.links?.length ? (
                   <>
                     <button
-                      className='hover:text-link  px-4 py-3 flex items-center'
+                      className='hover:text-link px-4 py-3 flex items-center'
                       data-tina-field={tinaField(link!)}
                     >
                       {link.text}
@@ -134,12 +130,13 @@ export default function Header({
                           <Link
                             data-tina-field={tinaField(subLink!)}
                             onClick={onNavClick}
-                            className={`first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link py-2 px-5 block whitespace-no-wrap ${
-                              parsePageToHref(subLink?.href) === currentPath
+                            className={`first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link py-2 px-5 block whitespace-no-wrap text-lg ${
+                              parseSystemInfoToHref(subLink?.href?._sys) ===
+                              currentPath
                                 ? 'aw-link-active'
                                 : ''
                             }`}
-                            href={parsePageToHref(subLink?.href)}
+                            href={parseSystemInfoToHref(subLink?.href?._sys)}
                           >
                             {subLink?.text}
                           </Link>
@@ -151,12 +148,12 @@ export default function Header({
                   <Link
                     data-tina-field={tinaField(link!)}
                     onClick={onNavClick}
-                    className={`hover:text-link px-4 py-3 flex items-centers ${
-                      parsePageToHref(link?.href) === currentPath
+                    className={`hover:text-primary px-4 py-3 flex items-centers text-lg ${
+                      parseSystemInfoToHref(link?.href?._sys) === currentPath
                         ? 'aw-link-active'
                         : ''
                     }`}
-                    href={parsePageToHref(link?.href)}
+                    href={parseSystemInfoToHref(link?.href?._sys)}
                   >
                     {link?.text}
                   </Link>

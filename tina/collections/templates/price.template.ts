@@ -35,7 +35,7 @@ export const PriceTemplate: Template = {
           required: true
         },
         {
-          type: 'string',
+          type: 'rich-text',
           label: 'Description',
           name: 'price_description'
         },
@@ -48,9 +48,15 @@ export const PriceTemplate: Template = {
               if (isNaN(parseFloat(val as any))) {
                 return undefined as any;
               }
-              return val;
+              return parseFloat(val as any);
             }
           }
+        },
+        {
+          type: 'reference',
+          label: 'Contact Button',
+          name: 'price_contact_button',
+          collections: ['page']
         }
       ]
     }
