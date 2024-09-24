@@ -1,7 +1,7 @@
 import { Template } from 'tinacms';
 
 export const ImageGalleryTemplate: Template = {
-  name: 'image_gallery',
+  name: 'imageGallery',
   label: 'Image Gallery',
   ui: {
     itemProps(item) {
@@ -28,7 +28,7 @@ export const ImageGalleryTemplate: Template = {
           if (isNaN(parseFloat(val as any))) {
             return undefined as any;
           }
-          return val;
+          return parseFloat(val as any);
         }
       }
     },
@@ -41,7 +41,7 @@ export const ImageGalleryTemplate: Template = {
           if (isNaN(parseFloat(val as any))) {
             return undefined as any;
           }
-          return val;
+          return parseFloat(val as any);
         }
       }
     },

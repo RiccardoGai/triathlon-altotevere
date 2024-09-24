@@ -7,7 +7,7 @@ export default function Section({
   className?: string;
 } & React.HTMLProps<HTMLElement>) {
   return (
-    <section className={`flex-1 relative mb-20 ${className}`} {...props}>
+    <section className={`relative mb-20 ${className}`} {...props}>
       {children}
     </section>
   );

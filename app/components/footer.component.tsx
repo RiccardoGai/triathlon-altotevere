@@ -1,9 +1,9 @@
 'use client';
 import {
-  GlobalFooter,
-  GlobalFooterSocial,
+  Global,
   GlobalQuery,
-  GlobalQueryVariables
+  GlobalQueryVariables,
+  GlobalSocial
 } from '@/tina/__generated__/types';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { CONFIG } from '../config/config';
 import { ITinaResponse } from '../models/tina-response.interface';
-import { parsePageToHref } from '../utils/utils';
+import { parseSystemInfoToHref } from '../utils/utils';
 
 export default function Footer({
   props
@@ -19,51 +19,43 @@ export default function Footer({
   props: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
 }) {
   const data = useTina(props);
-  const footerData = data.data.global.footer as GlobalFooter;
-  const linkClassNames = 'block text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2';
+  const globalData = data.data.global as Global;
+  const linkClassNames =
+    'block text-gray-500 hover:text-gray-700 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2 text-sm mb-2';
   return (
     <footer className='relative border-t border-gray-200 not-prose'>
-      <div
-        className='absolute inset-0 pointer-events-none'
-        aria-hidden='true'
-      ></div>
-      <div className='relative max-w-7xl mx-auto px-4 sm:px-6'>
-        <div className='grid grid-cols-2 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12'>
-          <div>
-            <div className='mb-2'>
-              <Link className='inline-block font-bold text-xl' href='/'>
-                {CONFIG.APP_NAME}
-              </Link>
-            </div>
-            <div className='flex items-start'>
-              <div className='text-sm text-muted grid grid-rows-2 grid-flow-col gap-y-2 mr-10'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 pt-4'>
+          <div className='mb-2 md:mb-4'>
+            <Link className='font-bold text-xl' href='/'>
+              {CONFIG.APP_NAME}
+            </Link>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-4 mt-4'>
+              <div>
                 <Link
-                  data-tina-field={tinaField(footerData, 'privacy_policy')}
+                  data-tina-field={tinaField(globalData, 'privacy_policy')}
                   className={linkClassNames}
                   target='_blank'
-                  href={footerData?.privacy_policy ?? '#'}
+                  href={globalData?.privacy_policy ?? '#'}
                 >
                   Privacy
                 </Link>
                 <Link
-                  data-tina-field={tinaField(footerData, 'cookie_policy')}
+                  data-tina-field={tinaField(globalData, 'cookie_policy')}
                   className={linkClassNames}
                   target='_blank'
-                  href={footerData?.cookie_policy ?? '#'}
+                  href={globalData?.cookie_policy ?? '#'}
                 >
                   Cookie Policy
                 </Link>
               </div>
-              <div
-                className='text-sm text-muted grid grid-rows-4 grid-flow-col gap-y-2 gap-x-10'
-                data-tina-field={tinaField(footerData, 'secondary_links')}
-              >
-                {footerData?.secondary_links?.map((link, i) => (
+              <div className='grid grid-rows-4 grid-flow-col gap-y-2 gap-x-10'>
+                {globalData?.links?.map((link, i) => (
                   <Link
                     data-tina-field={tinaField(link!)}
                     key={i}
                     className={linkClassNames}
-                    href={parsePageToHref(link?.href)}
+                    href={parseSystemInfoToHref(link?.href?._sys)}
                   >
                     {link?.text}
                   </Link>
@@ -71,11 +63,40 @@ export default function Footer({
               </div>
             </div>
           </div>
-          <div className='flex justify-end'>
-            <ul className='flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4'>
-              {<Social social={footerData?.social!}></Social>}
-            </ul>
-            <div className='text-sm mr-4 dark:text-muted'></div>
+          <div className='flex flex-col justify-start items-end'>
+            {
+              <Social
+                data-tina-field={tinaField(globalData.social)}
+                social={globalData?.social!}
+              ></Social>
+            }
+
+            {globalData?.contact_info && (
+              <div
+                className='mt-4'
+                data-tina-field={tinaField(globalData.contact_info)}
+              >
+                {globalData?.contact_info?.address && (
+                  <p className='text-gray-500 text-sm'>
+                    {globalData?.contact_info?.address}
+                  </p>
+                )}
+                {globalData?.contact_info?.phone && (
+                  <p className='text-gray-500 text-sm'>
+                    {globalData?.contact_info?.phone}
+                  </p>
+                )}
+                {globalData?.contact_info?.email && (
+                  <Link
+                    target='_blank'
+                    href={'mailto:' + globalData?.contact_info?.email}
+                    className={linkClassNames}
+                  >
+                    {globalData?.contact_info?.email}
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -83,37 +104,25 @@ export default function Footer({
   );
 }
 
-const Social = ({ social }: { social: GlobalFooterSocial }) => {
+const Social = ({ social }: { social: GlobalSocial }) => {
   const linkClassNames =
-    'text-muted hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 inline-flex items-center';
+    'text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 inline-flex items-center';
   return (
-    <>
-      <li>
-        <Link
-          data-tina-field={tinaField(social, 'facebook')}
-          className={linkClassNames}
-          href={social?.facebook ?? '#'}
-        >
-          <FontAwesomeIcon
-            icon={faFacebook}
-            className='w-5 h-5'
-            style={{ fontSize: 20, color: 'black' }}
-          />
-        </Link>
-      </li>
-      <li>
-        <Link
-          data-tina-field={tinaField(social, 'instagram')}
-          className={linkClassNames}
-          href={social?.instagram ?? '#'}
-        >
-          <FontAwesomeIcon
-            icon={faInstagram}
-            className='w-5 h-5'
-            style={{ fontSize: 20, color: 'black' }}
-          />
-        </Link>
-      </li>
-    </>
+    <div>
+      <Link
+        data-tina-field={tinaField(social, 'facebook')}
+        className={linkClassNames}
+        href={social?.facebook ?? '#'}
+      >
+        <FontAwesomeIcon icon={faFacebook} color='black' size='xl' />
+      </Link>
+      <Link
+        data-tina-field={tinaField(social, 'instagram')}
+        className={linkClassNames}
+        href={social?.instagram ?? '#'}
+      >
+        <FontAwesomeIcon icon={faInstagram} color='black' size='xl' />
+      </Link>
+    </div>
   );
 };

@@ -2,6 +2,10 @@
 const nextConfig = {
   // output: 'export',
   transpilePackages: ['@mep-agency/next-iubenda'],
+  i18n: {
+    locales: ['it-IT'],
+    defaultLocale: 'it-IT'
+  },
   images: {
     remotePatterns: [
       {

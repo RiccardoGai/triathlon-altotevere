@@ -1,14 +1,14 @@
-import { PageBlocksHero_Banner } from '@/tina/__generated__/types';
+import { PageBlocksHeroBanner } from '@/tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { parsePageToHref } from '../../utils/utils';
+import { parseSystemInfoToHref } from '../../utils/utils';
 import Button from '../button.component';
 import Section from '../section.component';
 
 export default function HeroBannerBlock({
   data
 }: {
-  data: PageBlocksHero_Banner;
+  data: PageBlocksHeroBanner;
 }) {
   const heightClass = {
     '50%': `h-[50vh]`,
@@ -51,7 +51,7 @@ export default function HeroBannerBlock({
               className='text-5xl text-white md:text-6xl font-bold mb-6 font-heading'
               data-tina-field={tinaField(data, 'hero_title')}
             >
-              <TinaMarkdown content={data.hero_title} />
+              {data.hero_title}
             </div>
           )}
           <div className='max-w-3xl mx-auto'>
@@ -72,11 +72,14 @@ export default function HeroBannerBlock({
                   <div key={index} className='flex w-full sm:w-auto'>
                     <Button
                       type='link'
-                      text={action?.hero_action_text!}
-                      href={parsePageToHref(action?.hero_action_href)}
+                      href={parseSystemInfoToHref(
+                        action?.hero_action_href?._sys
+                      )}
                       variant={action?.hero_action_variant as any}
                       className='w-full sm:mb-0'
-                    />
+                    >
+                      <span>{action?.hero_action_text!}</span>
+                    </Button>
                   </div>
                 ))}
               </div>

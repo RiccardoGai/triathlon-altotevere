@@ -23,7 +23,7 @@ export const SponsorTemplate: Template = {
           if (isNaN(parseFloat(val as any))) {
             return undefined as any;
           }
-          return val;
+          return parseFloat(val as any);
         }
       }
     },
@@ -36,7 +36,7 @@ export const SponsorTemplate: Template = {
           if (isNaN(parseFloat(val as any))) {
             return undefined as any;
           }
-          return val;
+          return parseFloat(val as any);
         }
       }
     },

@@ -1,7 +1,7 @@
 import { Template } from 'tinacms';
 
 export const HeroBannerTemplate: Template = {
-  name: 'hero_banner',
+  name: 'heroBanner',
   label: 'Hero Banner',
   fields: [
     {
@@ -12,7 +12,7 @@ export const HeroBannerTemplate: Template = {
     {
       label: 'Title',
       name: 'hero_title',
-      type: 'rich-text'
+      type: 'string'
     },
     {
       label: 'SubTitle',

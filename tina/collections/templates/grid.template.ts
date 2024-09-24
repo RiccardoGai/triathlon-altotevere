@@ -1,10 +1,12 @@
 import { Template } from 'tinacms';
 import { ContactFormTemplate } from './contact-form.template';
+import { ContactInfoTemplate } from './contact-info.template';
 import { ImageGalleryTemplate } from './image-gallery.template';
 import { ImageTemplate } from './image.template';
 import { PriceTemplate } from './price.template';
 import { RichTextTemplate } from './rich-text.template';
 import { SponsorTemplate } from './sponsor.template';
+import { StaffTemplate } from './staff.template';
 import { VideoTemplate } from './video.template';
 
 export const GridTemplate: Template = {
@@ -57,7 +59,9 @@ export const GridTemplate: Template = {
             PriceTemplate,
             ContactFormTemplate,
             ImageGalleryTemplate,
-            SponsorTemplate
+            SponsorTemplate,
+            StaffTemplate,
+            ContactInfoTemplate
           ]
         }
       ]

@@ -4,21 +4,21 @@ import { twMerge } from 'tailwind-merge';
 export default function Button({
   variant = 'primary',
   className,
-  text,
   type,
   href,
+  children,
   ...props
-}: {
+}: (React.HTMLProps<HTMLButtonElement> | React.HTMLProps<HTMLAnchorElement>) & {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
   className?: string;
-  text: string;
   type: 'button' | 'submit' | 'reset' | 'link';
   href?: string;
+  children: React.ReactNode;
 }) {
   const variants = {
     primary: 'btn-primary',
     secondary: 'btn-secondary',
-    tertiary: 'btn btn-tertiary',
+    tertiary: 'btn-tertiary',
     link: 'cursor-pointer hover:text-primary'
   };
 
@@ -26,20 +26,20 @@ export default function Button({
     <>
       {(type === 'button' || type === 'submit' || type === 'reset') && (
         <button
-          type={type}
+          type={type as any}
           className={twMerge(variants[variant] || '', className)}
-          {...props}
+          {...(props as React.HTMLProps<HTMLButtonElement>)}
         >
-          {text}
+          {children}
         </button>
       )}
       {type === 'link' && (
         <Link
           className={twMerge(variants[variant] || '', className)}
           href={href!}
-          {...props}
+          {...(props as React.HTMLProps<HTMLAnchorElement>)}
         >
-          {text}
+          {children}
         </Link>
       )}
     </>
