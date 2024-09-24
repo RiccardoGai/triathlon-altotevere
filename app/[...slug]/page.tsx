@@ -25,7 +25,7 @@ export async function generateMetadata({
     return {
       title: seo?.title,
       description: seo?.description,
-      keywords: seo?.keywords,
+      keywords: seo?.keywords as string[],
       openGraph: {
         type: 'website',
         title: seo?.title as string,
