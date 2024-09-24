@@ -40,7 +40,7 @@ export default function HeroBannerBlock({
         <div className='text-center max-w-5xl mx-auto'>
           {data.hero_tagline && (
             <h5
-              className='text-base text-white font-bold tracking-wide uppercase mb-3'
+              className='text-2xl text-white font-bold tracking-wide uppercase mb-3'
               data-tina-field={tinaField(data, 'hero_tagline')}
             >
               {data.hero_tagline}
@@ -48,7 +48,7 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl text-white md:text-6xl font-bold mb-6 font-heading'
+              className='text-7xl text-white md:text-6xl font-bold mb-8 font-heading'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}
@@ -57,7 +57,7 @@ export default function HeroBannerBlock({
           <div className='max-w-3xl mx-auto'>
             {data.hero_subtitle && (
               <div
-                className='text-xl text-slate-300 mb-6'
+                className='text-xl text-slate-300 mb-8'
                 data-tina-field={tinaField(data, 'hero_subtitle')}
               >
                 <TinaMarkdown content={data.hero_subtitle} />
@@ -76,7 +76,7 @@ export default function HeroBannerBlock({
                         action?.hero_action_href?._sys
                       )}
                       variant={action?.hero_action_variant as any}
-                      className='w-full sm:mb-0'
+                      className='w-full sm:mb-0 text-lg'
                     >
                       <span>{action?.hero_action_text!}</span>
                     </Button>

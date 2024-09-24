@@ -28,7 +28,7 @@ export default function Header({
   useEffect(() => {
     const handleScreenSizeChange = () => {
       document
-        .querySelector('[data-aw-toggle-menu]')
+        .querySelector('[data-toggle-menu]')
         ?.classList.remove('expanded');
       document.body.classList.remove('overflow-hidden');
       document.getElementById('header')?.classList.remove('h-screen');
@@ -49,9 +49,7 @@ export default function Header({
   }, []);
 
   const onNavClick = () => {
-    document
-      .querySelector('[data-aw-toggle-menu]')
-      ?.classList.remove('expanded');
+    document.querySelector('[data-toggle-menu]')?.classList.remove('expanded');
     document.body.classList.remove('overflow-hidden');
     document.getElementById('header')?.classList.remove('h-screen');
     document.getElementById('header')?.classList.remove('expanded');
@@ -133,7 +131,7 @@ export default function Header({
                             className={`first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link py-2 px-5 block whitespace-no-wrap text-lg ${
                               parseSystemInfoToHref(subLink?.href?._sys) ===
                               currentPath
-                                ? 'aw-link-active'
+                                ? 'link-active'
                                 : ''
                             }`}
                             href={parseSystemInfoToHref(subLink?.href?._sys)}
@@ -150,7 +148,7 @@ export default function Header({
                     onClick={onNavClick}
                     className={`hover:text-primary px-4 py-3 flex items-centers text-lg ${
                       parseSystemInfoToHref(link?.href?._sys) === currentPath
-                        ? 'aw-link-active'
+                        ? 'link-active'
                         : ''
                     }`}
                     href={parseSystemInfoToHref(link?.href?._sys)}
@@ -169,9 +167,7 @@ export default function Header({
 
 function ToggleMenu() {
   const onToggleMenuClick = () => {
-    document
-      .querySelector('[data-aw-toggle-menu]')
-      ?.classList.toggle('expanded');
+    document.querySelector('[data-toggle-menu]')?.classList.toggle('expanded');
     document.body.classList.toggle('overflow-hidden');
     document.getElementById('header')?.classList.toggle('h-screen');
     document.getElementById('header')?.classList.toggle('expanded');
@@ -187,7 +183,7 @@ function ToggleMenu() {
       className='flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group'
       aria-label='Toggle Menu'
       onClick={onToggleMenuClick}
-      data-aw-toggle-menu
+      data-toggle-menu
     >
       <span className='sr-only'>Toggle Menu</span>
       <slot>

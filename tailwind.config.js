@@ -10,22 +10,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--aw-color-primary)',
-        secondary: 'var(--aw-color-secondary)',
-        accent: 'var(--aw-color-accent)',
-        default: 'var(--aw-color-text-default)'
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        accent: 'var(--color-accent)',
+        default: 'var(--color-text-default)'
       },
       fontFamily: {
         sans: [
-          'var(--aw-font-sans, ui-sans-serif)',
+          'var(--font-sans, ui-sans-serif)',
           ...defaultTheme.fontFamily.sans
         ],
         serif: [
-          'var(--aw-font-serif, ui-serif)',
+          'var(--font-serif, ui-serif)',
           ...defaultTheme.fontFamily.serif
         ],
         heading: [
-          'var(--aw-font-heading, ui-sans-serif)',
+          'var(--font-heading, ui-sans-serif)',
           ...defaultTheme.fontFamily.sans
         ]
       },

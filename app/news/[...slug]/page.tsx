@@ -26,10 +26,22 @@ export async function generateMetadata({
       relativePath: `${path.join(...params.slug)}.mdx`
     });
     const post = postData.data.post;
+    const seo = post.seo;
     return {
-      title: post.seo?.title ?? post.title,
-      description: post.seo?.description ?? post.excerpt,
-      keywords: post.seo?.keywords
+      title: seo?.title ?? post.title,
+      description: seo?.description ?? post.excerpt,
+      keywords: seo?.keywords,
+      openGraph: {
+        type: 'website',
+        title: seo?.title ?? (post.title as string),
+        description: seo?.description ?? (post.excerpt as string),
+        url: process.env.BASE_URL + path.join(...params.slug)
+      },
+      twitter: {
+        title: seo?.title ?? (post?.title as string),
+        description: seo?.description ?? (post.excerpt as string),
+        card: 'summary_large_image'
+      }
     };
   } catch (error) {
     console.error(error);
@@ -56,7 +68,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           }}
         ></HeroBannerBlock>
         <Section>
-          <Container>
+          <Container className='tina-markdown-content'>
             <TinaMarkdown content={post.body} />
           </Container>
         </Section>
