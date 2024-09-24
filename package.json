@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev --port 4002 --datalayer-port 9001 -c \"next dev -p 3001\"",
-    "build": "tinacms build && next build",
+    "build": "tinacms build && next build && next-sitemap",
     "start": "tinacms build && next start ",
-    "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
