@@ -1,5 +1,5 @@
 import type { Collection, Form, TinaCMS } from 'tinacms';
-import { GlobalHeaderLinks } from '../__generated__/types';
+import { GlobalLinks } from '../__generated__/types';
 import { auditBeforeSubmit, auditFields } from './audit.utility';
 
 const Global: Collection = {
@@ -62,7 +62,7 @@ const Global: Collection = {
                 const object = getPropertyFromObject(
                   allValues,
                   property?.join('.')
-                ) as GlobalHeaderLinks;
+                ) as GlobalLinks;
                 if (value && (object?.links?.length ?? 0) > 0) {
                   return 'When you have a sub menu, you cannot have a link';
                 }
@@ -83,7 +83,7 @@ const Global: Collection = {
                 const object = getPropertyFromObject(
                   allValues,
                   property?.join('.')
-                ) as GlobalHeaderLinks;
+                ) as GlobalLinks;
                 if (value && value.length > 0 && object.href) {
                   return 'When you have a link, you cannot have a sub menu';
                 }
