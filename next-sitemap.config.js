@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('./app/config/config.ts');
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
