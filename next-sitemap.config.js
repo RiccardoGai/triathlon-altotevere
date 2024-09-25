@@ -1,6 +1,8 @@
+const config = require('./config');
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_URL,
+  siteUrl: config.SITE_URL,
   exclude: [''],
   generateRobotsTxt: true,
   generateIndexSitemap: false,
