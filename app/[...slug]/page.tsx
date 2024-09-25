@@ -2,6 +2,7 @@ import client from '@tina-client';
 import { Metadata } from 'next';
 import path from 'path';
 import PageBlock from '../components/blocks/page-block.component';
+import { CONFIG } from '../config/config';
 
 export const generateStaticParams = async () => {
   const pages =
@@ -28,7 +29,7 @@ export async function generateMetadata({
       type: 'website',
       title: seo?.title as string,
       description: seo?.description as string,
-      url: path.join(process.env.NEXT_PUBLIC_URL as string, ...params.slug)
+      url: path.join(CONFIG.SITE_URL, ...params.slug)
     },
     twitter: {
       title: seo?.title as string,

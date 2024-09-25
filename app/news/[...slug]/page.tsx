@@ -1,6 +1,7 @@
 import HeroBannerBlock from '@/app/components/blocks/hero-banner.component';
 import Container from '@/app/components/container.component';
 import Section from '@/app/components/section.component';
+import { CONFIG } from '@/app/config/config';
 import client from '@tina-client';
 import { Metadata } from 'next';
 import path from 'path';
@@ -33,7 +34,7 @@ export async function generateMetadata({
       type: 'website',
       title: seo?.title ?? (post.title as string),
       description: seo?.description ?? (post.excerpt as string),
-      url: path.join(process.env.NEXT_PUBLIC_URL as string, ...params.slug)
+      url: path.join(CONFIG.SITE_URL, ...params.slug)
     },
     twitter: {
       title: seo?.title ?? (post?.title as string),

@@ -1,6 +1,9 @@
 import { IubendaCookieSolutionBannerConfigInterface } from '@mep-agency/next-iubenda';
 
 export const CONFIG = {
+  SITE_URL:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
   APP_NAME: 'Triathlon Altotevere',
   IUBENDA: {
     siteId: 3768958,
