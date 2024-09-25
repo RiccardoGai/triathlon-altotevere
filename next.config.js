@@ -23,7 +23,9 @@ const nextConfig = {
   },
   async headers() {
     const headers = [];
-    if (process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') {
+    if (
+      ['preview', 'development'].includes(process.env.NEXT_PUBLIC_VERCEL_ENV)
+    ) {
       headers.push({
         headers: [
           {
