@@ -9,6 +9,7 @@ import { Inter } from 'next/font/google';
 import Footer from './components/footer.component';
 import Header from './components/header.component';
 import { CONFIG } from './config/config';
+import GlobalTinaProvider from './providers/global-tina.providers';
 import './styles/index.scss';
 
 config.autoAddCss = false;
@@ -21,7 +22,10 @@ const font = Inter({
 
 export const metadata: Metadata = {
   title: 'Triathlon Altotevere',
-  description: 'Triathlon Altotevere'
+  description:
+    'Triathlon Altotevere è una società che promuove il triathlon per tutti,qualunque sia l’età, la capacità, l’ esperienza. Insegna la disciplina diuno sport che richiede impegno, sacrificio e umiltà per portare ogni persona a migliorare se stessa in gara e fuori.',
+  keywords:
+    'triathlon, altotevere, sport, gara, competizione, nuoto, bici, corsa, allenamento, agonismo, amatoriale, divertimento, passione, sacrificio, impegno, umiltà, miglioramento, gara, competizione, agonismo, amatoriale, divertimento, passione, sacrificio, impegno, umiltà, miglioramento'
 };
 
 export default async function RootLayout({
@@ -29,19 +33,20 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const global = await client.queries.global({
+  const globalResponse = await client.queries.global({
     relativePath: 'global.mdx'
   });
-
   return (
     <html lang='it'>
       <body
         className={`${font.className} antialiased text-default bg-page tracking-tight flex flex-col`}
       >
         <IubendaProvider bannerConfig={CONFIG.IUBENDA}>
-          <Header props={global}></Header>
-          <main className='flex flex-col w-full h-full'>{children}</main>
-          <Footer props={global}></Footer>
+          <GlobalTinaProvider globalResponse={globalResponse}>
+            <Header></Header>
+            <main className='flex flex-col w-full h-full'>{children}</main>
+            <Footer></Footer>
+          </GlobalTinaProvider>
           <Analytics />
           <SpeedInsights />
         </IubendaProvider>

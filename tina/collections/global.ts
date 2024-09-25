@@ -34,6 +34,12 @@ const Global: Collection = {
       name: 'logo'
     },
     {
+      type: 'reference',
+      label: 'Home Page',
+      name: 'home_page',
+      collections: ['page']
+    },
+    {
       type: 'object',
       label: 'Links',
       name: 'links',

@@ -1,5 +1,4 @@
 import type { Collection, Form, TinaCMS } from 'tinacms';
-import { CONFIG } from '../../app/config/config';
 import { auditBeforeSubmit, auditFields } from './audit.utility';
 import { seoFields } from './seo.utility';
 import { ContactFormTemplate } from './templates/contact-form.template';
@@ -22,12 +21,12 @@ const Page: Collection = {
   path: 'content/pages',
   format: 'mdx',
   ui: {
-    router: ({ document }: { document: { _sys: { filename: string } } }) => {
-      if (document._sys.filename === CONFIG.HOME_PAGE) {
-        return `/`;
-      }
-      return `/${document._sys.filename}`;
-    },
+    // router: ({ document }: { document: { _sys: { filename: string } } }) => {
+    //   if (document._sys.filename === CONFIG.HOME_PAGE) {
+    //     return `/`;
+    //   }
+    //   return `/${document._sys.filename}`;
+    // },
     filename: {
       slugify: (values: Record<string, any>) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
