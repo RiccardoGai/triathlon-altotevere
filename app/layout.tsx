@@ -33,7 +33,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const globalData = await client.queries.global({
+  const globalResponse = await client.queries.global({
     relativePath: 'global.mdx'
   });
   return (
@@ -42,7 +42,7 @@ export default async function RootLayout({
         className={`${font.className} antialiased text-default bg-page tracking-tight flex flex-col`}
       >
         <IubendaProvider bannerConfig={CONFIG.IUBENDA}>
-          <GlobalTinaProvider globalData={globalData}>
+          <GlobalTinaProvider globalResponse={globalResponse}>
             <Header></Header>
             <main className='flex flex-col w-full h-full'>{children}</main>
             <Footer></Footer>
