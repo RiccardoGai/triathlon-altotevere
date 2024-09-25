@@ -1,3 +1,5 @@
+import { IubendaCookieSolutionBannerConfigInterface } from '@mep-agency/next-iubenda';
+
 export const CONFIG = {
   SITE_URL:
     process.env.NEXT_PUBLIC_SITE_URL ??
@@ -7,5 +9,5 @@ export const CONFIG = {
     siteId: 3768958,
     cookiePolicyId: 12131529,
     lang: 'it'
-  }
+  } as IubendaCookieSolutionBannerConfigInterface
 };

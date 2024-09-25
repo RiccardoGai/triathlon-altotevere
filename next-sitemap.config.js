@@ -1,8 +1,8 @@
-const config = require('./app/config/config.ts');
-
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: config.SITE_URL,
+  siteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
   exclude: [''],
   generateRobotsTxt: true,
   generateIndexSitemap: false,
