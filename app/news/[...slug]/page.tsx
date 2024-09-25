@@ -35,7 +35,10 @@ export async function generateMetadata({
         type: 'website',
         title: seo?.title ?? (post.title as string),
         description: seo?.description ?? (post.excerpt as string),
-        url: process.env.BASE_URL + path.join(...params.slug)
+        url: path.join(
+          process.env.NEXT_PUBLIC_VERCEL_URL as string,
+          ...params.slug
+        )
       },
       twitter: {
         title: seo?.title ?? (post?.title as string),
