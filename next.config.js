@@ -1,3 +1,7 @@
+const dotenvExpand = require('dotenv-expand');
+
+dotenvExpand.expand({ parsed: { ...process.env } });
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: 'export',
@@ -20,6 +24,21 @@ const nextConfig = {
     // loader: 'custom',
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
+  },
+  async headers() {
+    const headers = [];
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production') {
+      headers.push({
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex'
+          }
+        ],
+        source: '/:path*'
+      });
+    }
+    return headers;
   },
   //transpilePackages: ['next-image-export-optimizer'],
   env: {
