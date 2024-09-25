@@ -1,25 +1,22 @@
 'use client';
-import {
-  Global,
-  GlobalQuery,
-  GlobalQueryVariables,
-  GlobalSocial
-} from '@/tina/__generated__/types';
+import { Global, GlobalSocial } from '@/tina/__generated__/types';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import {
+  faEnvelope,
+  faLocationDot,
+  faPhone
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { CONFIG } from '../config/config';
-import { ITinaResponse } from '../models/tina-response.interface';
+import { useGlobalTinaContext } from '../providers/global-tina.providers';
 import { parseSystemInfoToHref } from '../utils/utils';
 
-export default function Footer({
-  props
-}: {
-  props: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
-}) {
-  const data = useTina(props);
-  const globalData = data.data.global as Global;
+export default function Footer() {
+  const globalResponse = useGlobalTinaContext();
+  const { data } = useTina(globalResponse);
+  const global = data.global as Global;
   const linkClassNames =
     'block text-gray-500 hover:text-gray-700 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2 text-sm mb-2';
   return (
@@ -33,24 +30,24 @@ export default function Footer({
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-4 mt-4'>
               <div>
                 <Link
-                  data-tina-field={tinaField(globalData, 'privacy_policy')}
+                  data-tina-field={tinaField(global, 'privacy_policy')}
                   className={linkClassNames}
                   target='_blank'
-                  href={globalData?.privacy_policy ?? '#'}
+                  href={global?.privacy_policy ?? '#'}
                 >
                   Privacy
                 </Link>
                 <Link
-                  data-tina-field={tinaField(globalData, 'cookie_policy')}
+                  data-tina-field={tinaField(global, 'cookie_policy')}
                   className={linkClassNames}
                   target='_blank'
-                  href={globalData?.cookie_policy ?? '#'}
+                  href={global?.cookie_policy ?? '#'}
                 >
                   Cookie Policy
                 </Link>
               </div>
               <div className='grid grid-rows-4 grid-flow-col gap-y-2 gap-x-10'>
-                {globalData?.links?.map((link, i) => (
+                {global?.links?.map((link, i) => (
                   <Link
                     data-tina-field={tinaField(link!)}
                     key={i}
@@ -66,34 +63,51 @@ export default function Footer({
           <div className='flex flex-col justify-start items-end'>
             {
               <Social
-                data-tina-field={tinaField(globalData.social)}
-                social={globalData?.social!}
+                data-tina-field={tinaField(global.social)}
+                social={global?.social!}
               ></Social>
             }
 
-            {globalData?.contact_info && (
+            {global?.contact_info && (
               <div
                 className='mt-4'
-                data-tina-field={tinaField(globalData.contact_info)}
+                data-tina-field={tinaField(global.contact_info)}
               >
-                {globalData?.contact_info?.address && (
-                  <p className='text-gray-500 text-sm'>
-                    {globalData?.contact_info?.address}
-                  </p>
+                {global?.contact_info?.address && (
+                  <div className='grid grid-flow-col auto-cols-max items-center mb-4'>
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      color='black'
+                      size='lg'
+                    />
+                    <p className='text-gray-500 text-sm ml-3'>
+                      {global?.contact_info?.address}
+                    </p>
+                  </div>
                 )}
-                {globalData?.contact_info?.phone && (
-                  <p className='text-gray-500 text-sm'>
-                    {globalData?.contact_info?.phone}
-                  </p>
+                {global?.contact_info?.phone && (
+                  <div className='grid grid-flow-col auto-cols-max items-center mb-4'>
+                    <FontAwesomeIcon icon={faPhone} color='black' size='lg' />
+                    <p className='text-gray-500 text-sm ml-3'>
+                      {global?.contact_info?.phone}
+                    </p>
+                  </div>
                 )}
-                {globalData?.contact_info?.email && (
-                  <Link
-                    target='_blank'
-                    href={'mailto:' + globalData?.contact_info?.email}
-                    className={linkClassNames}
-                  >
-                    {globalData?.contact_info?.email}
-                  </Link>
+                {global?.contact_info?.email && (
+                  <div className='grid grid-flow-col auto-cols-max items-center mb-4'>
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      color='black'
+                      size='lg'
+                    />
+                    <Link
+                      target='_blank'
+                      href={'mailto:' + global?.contact_info?.email}
+                      className='ml-3 text-sm block text-gray-500 hover:text-gray-700 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2'
+                    >
+                      {global?.contact_info?.email}
+                    </Link>
+                  </div>
                 )}
               </div>
             )}

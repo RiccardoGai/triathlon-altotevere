@@ -1,9 +1,5 @@
 'use client';
-import {
-  Global,
-  GlobalQuery,
-  GlobalQueryVariables
-} from '@/tina/__generated__/types';
+import { Global } from '@/tina/__generated__/types';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
@@ -12,18 +8,15 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { CONFIG } from '../config/config';
-import { ITinaResponse } from '../models/tina-response.interface';
+import { useGlobalTinaContext } from '../providers/global-tina.providers';
 import { parseSystemInfoToHref } from '../utils/utils';
 
 // TODO: refactor the components avoid using the global query
 
-export default function Header({
-  props
-}: {
-  props: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
-}) {
-  const { data } = useTina(props);
-  const globalData = data.global as Global;
+export default function Header() {
+  const globalResponse = useGlobalTinaContext();
+  const { data } = useTina(globalResponse);
+  const global = data.global as Global;
   const currentPath = usePathname();
   useEffect(() => {
     const handleScreenSizeChange = () => {
@@ -68,11 +61,11 @@ export default function Header({
       <div className='relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between'>
         <div className='flex justify-between'>
           <Link href='/' className='flex items-center' onClick={onNavClick}>
-            {globalData.logo ? (
+            {global.logo ? (
               <>
                 <Image
-                  data-tina-field={tinaField(globalData, 'logo')}
-                  src={globalData.logo}
+                  data-tina-field={tinaField(global, 'logo')}
+                  src={global.logo}
                   width={70}
                   height={70}
                   alt={CONFIG.APP_NAME}
@@ -80,8 +73,8 @@ export default function Header({
                   className='w-full h-auto hidden md:block'
                 />
                 <Image
-                  data-tina-field={tinaField(globalData, 'logo')}
-                  src={globalData.logo}
+                  data-tina-field={tinaField(global, 'logo')}
+                  src={global.logo}
                   width={50}
                   height={50}
                   alt={CONFIG.APP_NAME}
@@ -91,7 +84,7 @@ export default function Header({
               </>
             ) : (
               <span
-                data-tina-field={tinaField(globalData, 'logo')}
+                data-tina-field={tinaField(global, 'logo')}
                 className='font-bold text-lg'
               >
                 LOGO
@@ -105,9 +98,9 @@ export default function Header({
         <nav className='items-center w-full md:w-auto hidden md:flex text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:mx-5'>
           <ul
             className='flex flex-col md:flex-row md:self-center w-full md:w-auto text-lg md:text-[0.9375rem] tracking-[0.01rem] font-medium'
-            data-tina-field={tinaField(globalData, 'links')}
+            data-tina-field={tinaField(global, 'links')}
           >
-            {globalData.links?.map((link, index) => (
+            {global.links?.map((link, index) => (
               <li key={index} className={link?.links?.length ? 'dropdown' : ''}>
                 {link?.links?.length ? (
                   <>
