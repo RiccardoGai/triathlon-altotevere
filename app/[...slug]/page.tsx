@@ -29,7 +29,7 @@ export async function generateMetadata({
       title: seo?.title as string,
       description: seo?.description as string,
       url: path.join(
-        process.env.NEXT_PUBLIC_VERCEL_URL as string,
+        process.env.NEXT_PUBLIC_WEBSITE_URL as string,
         ...params.slug
       )
     },
