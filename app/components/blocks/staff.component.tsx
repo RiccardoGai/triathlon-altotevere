@@ -31,25 +31,25 @@ export default function StaffBlock({
             className='grid grid-cols-1 md:grid-cols-[min-content,1fr] gap-6 mb-4'
             data-tina-field={tinaField(staff)}
           >
-            <div className='h-32 md:h-60 w-32 md:w-60 justify-self-center md:justify-self-auto'>
+            <div className='h-32 md:h-40 w-32 md:w-40 justify-self-center md:justify-self-auto'>
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
                 src={staff?.staff_person_image ?? ''}
                 alt={staff?.staff_person_name ?? ''}
                 loading='lazy'
-                className='h-32 md:h-60 w-32 md:w-60 rounded-full border border-slate-200'
+                className='h-32 md:h-40 w-32 md:w-40 rounded-full border border-slate-200'
                 width={500}
                 height={500}
               ></Image>
             </div>
 
             <div className='flex flex-col w-full justify-center'>
-              <h3
-                className='font-bold'
+              <div
+                className='font-bold text-center md:text-left'
                 data-tina-field={tinaField(staff, 'staff_person_name')}
               >
                 {staff?.staff_person_name}
-              </h3>
+              </div>
               <p
                 className='mt-4'
                 data-tina-field={tinaField(staff, 'staff_person_description')}

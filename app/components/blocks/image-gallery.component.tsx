@@ -3,9 +3,10 @@ import {
   PageBlocksImageGallery
 } from '@/tina/__generated__/types';
 import Image from 'next/image';
-import { useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { tinaField } from 'tinacms/dist/react';
 import Lightbox from 'yet-another-react-lightbox';
+import Button from '../button.component';
 
 export default function ImageGalleryBlock({
   data
@@ -13,39 +14,75 @@ export default function ImageGalleryBlock({
   data: PageBlocksImageGallery | PageBlocksGridGrid_ColumnsBlocksImageGallery;
 }) {
   const [indexLightBox, setIndexLightBox] = useState(-1);
-  const width = data.image_gallery_width ?? 350;
-  const height = data.image_gallery_height ?? 350;
+  const [indexGridRowClass, setIndexGridRowClass] = useState(0);
+  const gridRef = createRef<HTMLDivElement>();
+  const [showMore, setShowMore] = useState(false);
+  const gridRowClass = [
+    'grid-rows-1',
+    'grid-rows-2',
+    'grid-rows-3',
+    'grid-rows-4',
+    'grid-rows-5'
+  ];
+
+  useEffect(() => {
+    if (
+      gridRef.current &&
+      gridRef.current.clientHeight < gridRef.current.scrollHeight
+    ) {
+      setShowMore(true);
+    } else {
+      setShowMore(false);
+    }
+  }, [gridRef]);
+
   return (
     <div data-tina-field={tinaField(data)}>
       <div className={'mb-8 md:mx-auto md:mb-12 text-center'}>
         {data.image_gallery_title && (
-          <h2
+          <div
             className={
               'font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl'
             }
           >
             {data.image_gallery_title}
-          </h2>
+          </div>
         )}
 
         {data.image_gallery_subtitle && (
-          <p className={'mt-4 text-gray-500'}>{data.image_gallery_subtitle}</p>
+          <div className={'mt-4 text-gray-500'}>
+            {data.image_gallery_subtitle}
+          </div>
         )}
       </div>
-      <div className='flex gap-4 overflow-x-auto pb-2 flex-nowrap	'>
+      <div
+        className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 ${gridRowClass[indexGridRowClass] ?? 'auto-rows-auto'} auto-rows-[0] overflow-y-hidden`}
+        ref={gridRef}
+      >
         {(data.image_gallery_images ?? []).map((image, i) => (
-          <Image
-            key={i}
-            src={image!}
-            alt=''
-            loading='lazy'
-            width={width}
-            height={height}
-            onClick={() => setIndexLightBox(i)}
-            className='cursor-pointer object-cover'
-          ></Image>
+          <div key={i} className='relative h-32 w-full md:h-64'>
+            <Image
+              src={image!}
+              alt=''
+              loading='lazy'
+              fill={true}
+              onClick={() => setIndexLightBox(i)}
+              className='cursor-pointer object-cover rounded-lg border border-gray-200 hover:opacity-90'
+            ></Image>
+          </div>
         ))}
       </div>
+      {showMore && (
+        <div className='flex justify-center mt-4'>
+          <Button
+            type='button'
+            variant='secondary'
+            onClick={() => setIndexGridRowClass((current) => current + 1)}
+          >
+            Mostra di più
+          </Button>
+        </div>
+      )}
       <Lightbox
         open={indexLightBox >= 0}
         index={indexLightBox}

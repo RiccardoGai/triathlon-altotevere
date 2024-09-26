@@ -45,13 +45,13 @@ export default function PriceBlock({
                 {price && (
                   <div className='rounded-lg backdrop-blur border border-gray-200 bg-white shadow px-6 py-8 flex w-full max-w-sm flex-col text-center'>
                     {price.price_title && (
-                      <h3 className='text-center text-3xl font-bold uppercase leading-6 tracking-wider mb-6'>
+                      <h3 className='text-center text-3xl font-bold uppercase leading-6 tracking-wider'>
                         {price.price_title}
                       </h3>
                     )}
 
                     {price.price_price && !price.price_contact_button && (
-                      <div className='my-8'>
+                      <div className='my-4 md:my-8'>
                         <div className='flex items-center justify-center text-center mb-1'>
                           <span className='text-6xl font-extrabold'>
                             {price.price_price}
@@ -62,7 +62,7 @@ export default function PriceBlock({
                     )}
 
                     {price.price_contact_button && (
-                      <div className='my-8'>
+                      <div className='my-4 md:my-8'>
                         <Link
                           href={parseSystemInfoToHref(
                             price.price_contact_button._sys
@@ -76,7 +76,7 @@ export default function PriceBlock({
                     )}
 
                     {price.price_description && (
-                      <div className='font-light sm:text-lg text-gray-600 text-left'>
+                      <div className='sm:text-lg text-gray-600 text-center tina-markdown-content'>
                         <TinaMarkdown
                           content={price.price_description}
                         ></TinaMarkdown>

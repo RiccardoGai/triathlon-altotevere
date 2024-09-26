@@ -12,6 +12,9 @@
   .text-page {
     color: var(--color-text-page);
   }
+  .tina-markdown-content--fit-content > * {
+    width: fit-content;
+  }
 
   .tina-markdown-content {
     h1 {
@@ -39,7 +42,7 @@
     }
 
     p {
-      @apply text-base mb-5 leading-relaxed;
+      @apply text-base mb-2 leading-normal;
     }
 
     ul {
