@@ -36,19 +36,19 @@ export default function HeroBannerBlock({
         backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55)), url(${data.hero_image})`
       }}
     >
-      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-[7rem] md:pt-0 h-full'>
+      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-14 md:pt-0 h-full'>
         <div className='text-center max-w-5xl mx-auto'>
           {data.hero_tagline && (
-            <h5
-              className='text-2xl text-white font-bold tracking-wide uppercase mb-3'
+            <div
+              className='text-xl md:text-2xl text-white font-bold tracking-wide uppercase mb-8'
               data-tina-field={tinaField(data, 'hero_tagline')}
             >
               {data.hero_tagline}
-            </h5>
+            </div>
           )}
           {data.hero_title && (
             <div
-              className='text-7xl text-white md:text-6xl font-bold mb-8 font-heading'
+              className='text-5xl md:text-7xl text-white font-bold mb-8 font-heading'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}

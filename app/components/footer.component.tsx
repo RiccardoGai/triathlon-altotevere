@@ -60,14 +60,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className='flex flex-col justify-start items-end'>
-            {
-              <Social
-                data-tina-field={tinaField(global.social)}
-                social={global?.social!}
-              ></Social>
-            }
-
+          <div className='flex flex-col justify-start items-start md:items-end'>
             {global?.contact_info && (
               <div
                 className='mt-4'
@@ -111,6 +104,12 @@ export default function Footer() {
                 )}
               </div>
             )}
+            {
+              <Social
+                data-tina-field={tinaField(global.social)}
+                social={global?.social!}
+              ></Social>
+            }
           </div>
         </div>
       </div>
@@ -120,7 +119,7 @@ export default function Footer() {
 
 const Social = ({ social }: { social: GlobalSocial }) => {
   const linkClassNames =
-    'text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 inline-flex items-center';
+    'text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4';
   return (
     <div>
       <Link

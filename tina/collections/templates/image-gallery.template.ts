@@ -20,32 +20,6 @@ export const ImageGalleryTemplate: Template = {
       name: 'image_gallery_subtitle'
     },
     {
-      type: 'number',
-      label: 'Image Width',
-      name: 'image_gallery_width',
-      ui: {
-        parse: (val) => {
-          if (isNaN(parseFloat(val as any))) {
-            return undefined as any;
-          }
-          return parseFloat(val as any);
-        }
-      }
-    },
-    {
-      type: 'number',
-      label: 'Image Height',
-      name: 'image_gallery_height',
-      ui: {
-        parse: (val) => {
-          if (isNaN(parseFloat(val as any))) {
-            return undefined as any;
-          }
-          return parseFloat(val as any);
-        }
-      }
-    },
-    {
       label: 'Images',
       name: 'image_gallery_images',
       type: 'image',
