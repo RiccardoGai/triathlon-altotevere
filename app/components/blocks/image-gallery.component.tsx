@@ -18,11 +18,11 @@ export default function ImageGalleryBlock({
   const gridRef = createRef<HTMLDivElement>();
   const [showMore, setShowMore] = useState(false);
   const gridRowClass = [
-    'grid-rows-1',
-    'grid-rows-2',
-    'grid-rows-3',
-    'grid-rows-4',
-    'grid-rows-5'
+    '[grid-template-rows:repeat(3,minmax(auto,auto))]',
+    '[grid-template-rows:repeat(6,minmax(auto,auto))]',
+    '[grid-template-rows:repeat(9,minmax(auto,auto))]',
+    '[grid-template-rows:repeat(12,minmax(auto,auto))]',
+    '[grid-template-rows:repeat(15,minmax(auto,auto))]'
   ];
 
   useEffect(() => {
