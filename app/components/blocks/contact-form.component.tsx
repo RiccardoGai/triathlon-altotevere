@@ -21,7 +21,7 @@ export default function ContactFormBlock({
         {data.contact_form_title && (
           <h2
             className={
-              'font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl'
+              'font-bold leading-tighter tracking-tighter  text-heading text-3xl'
             }
           >
             {data.contact_form_title}
@@ -103,7 +103,7 @@ export default function ContactFormBlock({
       </form>
       {showSuccessMessage && (
         <div className='mt-6'>
-          <span className='font-bold leading-tight font-heading text-primary'>
+          <span className='font-bold leading-tight  text-primary'>
             Messaggio inviato con successo, ti contatteremo il prima possibile.
           </span>
         </div>

@@ -75,7 +75,7 @@ function PostItem({ data }: { data: Post }) {
           />
         )}
       </div>
-      <h3 className='mb-2 text-xl font-bold leading-tight sm:text-2xl font-heading'>
+      <h3 className='mb-2 text-xl font-bold leading-tight sm:text-2xl '>
         {data.title}
       </h3>
       <p className='text-gray-500 text-lg line-clamp-3'>{data.excerpt}</p>

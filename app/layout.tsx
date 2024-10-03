@@ -5,7 +5,7 @@ import { IubendaProvider } from '@mep-agency/next-iubenda';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import Footer from './components/footer.component';
 import Header from './components/header.component';
 import { CONFIG } from './config/config';
@@ -14,7 +14,7 @@ import './styles/index.scss';
 
 config.autoAddCss = false;
 
-const font = Inter({
+const font = Poppins({
   weight: ['400', '500', '600', '700'],
   style: 'normal',
   subsets: ['latin']

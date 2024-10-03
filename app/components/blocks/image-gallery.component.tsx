@@ -42,7 +42,7 @@ export default function ImageGalleryBlock({
         {data.image_gallery_title && (
           <div
             className={
-              'font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl'
+              'font-bold leading-tighter tracking-tighter  text-heading text-3xl'
             }
           >
             {data.image_gallery_title}

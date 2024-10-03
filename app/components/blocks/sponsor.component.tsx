@@ -19,7 +19,7 @@ export default function SponsorBlock({
         {data.sponsor_title && (
           <h2
             className={
-              'font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl'
+              'font-bold leading-tighter tracking-tighter  text-heading text-3xl'
             }
           >
             {data.sponsor_title}

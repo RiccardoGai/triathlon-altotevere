@@ -48,7 +48,7 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl md:text-7xl text-white font-bold mb-8 font-heading'
+              className='text-5xl md:text-6xl text-white font-bold mb-8 md:leading-tight'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}
