@@ -104,7 +104,7 @@ function PostItem({ data }: { data: Post }) {
             </span>
           </div>
           <h2
-            className='text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading'
+            className='text-xl sm:text-2xl font-bold leading-tight mb-2 '
             data-tina-field={tinaField(data, 'title')}
           >
             {data.title}

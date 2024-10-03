@@ -22,7 +22,7 @@ export default function PriceBlock({
         {data.price_title && (
           <h2
             className={
-              'font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl'
+              'font-bold leading-tighter tracking-tighter  text-heading text-3xl'
             }
           >
             {data.price_title}
