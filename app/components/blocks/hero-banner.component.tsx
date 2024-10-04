@@ -1,4 +1,5 @@
 import { PageBlocksHeroBanner } from '@/tina/__generated__/types';
+import Image from 'next/image';
 import { tinaField } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { parseSystemInfoToHref } from '../../utils/utils';
@@ -18,6 +19,7 @@ export default function HeroBannerBlock({
     '90%': `h-[90vh]`,
     '100%': `h-screen`
   };
+
   return (
     <Section
       data-tina-field={tinaField(data, 'hero_image')}
@@ -31,11 +33,19 @@ export default function HeroBannerBlock({
             | '90%'
             | '100%') ?? '100%'
         ]
-      } bg-cover bg-center bg-no-repeat `}
+      } relative`}
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55)), url(${data.hero_image})`
+        background: 'linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55))'
       }}
     >
+      <Image
+        src={data.hero_image}
+        fill={true}
+        loading='lazy'
+        className='object-cover -z-1'
+        alt={data.hero_title ?? ''}
+      />
+
       <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-14 md:pt-0 h-full'>
         <div className='text-center max-w-5xl mx-auto'>
           {data.hero_tagline && (
@@ -48,7 +58,7 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl md:text-6xl text-white font-bold mb-8 md:leading-tight'
+              className='text-5xl md:text-6xl text-white font-bold mb-8 leading-tight'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}

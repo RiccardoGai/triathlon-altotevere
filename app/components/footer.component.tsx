@@ -12,6 +12,7 @@ import { tinaField, useTina } from 'tinacms/dist/react';
 import { CONFIG } from '../config/config';
 import { useGlobalTinaContext } from '../providers/global-tina.providers';
 import { parseSystemInfoToHref } from '../utils/utils';
+import Container from './container.component';
 
 export default function Footer() {
   const globalResponse = useGlobalTinaContext();
@@ -21,7 +22,7 @@ export default function Footer() {
     'block text-gray-500 hover:text-gray-700 hover:underline text-sm';
   return (
     <footer className='relative border-t border-gray-200 not-prose'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+      <Container>
         <div className='grid grid-cols-1 md:grid-cols-2 pt-4'>
           <div className='mb-2 md:mb-4'>
             <Link className='font-bold text-xl' href='/'>
@@ -108,7 +109,7 @@ export default function Footer() {
             }
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
