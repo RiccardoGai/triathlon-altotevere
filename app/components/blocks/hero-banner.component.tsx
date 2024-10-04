@@ -42,7 +42,7 @@ export default function HeroBannerBlock({
         src={data.hero_image}
         fill={true}
         loading='lazy'
-        className='object-cover -z-1'
+        className='object-cover -z-10'
         alt={data.hero_title ?? ''}
       />
 
