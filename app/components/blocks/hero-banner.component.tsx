@@ -41,9 +41,10 @@ export default function HeroBannerBlock({
       <Image
         src={data.hero_image}
         fill={true}
-        loading='lazy'
+        loading='eager'
         className='object-cover -z-10'
         alt={data.hero_title ?? ''}
+        priority
       />
 
       <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-14 md:pt-0 h-full'>
