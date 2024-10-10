@@ -8,3 +8,10 @@ body {
   padding: 0;
   font-size: 1rem;
 }
+body {
+  min-height: 100vh;
+  display: flex;
+}
+main {
+  flex-grow: 1;
+}
