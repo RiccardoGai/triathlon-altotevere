@@ -31,15 +31,14 @@ export default function StaffBlock({
             className='grid grid-cols-1 md:grid-cols-[min-content,1fr] gap-6 mb-4'
             data-tina-field={tinaField(staff)}
           >
-            <div className='h-32 md:h-40 w-32 md:w-40 justify-self-center md:justify-self-auto'>
+            <div className='h-32 md:h-40 w-32 md:w-40 justify-self-center md:justify-self-auto relative'>
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
                 src={staff?.staff_person_image ?? ''}
                 alt={staff?.staff_person_name ?? ''}
                 loading='lazy'
-                className='h-32 md:h-40 w-32 md:w-40 rounded-full border border-slate-200'
-                width={500}
-                height={500}
+                className='h-32 md:h-40 w-32 md:w-40 rounded-full aspect-square'
+                fill={true}
               ></Image>
             </div>
 
