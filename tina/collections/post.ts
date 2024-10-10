@@ -14,6 +14,24 @@ const Post: Collection = {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
       }
     },
+    router: ({
+      document
+    }: {
+      document: {
+        _sys: {
+          title?: string;
+          template: string;
+          breadcrumbs: string[];
+          path: string;
+          basename: string;
+          relativePath: string;
+          filename: string;
+          extension: string;
+        };
+      };
+    }) => {
+      return `news/${document._sys!.breadcrumbs.join('/')}`;
+    },
     beforeSubmit: async ({
       form,
       cms,
@@ -67,7 +85,22 @@ const Post: Collection = {
     {
       type: 'image',
       name: 'image',
-      label: 'Image'
+      label: 'Image',
+      description:
+        'The image that will be displayed in the post list, post highlight and hero banner, make sure the image is 16:9 aspect ratio'
+    },
+    {
+      type: 'string',
+      name: 'hero_image_position',
+      label: 'Hero Image Position',
+      description: 'The position of the image in the hero banner',
+      options: [
+        { label: 'Top', value: 'top' },
+        { label: 'Center', value: 'center' },
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
+      ]
     }
   ]
 };

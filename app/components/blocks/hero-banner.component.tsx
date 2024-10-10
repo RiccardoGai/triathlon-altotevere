@@ -19,6 +19,13 @@ export default function HeroBannerBlock({
     '90%': `h-[90vh]`,
     '100%': `h-screen`
   };
+  const imagePositionClass = {
+    center: `object-center`,
+    top: `object-top`,
+    bottom: `object-bottom`,
+    left: `object-left`,
+    right: `object-right`
+  };
 
   return (
     <Section
@@ -42,7 +49,16 @@ export default function HeroBannerBlock({
         src={data.hero_image}
         fill={true}
         loading='eager'
-        className='object-cover -z-10'
+        className={`${
+          imagePositionClass[
+            (data?.hero_image_position as
+              | 'center'
+              | 'top'
+              | 'bottom'
+              | 'left'
+              | 'right') ?? 'object-center'
+          ]
+        } object-cover -z-10 aspect-video`}
         alt={data.hero_title ?? ''}
         priority
       />
@@ -59,7 +75,7 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl md:text-6xl text-white font-bold mb-8 leading-tight'
+              className='text-5xl md:text-6xl text-white font-bold mb-8 !leading-tight'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}

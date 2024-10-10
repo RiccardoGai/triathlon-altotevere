@@ -1,12 +1,8 @@
-import HeroBannerBlock from '@/app/components/blocks/hero-banner.component';
-import Container from '@/app/components/container.component';
-import Section from '@/app/components/section.component';
+import PagePost from '@/app/components/page-post.component';
 import { CONFIG } from '@/app/config/config';
 import client from '@tina-client';
 import { Metadata } from 'next';
 import path from 'path';
-import { tinaField } from 'tinacms/dist/react';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
 
 export const generateStaticParams = async () => {
   const posts =
@@ -48,22 +44,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const postData = await client.queries.post({
     relativePath: `${path.join(...params.slug)}.mdx`
   });
-  const post = postData.data.post;
 
-  return (
-    <div data-tina-field={tinaField(post)}>
-      <HeroBannerBlock
-        data={{
-          hero_image: post.image!,
-          hero_height: '60%',
-          hero_title: post.title
-        }}
-      ></HeroBannerBlock>
-      <Section>
-        <Container className='tina-markdown-content'>
-          <TinaMarkdown content={post.body} />
-        </Container>
-      </Section>
-    </div>
-  );
+  return <PagePost props={postData} />;
 }

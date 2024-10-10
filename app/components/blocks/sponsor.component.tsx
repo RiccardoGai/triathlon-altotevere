@@ -3,6 +3,7 @@ import {
   PageBlocksSponsor
 } from '@/tina/__generated__/types';
 import Image from 'next/image';
+import Link from 'next/link';
 import { tinaField } from 'tinacms/dist/react';
 
 export default function SponsorBlock({
@@ -27,17 +28,34 @@ export default function SponsorBlock({
         )}
       </div>
       <div className='flex gap-4 pb-2 flex-wrap	justify-center'>
-        {(data.sponsor_image ?? []).map((image, i) => (
-          <Image
-            key={i}
-            src={image!}
-            alt=''
-            loading='lazy'
-            width={width}
-            height={height}
-            className='cursor-pointer'
-          ></Image>
-        ))}
+        {(data.sponsor_image ?? []).map(
+          (image, i) =>
+            image?.sponsor_image_image &&
+            (image?.sponsor_image_href ? (
+              <Link
+                key={i}
+                href={image?.sponsor_image_href ?? '#'}
+                target='_blank'
+              >
+                <Image
+                  src={image?.sponsor_image_image!}
+                  alt={image?.sponsor_image_name ?? ''}
+                  loading='lazy'
+                  width={width}
+                  height={height}
+                  className='cursor-pointer'
+                ></Image>
+              </Link>
+            ) : (
+              <Image
+                src={image?.sponsor_image_image!}
+                alt={image?.sponsor_image_name ?? ''}
+                loading='lazy'
+                width={width}
+                height={height}
+              ></Image>
+            ))
+        )}
       </div>
     </div>
   );
