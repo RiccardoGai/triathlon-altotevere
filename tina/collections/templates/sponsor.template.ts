@@ -5,7 +5,7 @@ export const SponsorTemplate: Template = {
   label: 'Sponsor',
   ui: {
     itemProps(item) {
-      return { label: 'Sponsor ' + item?.sponsor_title ?? '' };
+      return { label: 'Sponsor ' + item?.sponsor_title };
     }
   },
   fields: [
@@ -40,11 +40,34 @@ export const SponsorTemplate: Template = {
         }
       }
     },
+
     {
-      type: 'image',
-      label: 'Image',
+      type: 'object',
+      label: 'Sponsor Images',
       name: 'sponsor_image',
-      list: true
+      list: true,
+      ui: {
+        itemProps: (item) => {
+          return { label: 'Sponsor ' + item?.sponsor_image_name };
+        }
+      },
+      fields: [
+        {
+          type: 'string',
+          label: 'Name',
+          name: 'sponsor_image_name'
+        },
+        {
+          type: 'image',
+          label: 'Image',
+          name: 'sponsor_image_image'
+        },
+        {
+          type: 'string',
+          label: 'Href',
+          name: 'sponsor_image_href'
+        }
+      ]
     }
   ]
 };

@@ -76,7 +76,7 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
 function PostItem({ data }: { data: Post }) {
   return (
     <article
-      className={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 mb-8 ${data.image ? 'md:grid-cols-2' : ''}`}
+      className={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 mb-8 ${data.image ? 'md:grid-cols-3' : ''}`}
     >
       {data.image && (
         <div className='relative h-48 md:h-72 rounded shadow-md'>
@@ -84,8 +84,7 @@ function PostItem({ data }: { data: Post }) {
             data-tina-field={tinaField(data, 'image')}
             title={data.title}
             src={data.image}
-            className='absolute inset-0 w-full h-full object-cover aspect-square'
-            sizes='(max-width: 768px) 100vw, 50vw'
+            className='absolute inset-0 w-full h-full object-cover aspect-video'
             fill={true}
             alt={data.title}
             loading='lazy'
@@ -93,7 +92,7 @@ function PostItem({ data }: { data: Post }) {
           />
         </div>
       )}
-      <div className='mt-2'>
+      <div className='mt-2 md:col-span-2'>
         <header>
           <div className='mb-1'>
             <span
@@ -121,7 +120,7 @@ function PostItem({ data }: { data: Post }) {
         )}
 
         <Link href={'/news/' + parseSystemInfoToHref(data._sys)}>
-          <Button type='button' variant='secondary'>
+          <Button type='button' variant='secondary' className='mt-4'>
             Leggi
           </Button>
         </Link>

@@ -21,12 +21,24 @@ const Page: Collection = {
   path: 'content/pages',
   format: 'mdx',
   ui: {
-    // router: ({ document }: { document: { _sys: { filename: string } } }) => {
-    //   if (document._sys.filename === CONFIG.HOME_PAGE) {
-    //     return `/`;
-    //   }
-    //   return `/${document._sys.filename}`;
-    // },
+    router: ({
+      document
+    }: {
+      document: {
+        _sys: {
+          title?: string;
+          template: string;
+          breadcrumbs: string[];
+          path: string;
+          basename: string;
+          relativePath: string;
+          filename: string;
+          extension: string;
+        };
+      };
+    }) => {
+      return `${document._sys!.breadcrumbs.join('/')}`;
+    },
     filename: {
       slugify: (values: Record<string, any>) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;

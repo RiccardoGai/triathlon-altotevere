@@ -77,6 +77,19 @@ export const HeroBannerTemplate: Template = {
       label: 'Image',
       name: 'hero_image',
       required: true
+    },
+    {
+      type: 'string',
+      name: 'hero_image_position',
+      label: 'Image Position',
+      description: 'The position of the image in the hero banner',
+      options: [
+        { label: 'Top', value: 'top' },
+        { label: 'Center', value: 'center' },
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
+      ]
     }
   ]
 };
