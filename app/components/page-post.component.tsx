@@ -39,12 +39,12 @@ export default function PagePost({
         }}
       ></HeroBannerBlock>
       <Section>
-        <Container className='tina-markdown-content'>
+        <Container className='tina-markdown-content px-6 sm:px-20 md:px-40 lg:px-60'>
           <TinaMarkdown content={post.body} />
         </Container>
       </Section>
       <Section>
-        <Container>
+        <Container className='px-6 sm:px-16'>
           <div className='grid gap-6 grid-flow-col auto-cols-min justify-center border-y py-6'>
             <FacebookShareButton url={currentUrl} quote={post.title}>
               <FacebookIcon size={32} round />
