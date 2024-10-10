@@ -18,10 +18,9 @@ export default function Footer() {
   const globalResponse = useGlobalTinaContext();
   const { data } = useTina(globalResponse);
   const global = data.global as Global;
-  const linkClassNames =
-    'block text-gray-500 hover:text-gray-700 hover:underline text-sm';
+  const linkClassNames = 'block text-text-footer hover:underline text-sm';
   return (
-    <footer className='relative border-t border-gray-200 not-prose'>
+    <footer className='relative border-t border-gray-200 not-prose bg-footer text-text-footer'>
       <Container>
         <div className='grid grid-cols-1 md:grid-cols-2 pt-4'>
           <div className='mb-2 md:mb-4'>
@@ -67,18 +66,22 @@ export default function Footer() {
                   <div className='grid grid-flow-col auto-cols-max items-center mb-4'>
                     <FontAwesomeIcon
                       icon={faLocationDot}
-                      color='black'
+                      color='var(--color-text-footer)'
                       size='lg'
                     />
-                    <p className='text-gray-500 text-sm ml-3'>
+                    <p className=' text-sm ml-3'>
                       {global?.contact_info?.address}
                     </p>
                   </div>
                 )}
                 {global?.contact_info?.phone && (
                   <div className='grid grid-flow-col auto-cols-max items-center mb-4'>
-                    <FontAwesomeIcon icon={faPhone} color='black' size='lg' />
-                    <p className='text-gray-500 text-sm ml-3'>
+                    <FontAwesomeIcon
+                      icon={faPhone}
+                      color='var(--color-text-footer)'
+                      size='lg'
+                    />
+                    <p className=' text-sm ml-3'>
                       {global?.contact_info?.phone}
                     </p>
                   </div>
@@ -87,13 +90,13 @@ export default function Footer() {
                   <div className='grid grid-flow-col auto-cols-max items-center mb-4'>
                     <FontAwesomeIcon
                       icon={faEnvelope}
-                      color='black'
+                      color='var(--color-text-footer)'
                       size='lg'
                     />
                     <Link
                       target='_blank'
                       href={'mailto:' + global?.contact_info?.email}
-                      className='ml-3 text-sm block text-gray-500 hover:text-gray-700 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2'
+                      className='ml-3 text-sm block  hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2'
                     >
                       {global?.contact_info?.email}
                     </Link>
@@ -116,7 +119,7 @@ export default function Footer() {
 
 const Social = ({ social }: { social: GlobalSocial }) => {
   const linkClassNames =
-    'text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4';
+    'focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4';
   return (
     <div>
       <Link
@@ -124,14 +127,22 @@ const Social = ({ social }: { social: GlobalSocial }) => {
         className={linkClassNames}
         href={social?.facebook ?? '#'}
       >
-        <FontAwesomeIcon icon={faFacebook} color='black' size='xl' />
+        <FontAwesomeIcon
+          icon={faFacebook}
+          color='var(--color-text-footer)'
+          size='xl'
+        />
       </Link>
       <Link
         data-tina-field={tinaField(social, 'instagram')}
         className={linkClassNames}
         href={social?.instagram ?? '#'}
       >
-        <FontAwesomeIcon icon={faInstagram} color='black' size='xl' />
+        <FontAwesomeIcon
+          icon={faInstagram}
+          color='var(--color-text-footer)'
+          size='xl'
+        />
       </Link>
     </div>
   );
