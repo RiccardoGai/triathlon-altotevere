@@ -13,7 +13,10 @@ module.exports = {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
         accent: 'var(--color-accent)',
-        default: 'var(--color-text-default)'
+        default: 'var(--color-text-default)',
+        page: 'var(--color-bg-page)',
+        footer: 'var(--color-bg-footer)',
+        'text-footer': 'var(--color-text-footer)'
       },
       gridTemplateColumns: {
         'auto-fit-200px': 'repeat(auto-fit, minmax(200px, 1fr))'

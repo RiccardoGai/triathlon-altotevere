@@ -30,12 +30,14 @@ export async function generateMetadata({
       type: 'website',
       title: seo?.title ?? (post.title as string),
       description: seo?.description ?? (post.excerpt as string),
-      url: path.join(CONFIG.SITE_URL, ...params.slug)
+      url: path.join(CONFIG.SITE_URL, ...params.slug),
+      images: post.image ?? undefined
     },
     twitter: {
       title: seo?.title ?? (post?.title as string),
       description: seo?.description ?? (post.excerpt as string),
-      card: 'summary_large_image'
+      card: 'summary_large_image',
+      images: post.image ?? undefined
     }
   };
 }
