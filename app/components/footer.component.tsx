@@ -99,14 +99,14 @@ export default function Footer() {
                     </Link>
                   </div>
                 )}
+                {
+                  <Social
+                    data-tina-field={tinaField(global.social)}
+                    social={global?.social!}
+                  ></Social>
+                }
               </div>
             )}
-            {
-              <Social
-                data-tina-field={tinaField(global.social)}
-                social={global?.social!}
-              ></Social>
-            }
           </div>
         </div>
       </Container>
