@@ -78,7 +78,7 @@ function PostItem({ data }: { data: Post }) {
       <h3 className='mb-2 text-xl font-bold leading-tight sm:text-2xl '>
         {data.title}
       </h3>
-      <p className='text-gray-500 text-lg line-clamp-3'>{data.excerpt}</p>
+      <p className='text-gray-500 line-clamp-3'>{data.excerpt}</p>
       <Link href={'/news/' + parseSystemInfoToHref(data._sys)}>
         <Button type='button' variant='primary' className='mt-5'>
           Scopri di più
