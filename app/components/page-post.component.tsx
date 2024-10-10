@@ -1,8 +1,18 @@
 'use client';
 
 import { PostQuery, PostQueryVariables } from '@/tina/__generated__/types';
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton
+} from 'next-share';
+import { usePathname } from 'next/navigation';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
+import { CONFIG } from '../config/config';
 import { ITinaResponse } from '../models/tina-response.interface';
 import { formatDate } from '../utils/utils';
 import HeroBannerBlock from './blocks/hero-banner.component';
@@ -15,6 +25,7 @@ export default function PagePost({
   props: ITinaResponse<PostQuery, PostQueryVariables>;
 }) {
   const { data } = useTina(props);
+  const currentUrl = CONFIG.SITE_URL + usePathname();
   const post = data.post;
   return (
     <div data-tina-field={tinaField(post)}>
@@ -30,6 +41,21 @@ export default function PagePost({
       <Section>
         <Container className='tina-markdown-content'>
           <TinaMarkdown content={post.body} />
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          <div className='grid gap-6 grid-flow-col auto-cols-min justify-center border-y py-6'>
+            <FacebookShareButton url={currentUrl} quote={post.title}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <TwitterShareButton url={currentUrl} title={post.title}>
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+            <WhatsappShareButton url={currentUrl} title={post.title}>
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+          </div>
         </Container>
       </Section>
     </div>
