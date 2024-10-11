@@ -30,7 +30,7 @@ const Post: Collection = {
         };
       };
     }) => {
-      return `news/${document._sys!.breadcrumbs.join('/')}`;
+      return `news/${document._sys!.breadcrumbs?.join('/')}`;
     },
     beforeSubmit: async ({
       form,
