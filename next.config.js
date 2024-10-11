@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
   transpilePackages: ['@mep-agency/next-iubenda'],
   images: {
     remotePatterns: [
@@ -37,18 +36,6 @@ const nextConfig = {
       });
     }
     return headers;
-  },
-  //transpilePackages: ['next-image-export-optimizer'],
-  env: {
-    // nextImageExportOptimizer_imageFolderPath: 'public/uploads',
-    // nextImageExportOptimizer_exportFolderPath: 'out',
-    // nextImageExportOptimizer_quality: '70',
-    // nextImageExportOptimizer_storePicturesInWEBP: 'true',
-    // nextImageExportOptimizer_exportFolderName: 'nextImageExportOptimizer',
-    // If you do not want to use blurry placeholder images, then you can set
-    // nextImageExportOptimizer_generateAndUseBlurImages to false and pass
-    // `placeholder="empty"` to all <ExportedImage> components.
-    // nextImageExportOptimizer_generateAndUseBlurImages: 'true'
   }
 };
 
