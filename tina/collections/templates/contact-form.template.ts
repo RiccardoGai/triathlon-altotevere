@@ -4,9 +4,9 @@ export const ContactFormTemplate: Template = {
   name: 'contactForm',
   label: 'Contact Form',
   ui: {
-    itemProps(item) {
-      return { label: 'Contact Form ' + item?.contact_form_title };
-    }
+    itemProps: (item: Record<string, any>) => ({
+      label: 'Contact Form ' + item?.contact_form_title
+    })
   },
   fields: [
     {

@@ -4,9 +4,9 @@ export const RichTextTemplate: Template = {
   name: 'richText',
   label: 'Rich Text',
   ui: {
-    itemProps(item) {
-      return { label: 'Rich Text ' + item?.rich_text_name ?? '' };
-    }
+    itemProps: (item: Record<string, any>) => ({
+      label: 'Rich Text ' + item?.rich_text_name || ''
+    })
   },
   fields: [
     {

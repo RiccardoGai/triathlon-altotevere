@@ -4,9 +4,9 @@ export const ImageTemplate: Template = {
   name: 'image',
   label: 'Image',
   ui: {
-    itemProps(item) {
-      return { label: 'Image ' + item?.image_name ?? '' };
-    }
+    itemProps: (item: Record<string, any>) => ({
+      label: 'Image ' + item?.image_name || ''
+    })
   },
   fields: [
     {

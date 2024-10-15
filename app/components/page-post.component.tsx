@@ -31,7 +31,7 @@ export default function PagePost({
     <div data-tina-field={tinaField(post)}>
       <HeroBannerBlock
         data={{
-          hero_image: post.image!,
+          hero_image: post.image,
           hero_height: '50%',
           hero_title: post.title,
           hero_tagline: post.date && formatDate(post.date, 'D MMMM, YYYY'),

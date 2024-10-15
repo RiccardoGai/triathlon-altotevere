@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { tinaField } from 'tinacms/dist/react';
-import { nameof, parseSystemInfoToHref } from '../../utils/utils';
+import { formatDate, nameof, parseSystemInfoToHref } from '../../utils/utils';
 import Button from '../button.component';
 
 export default function PostHighlightBlock({
@@ -74,6 +74,14 @@ function PostItem({ data }: { data: Post }) {
             alt={data.title ?? ''}
           />
         )}
+      </div>
+      <div className='mb-1'>
+        <span
+          className='text-xs text-gray-400 tracking-wider uppercase font-semibold'
+          data-tina-field={tinaField(data, 'date')}
+        >
+          {data.date && formatDate(data.date, 'D MMMM, YYYY')}
+        </span>
       </div>
       <h3 className='mb-2 text-xl font-bold leading-tight sm:text-2xl '>
         {data.title}

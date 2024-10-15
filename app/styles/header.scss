@@ -1,0 +1,27 @@
+#header.expanded nav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 70px !important;
+  padding: 0 5px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+[data-toggle-menu] path {
+  @apply transition;
+}
+[data-toggle-menu].expanded g > path:first-child {
+  @apply -rotate-45 translate-y-[15px] translate-x-[-3px];
+}
+
+[data-toggle-menu].expanded g > path:last-child {
+  @apply rotate-45 translate-y-[-8px] translate-x-[14px];
+}
+
+.link-active {
+  @apply text-primary;
+}

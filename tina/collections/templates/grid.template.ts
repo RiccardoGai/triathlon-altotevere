@@ -13,9 +13,9 @@ export const GridTemplate: Template = {
   name: 'grid',
   label: 'Grid',
   ui: {
-    itemProps(item) {
-      return { label: 'Grid ' + item?.grid_name ?? '' };
-    }
+    itemProps: (item: Record<string, any>) => ({
+      label: 'Grid ' + item?.grid_name || ''
+    })
   },
   fields: [
     {
@@ -29,7 +29,9 @@ export const GridTemplate: Template = {
       type: 'object',
       list: true,
       ui: {
-        itemProps: (item) => ({ label: item?.grid_column_name ?? '' })
+        itemProps: (item: Record<string, any>) => ({
+          label: item?.grid_column_name ?? ''
+        })
       },
       fields: [
         {

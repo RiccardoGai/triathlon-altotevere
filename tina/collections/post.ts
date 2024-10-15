@@ -87,7 +87,8 @@ const Post: Collection = {
       name: 'image',
       label: 'Image',
       description:
-        'The image that will be displayed in the post list, post highlight and hero banner, make sure the image is 16:9 aspect ratio'
+        'The image that will be displayed in the post list, post highlight and hero banner, make sure the image is 16:9 aspect ratio',
+      required: true
     },
     {
       type: 'string',

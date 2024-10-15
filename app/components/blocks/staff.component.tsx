@@ -2,7 +2,11 @@ import {
   PageBlocksGridGrid_ColumnsBlocksStaff,
   PageBlocksStaff
 } from '@/tina/__generated__/types';
+import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import Link from 'next/link';
 import { tinaField } from 'tinacms/dist/react';
 export default function StaffBlock({
   data
@@ -28,7 +32,7 @@ export default function StaffBlock({
         {(data.staff_people ?? []).map((staff, i) => (
           <div
             key={i}
-            className='grid grid-cols-1 md:grid-cols-[min-content,1fr] gap-6 mb-4'
+            className='grid grid-cols-1 md:grid-cols-[min-content,1fr] gap-6 mb-4 items-center'
             data-tina-field={tinaField(staff)}
           >
             <div className='h-32 md:h-40 w-32 md:w-40 justify-self-center md:justify-self-auto relative'>
@@ -49,12 +53,54 @@ export default function StaffBlock({
               >
                 {staff?.staff_person_name}
               </div>
-              <p
-                className='mt-4'
-                data-tina-field={tinaField(staff, 'staff_person_description')}
-              >
-                {staff?.staff_person_description}
-              </p>
+              {staff?.staff_person_role && (
+                <p
+                  className='mt-2'
+                  data-tina-field={tinaField(staff, 'staff_person_role')}
+                >
+                  {staff?.staff_person_role}
+                </p>
+              )}
+              {staff?.staff_person_description && (
+                <p
+                  className='mt-4'
+                  data-tina-field={tinaField(staff, 'staff_person_description')}
+                >
+                  {staff?.staff_person_description}
+                </p>
+              )}
+              <div className='mt-4'>
+                {staff?.staff_person_website && (
+                  <Link
+                    data-tina-field={tinaField(staff, 'staff_person_facebook')}
+                    className='focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
+                    href={staff?.staff_person_website}
+                    target='_blank'
+                  >
+                    <FontAwesomeIcon icon={faGlobe} size='xl' />
+                  </Link>
+                )}
+                {staff?.staff_person_facebook && (
+                  <Link
+                    data-tina-field={tinaField(staff, 'staff_person_facebook')}
+                    className='focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
+                    href={staff?.staff_person_facebook}
+                    target='_blank'
+                  >
+                    <FontAwesomeIcon icon={faFacebook} size='xl' />
+                  </Link>
+                )}
+                {staff?.staff_person_instagram && (
+                  <Link
+                    data-tina-field={tinaField(staff, 'staff_person_instagram')}
+                    className='focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
+                    href={staff?.staff_person_instagram}
+                    target='_blank'
+                  >
+                    <FontAwesomeIcon icon={faInstagram} size='xl' />
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         ))}

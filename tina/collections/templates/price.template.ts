@@ -4,9 +4,9 @@ export const PriceTemplate: Template = {
   name: 'price',
   label: 'Price',
   ui: {
-    itemProps(item) {
-      return { label: 'Price ' + item?.price_title ?? '' };
-    }
+    itemProps: (item: Record<string, any>) => ({
+      label: 'Price ' + item?.price_title || ''
+    })
   },
   fields: [
     {
