@@ -85,7 +85,7 @@ export default function HeroBannerBlock({
           <div className='max-w-3xl mx-auto'>
             {data.hero_subtitle && (
               <div
-                className='text-xl text-slate-300 mb-8'
+                className='text-xl text-white mb-8'
                 data-tina-field={tinaField(data, 'hero_subtitle')}
               >
                 <TinaMarkdown content={data.hero_subtitle} />
@@ -100,8 +100,8 @@ export default function HeroBannerBlock({
                   <div key={index} className='flex w-full sm:w-auto'>
                     <Button
                       type='link'
-                      href={parseSystemInfoToHref(
-                        action?.hero_action_href?._sys
+                      href={action?.hero_action_external_href ?? parseSystemInfoToHref(
+                         action?.hero_action_href?._sys
                       )}
                       variant={action?.hero_action_variant as any}
                       className='w-full sm:mb-0 text-lg'
