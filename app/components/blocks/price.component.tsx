@@ -43,7 +43,7 @@ export default function PriceBlock({
                 className='col-span-3 mx-auto flex w-full sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1'
               >
                 {price && (
-                  <div className='rounded-lg backdrop-blur border border-gray-200 bg-white shadow px-6 py-8 flex w-full max-w-sm flex-col text-center'>
+                  <div className='rounded-lg backdrop-blur-sm border border-gray-200 bg-white shadow-sm px-6 py-8 flex w-full max-w-sm flex-col text-center'>
                     {price.price_title && (
                       <h3 className='text-center text-3xl font-bold uppercase leading-6 tracking-wider'>
                         {price.price_title}

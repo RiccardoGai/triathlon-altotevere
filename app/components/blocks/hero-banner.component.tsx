@@ -48,6 +48,7 @@ export default function HeroBannerBlock({
       <Image
         src={data.hero_image}
         fill={true}
+        fetchPriority='high'
         loading='eager'
         className={`${
           imagePositionClass[
@@ -75,7 +76,7 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl md:text-6xl text-white font-bold mb-8 !leading-tight'
+              className='text-5xl md:text-6xl text-white font-bold mb-8 leading-tight!'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}

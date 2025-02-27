@@ -63,7 +63,7 @@ export default function PostHighlightBlock({
 function PostItem({ data }: { data: Post }) {
   return (
     <article className='mb-6 transition text-center'>
-      <div className='relative h-48 md:h-64 rounded shadow-md mb-6'>
+      <div className='relative h-48 md:h-64 rounded-sm shadow-md mb-6'>
         {data.image && (
           <Image
             data-tina-field={tinaField(data, 'image')}

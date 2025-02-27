@@ -115,7 +115,7 @@ export default function Header() {
                         style={{ fontSize: 20, color: 'black' }}
                       />
                     </button>
-                    <ul className='dropdown-menu md:backdrop-blur-md rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl'>
+                    <ul className='dropdown-menu md:backdrop-blur-md rounded-sm md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl'>
                       {link?.links?.map((subLink, subIndex) => (
                         <li key={index + '_' + subIndex}>
                           <Link
@@ -173,7 +173,7 @@ function ToggleMenu() {
 
   return (
     <button
-      className='flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group'
+      className='flex flex-col h-12 w-12 rounded-sm justify-center items-center cursor-pointer group'
       aria-label='Toggle Menu'
       onClick={onToggleMenuClick}
       data-toggle-menu
