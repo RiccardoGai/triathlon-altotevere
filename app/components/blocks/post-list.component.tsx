@@ -79,7 +79,7 @@ function PostItem({ data }: { data: Post }) {
       className={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 mb-8 ${data.image ? 'md:grid-cols-3' : ''}`}
     >
       {data.image && (
-        <div className='relative h-48 md:h-72 rounded shadow-md'>
+        <div className='relative h-48 md:h-72 rounded-sm shadow-md'>
           <Image
             data-tina-field={tinaField(data, 'image')}
             title={data.title}
@@ -113,7 +113,7 @@ function PostItem({ data }: { data: Post }) {
         {data.excerpt && (
           <p
             data-tina-field={tinaField(data, 'excerpt')}
-            className='flex-grow text-gray-500 md:line-clamp-5 line-clamp-3 leading-relaxed'
+            className='grow text-gray-500 md:line-clamp-5 line-clamp-3 leading-relaxed'
           >
             {data.excerpt}
           </p>

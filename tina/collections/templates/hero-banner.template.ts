@@ -60,7 +60,6 @@ export const HeroBannerTemplate: Template = {
             { label: 'Primary', value: 'primary' },
             { label: 'Secondary', value: 'secondary' },
             { label: 'Tertiary', value: 'tertiary' },
-            { label: 'Link', value: 'link' }
           ],
           required: true
         },
@@ -69,6 +68,11 @@ export const HeroBannerTemplate: Template = {
           name: 'hero_action_href',
           type: 'reference',
           collections: ['page']
+        },
+        {
+          label: 'External Href',
+          name: 'hero_action_external_href',
+          type: 'string',
         }
       ]
     },

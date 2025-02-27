@@ -48,6 +48,7 @@ export default function HeroBannerBlock({
       <Image
         src={data.hero_image}
         fill={true}
+        fetchPriority='high'
         loading='eager'
         className={`${
           imagePositionClass[
@@ -75,7 +76,7 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl md:text-6xl text-white font-bold mb-8 !leading-tight'
+              className='text-5xl md:text-6xl text-white font-bold mb-8 leading-tight!'
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}
@@ -84,7 +85,7 @@ export default function HeroBannerBlock({
           <div className='max-w-3xl mx-auto'>
             {data.hero_subtitle && (
               <div
-                className='text-xl text-slate-300 mb-8'
+                className='text-xl text-white mb-8'
                 data-tina-field={tinaField(data, 'hero_subtitle')}
               >
                 <TinaMarkdown content={data.hero_subtitle} />
@@ -99,8 +100,8 @@ export default function HeroBannerBlock({
                   <div key={index} className='flex w-full sm:w-auto'>
                     <Button
                       type='link'
-                      href={parseSystemInfoToHref(
-                        action?.hero_action_href?._sys
+                      href={action?.hero_action_external_href ?? parseSystemInfoToHref(
+                         action?.hero_action_href?._sys
                       )}
                       variant={action?.hero_action_variant as any}
                       className='w-full sm:mb-0 text-lg'

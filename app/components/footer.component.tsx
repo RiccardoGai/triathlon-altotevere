@@ -119,7 +119,7 @@ export default function Footer() {
 
 const Social = ({ social }: { social: GlobalSocial }) => {
   const linkClassNames =
-    'focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4';
+    'focus:outline-hidden focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4';
   return (
     <div>
       <Link

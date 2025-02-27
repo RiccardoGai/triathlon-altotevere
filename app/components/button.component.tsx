@@ -22,6 +22,8 @@ export default function Button({
     link: 'cursor-pointer hover:text-primary'
   };
 
+  const inExternalLink = type === 'link' && href?.startsWith('http');
+
   return (
     <>
       {(type === 'button' || type === 'submit' || type === 'reset') && (
@@ -36,6 +38,8 @@ export default function Button({
       {type === 'link' && (
         <Link
           className={twMerge(variants[variant] || '', className)}
+          passHref={inExternalLink}
+          target={inExternalLink ? '_blank' : undefined}
           href={href!}
           {...(props as React.HTMLProps<HTMLAnchorElement>)}
         >
