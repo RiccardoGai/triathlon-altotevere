@@ -71,7 +71,7 @@ function PostItem({ data }: { data: Post }) {
             fill
             loading='lazy'
             className='object-cover'
-            alt={data.title ?? ''}
+            alt={data.title || ''}
           />
         )}
       </div>

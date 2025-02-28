@@ -39,7 +39,7 @@ export default function SponsorBlock({
               >
                 <Image
                   src={image?.sponsor_image_image!}
-                  alt={image?.sponsor_image_name ?? ''}
+                  alt={image?.sponsor_image_name || ''}
                   loading='lazy'
                   width={width}
                   height={height}
@@ -49,7 +49,7 @@ export default function SponsorBlock({
             ) : (
               <Image
                 src={image?.sponsor_image_image!}
-                alt={image?.sponsor_image_name ?? ''}
+                alt={image?.sponsor_image_name || ''}
                 loading='lazy'
                 width={width}
                 height={height}

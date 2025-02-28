@@ -5,7 +5,7 @@ export const VideoTemplate: Template = {
   label: 'Video',
   ui: {
     itemProps(item) {
-      return { label: 'Video ' + item?.video_name ?? '' };
+      return { label: 'Video ' + item?.video_name || '' };
     }
   },
   fields: [

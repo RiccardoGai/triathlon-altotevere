@@ -5,7 +5,7 @@ export const ImageGalleryTemplate: Template = {
   label: 'Image Gallery',
   ui: {
     itemProps(item) {
-      return { label: 'Image Gallery ' + item?.image_gallery_title ?? '' };
+      return { label: 'Image Gallery ' + item?.image_gallery_title || '' };
     }
   },
   fields: [

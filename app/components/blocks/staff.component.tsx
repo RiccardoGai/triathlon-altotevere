@@ -1,6 +1,6 @@
 import {
-  PageBlocksGridGrid_ColumnsBlocksStaff,
-  PageBlocksStaff
+    PageBlocksGridGrid_ColumnsBlocksStaff,
+    PageBlocksStaff
 } from '@/tina/__generated__/types';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
@@ -38,8 +38,8 @@ export default function StaffBlock({
             <div className='h-32 md:h-40 w-32 md:w-40 justify-self-center md:justify-self-auto relative'>
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
-                src={staff?.staff_person_image ?? ''}
-                alt={staff?.staff_person_name ?? ''}
+                src={staff?.staff_person_image || ''}
+                alt={staff?.staff_person_name || ''}
                 loading='lazy'
                 className='h-32 md:h-40 w-32 md:w-40 rounded-full aspect-square'
                 fill={true}
