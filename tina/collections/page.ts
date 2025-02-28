@@ -37,7 +37,7 @@ const Page: Collection = {
         };
       };
     }) => {
-      return `${document._sys!.breadcrumbs.join('/')}`;
+      return `${document._sys!.breadcrumbs?.join('/')}`;
     },
     filename: {
       slugify: (values: Record<string, any>) => {

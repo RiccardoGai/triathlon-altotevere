@@ -45,9 +45,7 @@ const Global: Collection = {
       name: 'links',
       list: true,
       ui: {
-        itemProps: (item: Record<string, any>) => {
-          return { label: item?.text };
-        }
+        itemProps: (item: Record<string, any>) => ({ label: item?.text })
       },
       fields: [
         {
@@ -95,9 +93,7 @@ const Global: Collection = {
                 }
               }
             },
-            itemProps: (item: Record<string, any>) => {
-              return { label: item?.text };
-            }
+            itemProps: (item: Record<string, any>) => ({ label: item?.text })
           },
           fields: [
             {

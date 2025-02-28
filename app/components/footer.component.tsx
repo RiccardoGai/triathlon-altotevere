@@ -126,6 +126,7 @@ const Social = ({ social }: { social: GlobalSocial }) => {
         data-tina-field={tinaField(social, 'facebook')}
         className={linkClassNames}
         href={social?.facebook ?? '#'}
+        target='_blank'
       >
         <FontAwesomeIcon
           icon={faFacebook}
@@ -137,6 +138,7 @@ const Social = ({ social }: { social: GlobalSocial }) => {
         data-tina-field={tinaField(social, 'instagram')}
         className={linkClassNames}
         href={social?.instagram ?? '#'}
+        target='_blank'
       >
         <FontAwesomeIcon
           icon={faInstagram}

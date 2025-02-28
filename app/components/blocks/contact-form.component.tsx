@@ -1,4 +1,3 @@
-// import sendEmail from '@/app/actions/send-mail.action';
 import sendEmail from '@/app/actions/send-mail.action';
 import {
   PageBlocksContactForm,

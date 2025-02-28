@@ -50,6 +50,9 @@ export const SponsorTemplate: Template = {
         itemProps: (item) => {
           return { label: 'Sponsor ' + item?.sponsor_image_name };
         }
+        itemProps: (item: Record<string, any>) => ({
+          label: 'Sponsor ' + item?.sponsor_image_name || ''
+        })
       },
       fields: [
         {
