@@ -86,7 +86,7 @@ export default function Header() {
             data-tina-field={tinaField(global, 'links')}
           >
             {global.links?.map((link, index) => (
-              <li key={index} className={link?.links?.length ? 'dropdown' : ''}>
+              <li key={index}>
                 {link?.links?.length ? (
                   <>
                     <div className="group">
