@@ -47,9 +47,6 @@ export const SponsorTemplate: Template = {
       name: 'sponsor_image',
       list: true,
       ui: {
-        itemProps: (item) => {
-          return { label: 'Sponsor ' + item?.sponsor_image_name };
-        }
         itemProps: (item: Record<string, any>) => ({
           label: 'Sponsor ' + item?.sponsor_image_name || ''
         })
