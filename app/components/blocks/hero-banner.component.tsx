@@ -60,7 +60,7 @@ export default function HeroBannerBlock({
               | 'right') ?? 'object-center'
           ]
         } object-cover -z-10 aspect-video`}
-        alt={data.hero_title ?? ''}
+        alt={data.hero_title || ''}
         priority
       />
 

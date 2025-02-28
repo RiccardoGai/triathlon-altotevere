@@ -4,9 +4,9 @@ export const StaffTemplate: Template = {
   name: 'staff',
   label: 'Staff',
   ui: {
-    itemProps(item) {
-      return { label: 'Staff ' + item?.staff_title ?? '' };
-    }
+    itemProps: (item: Record<string, any>) => ({
+      label: 'Staff ' + item?.staff_title || ''
+    })
   },
   fields: [
     {
@@ -34,15 +34,20 @@ export const StaffTemplate: Template = {
       label: 'People',
       name: 'staff_people',
       ui: {
-        itemProps(item) {
-          return { label: item?.staff_person_name ?? '' };
-        }
+        itemProps: (item: Record<string, any>) => ({
+          label: item?.staff_person_name || ''
+        })
       },
       fields: [
         {
           type: 'string',
           label: 'Name',
           name: 'staff_person_name'
+        },
+        {
+          type: 'string',
+          label: 'Role',
+          name: 'staff_person_role'
         },
         {
           type: 'string',
@@ -53,6 +58,21 @@ export const StaffTemplate: Template = {
           type: 'image',
           label: 'Image',
           name: 'staff_person_image'
+        },
+        {
+          type: 'string',
+          label: 'Website',
+          name: 'staff_person_website'
+        },
+        {
+          type: 'string',
+          label: 'Instagram',
+          name: 'staff_person_instagram'
+        },
+        {
+          type: 'string',
+          label: 'Facebook',
+          name: 'staff_person_facebook'
         }
       ]
     }

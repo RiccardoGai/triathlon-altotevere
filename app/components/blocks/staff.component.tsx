@@ -1,8 +1,12 @@
 import {
-  PageBlocksGridGrid_ColumnsBlocksStaff,
-  PageBlocksStaff
+    PageBlocksGridGrid_ColumnsBlocksStaff,
+    PageBlocksStaff
 } from '@/tina/__generated__/types';
+import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import Link from 'next/link';
 import { tinaField } from 'tinacms/dist/react';
 export default function StaffBlock({
   data
@@ -28,14 +32,14 @@ export default function StaffBlock({
         {(data.staff_people ?? []).map((staff, i) => (
           <div
             key={i}
-            className='grid grid-cols-1 md:grid-cols-[min-content_1fr] gap-6 mb-4 items-center'
+            className='grid grid-cols-1 md:grid-cols-[min-content,1fr] gap-6 mb-4 items-center'
             data-tina-field={tinaField(staff)}
           >
             <div className='h-32 md:h-40 w-32 md:w-40 justify-self-center md:justify-self-auto relative'>
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
-                src={staff?.staff_person_image ?? ''}
-                alt={staff?.staff_person_name ?? ''}
+                src={staff?.staff_person_image || ''}
+                alt={staff?.staff_person_name || ''}
                 loading='lazy'
                 className='h-32 md:h-40 w-32 md:w-40 rounded-full aspect-square'
                 fill={true}
@@ -69,7 +73,7 @@ export default function StaffBlock({
                 {staff?.staff_person_website && (
                   <Link
                     data-tina-field={tinaField(staff, 'staff_person_facebook')}
-                    className='focus:outline-hidden focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
+                    className='focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
                     href={staff?.staff_person_website}
                     target='_blank'
                   >
@@ -79,7 +83,7 @@ export default function StaffBlock({
                 {staff?.staff_person_facebook && (
                   <Link
                     data-tina-field={tinaField(staff, 'staff_person_facebook')}
-                    className='focus:outline-hidden focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
+                    className='focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
                     href={staff?.staff_person_facebook}
                     target='_blank'
                   >
@@ -89,7 +93,7 @@ export default function StaffBlock({
                 {staff?.staff_person_instagram && (
                   <Link
                     data-tina-field={tinaField(staff, 'staff_person_instagram')}
-                    className='focus:outline-hidden focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
+                    className='focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4'
                     href={staff?.staff_person_instagram}
                     target='_blank'
                   >

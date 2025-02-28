@@ -120,7 +120,7 @@ function PostItem({ data }: { data: Post }) {
         )}
 
         <Link href={'/news/' + parseSystemInfoToHref(data._sys)}>
-          <Button type='button' variant='secondary' className='mt-4'>
+          <Button type='button' variant='primary' className='mt-4'>
             Leggi
           </Button>
         </Link>

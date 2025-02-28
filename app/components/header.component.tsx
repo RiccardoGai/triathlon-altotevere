@@ -86,12 +86,12 @@ export default function Header() {
             data-tina-field={tinaField(global, 'links')}
           >
             {global.links?.map((link, index) => (
-              <li key={index} className={link?.links?.length ? 'dropdown' : ''}>
+              <li key={index}>
                 {link?.links?.length ? (
                   <>
                     <div className="group">
                       <button
-                        className="text-black hover:text-primary cursor-pointer px-4 py-3 flex items-center text-lg"
+                        className="text-black hover:text-primary cursor-pointer px-4 py-3 flex items-center text-lg w-full md:w-auto"
                         data-tina-field={tinaField(link!)}
                       >
                         {link.text}
@@ -101,13 +101,14 @@ export default function Header() {
                           style={{ fontSize: 20 }}
                         />
                       </button>
-                      <ul className="md:backdrop-blur-md rounded-sm md:absolute pl-4 md:pl-0 hidden md:group-hover:block font-medium md:bg-page/90 md:min-w-[200px] drop-shadow-xl bg-page border border-gray-200">
+
+                      <ul className="md:backdrop-blur-md rounded-sm md:absolute pl-4 md:pl-0 block md:hidden md:group-hover:block font-medium md:bg-page/90 md:min-w-[200px] md:drop-shadow-xl bg-page md:border md:border-gray-200">
                         {link?.links?.map((subLink, subIndex) => (
-                          <li key={index + '_' + subIndex}>
+                          <li key={`${index}_${subIndex}`}>
                             <Link
                               data-tina-field={tinaField(subLink!)}
                               onClick={onNavClick}
-                              className={`first:rounded-t last:rounded-b hover:text-primary py-2 px-5 block whitespace-no-wrap text-lg ${
+                              className={`first:rounded-t last:rounded-b hover:text-primary py-2 px-5 block whitespace-nowrap text-lg ${
                                 parseSystemInfoToHref(subLink?.href?._sys) === currentPath
                                   ? 'text-primary'
                                   : ''
@@ -120,8 +121,8 @@ export default function Header() {
                         ))}
                       </ul>
                     </div>
-
                   </>
+
                 ) : (
                   <Link
                     data-tina-field={tinaField(link!)}
@@ -159,22 +160,23 @@ function ToggleMenu({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen:
       <span className='sr-only'>Toggle Menu</span>
       <span
         aria-hidden='true'
-        className={`h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 ${
-          menuOpen ? '-rotate-45 translate-y-[15px] translate-x-[-3px]' : ''
+        className={`h-0.5 w-6 my-1 rounded-full bg-black transition-transform duration-300 ease-in-out ${
+          menuOpen ? 'rotate-45 translate-y-2.5' : ''
         }`}
       ></span>
       <span
         aria-hidden='true'
-        className={`h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 ${
-          menuOpen ? 'opacity-0' : ''
+        className={`h-0.5 w-6 my-1 rounded-full bg-black transition-opacity duration-200 ${
+          menuOpen ? 'opacity-0' : 'opacity-100'
         }`}
       ></span>
       <span
         aria-hidden='true'
-        className={`h-0.5 w-6 my-1 rounded-full bg-black transition ease transform duration-200 ${
-          menuOpen ? 'rotate-45 translate-y-[-8px] translate-x-[14px]' : ''
+        className={`h-0.5 w-6 my-1 rounded-full bg-black transition-transform duration-300 ease-in-out ${
+          menuOpen ? '-rotate-45 -translate-y-2.5' : ''
         }`}
       ></span>
     </button>
   );
 }
+
