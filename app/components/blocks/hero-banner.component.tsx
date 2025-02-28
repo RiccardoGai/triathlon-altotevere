@@ -50,6 +50,7 @@ export default function HeroBannerBlock({
         fill={true}
         fetchPriority='high'
         loading='eager'
+        sizes='100vw'
         className={`${
           imagePositionClass[
             (data?.hero_image_position as

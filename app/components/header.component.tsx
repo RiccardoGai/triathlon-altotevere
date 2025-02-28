@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <header
-      className='sticky top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-opacity ease-in-out bg-page shadow-lg'
+      className='sticky top-0 z-40 flex-none mx-auto w-full transition-opacity ease-in-out bg-page shadow-lg'
     >
       <div className='relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between'>
         <div className='flex justify-between'>
