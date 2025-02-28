@@ -8,8 +8,8 @@ export const PostListTemplate: Template = {
       name: 'empty',
       type: 'string',
       ui: {
-        component: null
-      }
-    }
-  ]
+        component: null,
+      },
+    },
+  ],
 };

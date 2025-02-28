@@ -3,12 +3,10 @@ import { GlobalQuery, GlobalQueryVariables } from '@/tina/__generated__/types';
 import { createContext, useContext } from 'react';
 import { ITinaResponse } from '../models/tina-response.interface';
 
-const GlobalTinaContext = createContext<
-  ITinaResponse<GlobalQuery, GlobalQueryVariables>
->({
+const GlobalTinaContext = createContext<ITinaResponse<GlobalQuery, GlobalQueryVariables>>({
   data: { global: {} } as GlobalQuery,
   variables: { relativePath: '' },
-  query: ''
+  query: '',
 });
 
 export function useGlobalTinaContext() {
@@ -17,14 +15,10 @@ export function useGlobalTinaContext() {
 
 export default function GlobalTinaProvider({
   children,
-  globalResponse
+  globalResponse,
 }: {
   children: React.ReactNode;
   globalResponse: ITinaResponse<GlobalQuery, GlobalQueryVariables>;
 }) {
-  return (
-    <GlobalTinaContext.Provider value={globalResponse}>
-      {children}
-    </GlobalTinaContext.Provider>
-  );
+  return <GlobalTinaContext.Provider value={globalResponse}>{children}</GlobalTinaContext.Provider>;
 }

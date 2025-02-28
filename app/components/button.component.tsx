@@ -19,7 +19,7 @@ export default function Button({
     primary: 'btn-primary',
     secondary: 'btn-secondary',
     tertiary: 'btn-tertiary',
-    link: 'cursor-pointer hover:text-primary'
+    link: 'cursor-pointer hover:text-primary',
   };
 
   const inExternalLink = type === 'link' && href?.startsWith('http');

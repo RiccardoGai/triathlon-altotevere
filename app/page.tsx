@@ -6,7 +6,7 @@ import { CONFIG } from './config/config';
 
 export async function generateMetadata(): Promise<Metadata> {
   const globalResponse = await client.queries.global({
-    relativePath: 'global.mdx'
+    relativePath: 'global.mdx',
   });
   const homePage = globalResponse.data.global.home_page;
   const seo = homePage?.seo;
@@ -18,25 +18,25 @@ export async function generateMetadata(): Promise<Metadata> {
       type: 'website',
       title: seo?.title as string,
       description: seo?.description as string,
-      url: path.join(CONFIG.SITE_URL)
+      url: path.join(CONFIG.SITE_URL),
     },
     twitter: {
       title: seo?.title as string,
       description: seo?.description as string,
-      card: 'summary_large_image'
-    }
+      card: 'summary_large_image',
+    },
   };
 }
 
 export default async function Page() {
   // const globalResponse = useGlobalTinaContext();
   const globalResponse = await client.queries.global({
-    relativePath: 'global.mdx'
+    relativePath: 'global.mdx',
   });
   return (
     <SlugPage
       params={{
-        slug: globalResponse.data.global.home_page?._sys.breadcrumbs ?? []
+        slug: globalResponse.data.global.home_page?._sys.breadcrumbs ?? [],
       }}
     ></SlugPage>
   );

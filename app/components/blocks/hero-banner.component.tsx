@@ -6,70 +6,51 @@ import { parseSystemInfoToHref } from '../../utils/utils';
 import Button from '../button.component';
 import Section from '../section.component';
 
-export default function HeroBannerBlock({
-  data
-}: {
-  data: PageBlocksHeroBanner;
-}) {
+export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }) {
   const heightClass = {
     '50%': `h-[50vh]`,
     '60%': `h-[60vh]`,
     '70%': `h-[70vh]`,
     '80%': `h-[80vh]`,
     '90%': `h-[90vh]`,
-    '100%': `h-screen`
+    '100%': `h-screen`,
   };
   const imagePositionClass = {
     center: `object-center`,
     top: `object-top`,
     bottom: `object-bottom`,
     left: `object-left`,
-    right: `object-right`
+    right: `object-right`,
   };
 
   return (
     <Section
       data-tina-field={tinaField(data, 'hero_image')}
       className={`${
-        heightClass[
-          (data?.hero_height as
-            | '50%'
-            | '60%'
-            | '70%'
-            | '80%'
-            | '90%'
-            | '100%') ?? '100%'
-        ]
+        heightClass[(data?.hero_height as '50%' | '60%' | '70%' | '80%' | '90%' | '100%') ?? '100%']
       } relative`}
-      style={{
-        background: 'linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55))'
-      }}
+      style={{ background: 'linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55))' }}
     >
       <Image
         src={data.hero_image}
         fill={true}
-        fetchPriority='high'
-        loading='eager'
-        sizes='100vw'
+        fetchPriority="high"
+        loading="eager"
+        sizes="100vw"
         className={`${
           imagePositionClass[
-            (data?.hero_image_position as
-              | 'center'
-              | 'top'
-              | 'bottom'
-              | 'left'
-              | 'right') ?? 'object-center'
+            (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'object-center'
           ]
         } object-cover -z-10 aspect-video`}
         alt={data.hero_title || ''}
         priority
       />
 
-      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-14 md:pt-0 h-full'>
-        <div className='text-center max-w-5xl mx-auto'>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-14 md:pt-0 h-full">
+        <div className="text-center max-w-5xl mx-auto">
           {data.hero_tagline && (
             <div
-              className='text-xl md:text-2xl text-white font-bold tracking-wide uppercase mb-8'
+              className="text-xl md:text-2xl text-white font-bold tracking-wide uppercase mb-8"
               data-tina-field={tinaField(data, 'hero_tagline')}
             >
               {data.hero_tagline}
@@ -77,35 +58,33 @@ export default function HeroBannerBlock({
           )}
           {data.hero_title && (
             <div
-              className='text-5xl md:text-6xl text-white font-bold mb-8 leading-tight!'
+              className="text-5xl md:text-6xl text-white font-bold mb-8 leading-tight!"
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}
             </div>
           )}
-          <div className='max-w-3xl mx-auto'>
+          <div className="max-w-3xl mx-auto">
             {data.hero_subtitle && (
-              <div
-                className='text-xl text-white mb-8'
-                data-tina-field={tinaField(data, 'hero_subtitle')}
-              >
+              <div className="text-xl text-white mb-8" data-tina-field={tinaField(data, 'hero_subtitle')}>
                 <TinaMarkdown content={data.hero_subtitle} />
               </div>
             )}
             {data.hero_actions && (
               <div
-                className='max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4'
+                className="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4"
                 data-tina-field={tinaField(data, 'hero_actions')}
               >
                 {data.hero_actions.map((action, index) => (
-                  <div key={index} className='flex w-full sm:w-auto'>
+                  <div key={index} className="flex w-full sm:w-auto">
                     <Button
-                      type='link'
-                      href={action?.hero_action_external_href ?? parseSystemInfoToHref(
-                         action?.hero_action_href?._sys
-                      )}
+                      type="link"
+                      href={
+                        action?.hero_action_external_href ??
+                        parseSystemInfoToHref(action?.hero_action_href?._sys)
+                      }
                       variant={action?.hero_action_variant as any}
-                      className='w-full sm:mb-0 text-lg'
+                      className="w-full sm:mb-0 text-lg"
                     >
                       <span>{action?.hero_action_text!}</span>
                     </Button>

@@ -1,7 +1,4 @@
-import {
-  PageBlocksGrid,
-  PageBlocksGridGrid_ColumnsBlocks
-} from '@/tina/__generated__/types';
+import { PageBlocksGrid, PageBlocksGridGrid_ColumnsBlocks } from '@/tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import ContactFormBlock from './contact-form.component';
 import ContactInfoBlock from './contact-info.component';
@@ -18,7 +15,7 @@ export default function GridBlock({ data }: { data: PageBlocksGrid }) {
     '25%': `col-span-1`,
     '50%': `col-span-2`,
     '75%': `col-span-3`,
-    '100%': `col-span-4`
+    '100%': `col-span-4`,
   };
   return (
     <div
@@ -30,9 +27,7 @@ export default function GridBlock({ data }: { data: PageBlocksGrid }) {
           data-tina-field={tinaField(column!)}
           key={i}
           className={`${
-            widthClass[
-              column?.grid_column_size as '25%' | '50%' | '75%' | '100%'
-            ]
+            widthClass[column?.grid_column_size as '25%' | '50%' | '75%' | '100%']
           } w-full relative min-h-40`}
         >
           {column?.blocks &&

@@ -6,18 +6,18 @@ export const ContactFormTemplate: Template = {
   ui: {
     itemProps(item) {
       return { label: 'Contact Form ' + item?.contact_form_title || '' };
-    }
+    },
   },
   fields: [
     {
       type: 'string',
       label: 'Title',
-      name: 'contact_form_title'
+      name: 'contact_form_title',
     },
     {
       type: 'string',
       label: 'SubTitle',
-      name: 'contact_form_subtitle'
-    }
-  ]
+      name: 'contact_form_subtitle',
+    },
+  ],
 };

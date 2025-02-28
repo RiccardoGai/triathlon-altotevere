@@ -7,11 +7,7 @@ import { tinaField } from 'tinacms/dist/react';
 import { formatDate, nameof, parseSystemInfoToHref } from '../../utils/utils';
 import Button from '../button.component';
 
-export default function PostHighlightBlock({
-  data
-}: {
-  data: PageBlocksPostHighlight;
-}) {
+export default function PostHighlightBlock({ data }: { data: PageBlocksPostHighlight }) {
   const [items, setItems] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -19,24 +15,20 @@ export default function PostHighlightBlock({
   useEffect(() => {
     const fetchItems = async () => {
       const numberOfPosts = data.post_highlight_number_of_posts ?? 0;
-      const postToFetch =
-        numberOfPosts - (data.post_highlight_pinned_post?.length ?? 0);
+      const postToFetch = numberOfPosts - (data.post_highlight_pinned_post?.length ?? 0);
 
       const pinnedPost =
-        (data.post_highlight_pinned_post?.map(
-          (x) => x?.post_highlight_pinned_post_post
-        ) as Post[]) ?? [];
+        (data.post_highlight_pinned_post?.map((x) => x?.post_highlight_pinned_post_post) as Post[]) ?? [];
 
       if (postToFetch > 0) {
         setLoading(true);
         try {
           const data = await client.queries.postConnection({
             last: postToFetch,
-            sort: nameof<Post>('date')
+            sort: nameof<Post>('date'),
           });
 
-          const items =
-            data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
+          const items = data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
 
           setItems([...pinnedPost, ...(items as Post[])]);
         } catch (err: any) {
@@ -62,33 +54,31 @@ export default function PostHighlightBlock({
 
 function PostItem({ data }: { data: Post }) {
   return (
-    <article className='mb-6 transition text-center'>
-      <div className='relative h-48 md:h-64 rounded-sm shadow-md mb-6'>
+    <article className="mb-6 transition text-center">
+      <div className="relative h-48 md:h-64 rounded-sm shadow-md mb-6">
         {data.image && (
           <Image
             data-tina-field={tinaField(data, 'image')}
             src={data.image}
             fill
-            loading='lazy'
-            className='object-cover'
+            loading="lazy"
+            className="object-cover"
             alt={data.title || ''}
           />
         )}
       </div>
-      <div className='mb-1'>
+      <div className="mb-1">
         <span
-          className='text-xs text-gray-400 tracking-wider uppercase font-semibold'
+          className="text-xs text-gray-400 tracking-wider uppercase font-semibold"
           data-tina-field={tinaField(data, 'date')}
         >
           {data.date && formatDate(data.date, 'D MMMM, YYYY')}
         </span>
       </div>
-      <h3 className='mb-2 text-xl font-bold leading-tight sm:text-2xl '>
-        {data.title}
-      </h3>
-      <p className='text-gray-500 line-clamp-3'>{data.excerpt}</p>
+      <h3 className="mb-2 text-xl font-bold leading-tight sm:text-2xl ">{data.title}</h3>
+      <p className="text-gray-500 line-clamp-3">{data.excerpt}</p>
       <Link href={'/news/' + parseSystemInfoToHref(data._sys)}>
-        <Button type='button' variant='primary' className='mt-5'>
+        <Button type="button" variant="primary" className="mt-5">
           Scopri di più
         </Button>
       </Link>

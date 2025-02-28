@@ -6,21 +6,16 @@ import { notFound } from 'next/navigation';
 import path from 'path';
 
 export const generateStaticParams = async () => {
-  const posts =
-    (await client.queries.postConnection()).data.postConnection.edges ?? [];
+  const posts = (await client.queries.postConnection()).data.postConnection.edges ?? [];
   return posts.map((post) => ({
-    slug: post?.node?._sys.breadcrumbs
+    slug: post?.node?._sys.breadcrumbs,
   }));
 };
 
-export async function generateMetadata({
-  params
-}: {
-  params: { slug: string[] };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
   try {
     const postData = await client.queries.post({
-      relativePath: `${path.join(...params.slug)}.mdx`
+      relativePath: `${path.join(...params.slug)}.mdx`,
     });
     const post = postData.data.post;
     const seo = post.seo;
@@ -33,14 +28,14 @@ export async function generateMetadata({
         title: seo?.title ?? (post.title as string),
         description: seo?.description ?? (post.excerpt as string),
         url: path.join(CONFIG.SITE_URL, ...params.slug),
-        images: post.image ?? undefined
+        images: post.image ?? undefined,
       },
       twitter: {
         title: seo?.title ?? (post?.title as string),
         description: seo?.description ?? (post.excerpt as string),
         card: 'summary_large_image',
-        images: post.image ?? undefined
-      }
+        images: post.image ?? undefined,
+      },
     };
   } catch (error) {
     console.error(error);
@@ -51,7 +46,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string[] } }) {
   try {
     const postData = await client.queries.post({
-      relativePath: `${path.join(...params.slug)}.mdx`
+      relativePath: `${path.join(...params.slug)}.mdx`,
     });
 
     return <PagePost props={postData} />;

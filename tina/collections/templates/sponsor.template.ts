@@ -6,13 +6,13 @@ export const SponsorTemplate: Template = {
   ui: {
     itemProps(item) {
       return { label: 'Sponsor ' + item?.sponsor_title };
-    }
+    },
   },
   fields: [
     {
       type: 'string',
       label: 'Title',
-      name: 'sponsor_title'
+      name: 'sponsor_title',
     },
     {
       type: 'number',
@@ -24,8 +24,8 @@ export const SponsorTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
+        },
+      },
     },
     {
       type: 'number',
@@ -37,8 +37,8 @@ export const SponsorTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
+        },
+      },
     },
 
     {
@@ -48,26 +48,26 @@ export const SponsorTemplate: Template = {
       list: true,
       ui: {
         itemProps: (item: Record<string, any>) => ({
-          label: 'Sponsor ' + item?.sponsor_image_name || ''
-        })
+          label: 'Sponsor ' + item?.sponsor_image_name || '',
+        }),
       },
       fields: [
         {
           type: 'string',
           label: 'Name',
-          name: 'sponsor_image_name'
+          name: 'sponsor_image_name',
         },
         {
           type: 'image',
           label: 'Image',
-          name: 'sponsor_image_image'
+          name: 'sponsor_image_image',
         },
         {
           type: 'string',
           label: 'Href',
-          name: 'sponsor_image_href'
-        }
-      ]
-    }
-  ]
+          name: 'sponsor_image_href',
+        },
+      ],
+    },
+  ],
 };

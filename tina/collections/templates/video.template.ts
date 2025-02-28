@@ -6,20 +6,20 @@ export const VideoTemplate: Template = {
   ui: {
     itemProps(item) {
       return { label: 'Video ' + item?.video_name || '' };
-    }
+    },
   },
   fields: [
     {
       type: 'string',
       label: 'Name',
       name: 'video_name',
-      required: true
+      required: true,
     },
     {
       type: 'image',
       label: 'Video',
       name: 'video_ref',
-      required: true
+      required: true,
     },
     {
       type: 'number',
@@ -31,8 +31,8 @@ export const VideoTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
+        },
+      },
     },
     {
       type: 'number',
@@ -44,28 +44,28 @@ export const VideoTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
+        },
+      },
     },
     {
       type: 'boolean',
       label: 'Autoplay',
-      name: 'autoplay'
+      name: 'autoplay',
     },
     {
       type: 'boolean',
       label: 'Loop',
-      name: 'loop'
+      name: 'loop',
     },
     {
       type: 'boolean',
       label: 'Muted',
-      name: 'muted'
+      name: 'muted',
     },
     {
       type: 'boolean',
       label: 'Controls',
-      name: 'controls'
-    }
-  ]
+      name: 'controls',
+    },
+  ],
 };

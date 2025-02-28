@@ -1,24 +1,13 @@
 import { Template } from 'tinacms';
+import { RichTextComponents } from './rich-text.template';
 
 export const HeroBannerTemplate: Template = {
   name: 'heroBanner',
   label: 'Hero Banner',
   fields: [
-    {
-      label: 'Tagline',
-      name: 'hero_tagline',
-      type: 'string'
-    },
-    {
-      label: 'Title',
-      name: 'hero_title',
-      type: 'string'
-    },
-    {
-      label: 'SubTitle',
-      name: 'hero_subtitle',
-      type: 'rich-text'
-    },
+    { label: 'Tagline', name: 'hero_tagline', type: 'string' },
+    { label: 'Title', name: 'hero_title', type: 'string' },
+    { label: 'SubTitle', name: 'hero_subtitle', type: 'rich-text', templates: RichTextComponents },
     {
       label: 'Height',
       name: 'hero_height',
@@ -29,8 +18,8 @@ export const HeroBannerTemplate: Template = {
         { label: '70%', value: '70%' },
         { label: '80%', value: '80%' },
         { label: '90%', value: '90%' },
-        { label: '100%', value: '100%' }
-      ]
+        { label: '100%', value: '100%' },
+      ],
     },
     {
       label: 'Actions',
@@ -38,20 +27,11 @@ export const HeroBannerTemplate: Template = {
       type: 'object',
       list: true,
       ui: {
-        defaultItem: {
-          label: 'Action Label',
-          type: 'button',
-          href: '/'
-        },
-        itemProps: (item) => ({ label: item.hero_action_text })
+        defaultItem: { label: 'Action Label', type: 'button', href: '/' },
+        itemProps: (item) => ({ label: item.hero_action_text }),
       },
       fields: [
-        {
-          label: 'Text',
-          name: 'hero_action_text',
-          type: 'string',
-          required: true
-        },
+        { label: 'Text', name: 'hero_action_text', type: 'string', required: true },
         {
           label: 'Variant',
           name: 'hero_action_variant',
@@ -61,27 +41,13 @@ export const HeroBannerTemplate: Template = {
             { label: 'Secondary', value: 'secondary' },
             { label: 'Tertiary', value: 'tertiary' },
           ],
-          required: true
+          required: true,
         },
-        {
-          label: 'Href',
-          name: 'hero_action_href',
-          type: 'reference',
-          collections: ['page']
-        },
-        {
-          label: 'External Href',
-          name: 'hero_action_external_href',
-          type: 'string',
-        }
-      ]
+        { label: 'Href', name: 'hero_action_href', type: 'reference', collections: ['page'] },
+        { label: 'External Href', name: 'hero_action_external_href', type: 'string' },
+      ],
     },
-    {
-      type: 'image',
-      label: 'Image',
-      name: 'hero_image',
-      required: true
-    },
+    { type: 'image', label: 'Image', name: 'hero_image', required: true },
     {
       type: 'string',
       name: 'hero_image_position',
@@ -92,8 +58,8 @@ export const HeroBannerTemplate: Template = {
         { label: 'Center', value: 'center' },
         { label: 'Bottom', value: 'bottom' },
         { label: 'Left', value: 'left' },
-        { label: 'Right', value: 'right' }
-      ]
-    }
-  ]
+        { label: 'Right', value: 'right' },
+      ],
+    },
+  ],
 };

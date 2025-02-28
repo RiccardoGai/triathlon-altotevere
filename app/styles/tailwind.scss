@@ -2,16 +2,14 @@
 
 @plugin '@tailwindcss/typography';
 
-
 :root {
-  --color-primary: rgb(0, 77, 191); 
+  --color-primary: rgb(0, 77, 191);
   --color-secondary: rgb(39, 174, 96);
-  --color-accent: rgb(220, 38, 38); 
+  --color-accent: rgb(220, 38, 38);
   --color-text-default: #222222;
-  --color-text-footer: #bbbbbb; 
-  --color-bg-page: #f8f9fa; 
+  --color-text-footer: #bbbbbb;
+  --color-bg-page: #f8f9fa;
   --color-bg-footer: #0a0a0a;
-
 }
 
 @theme {
@@ -90,12 +88,19 @@
   blockquote {
     @apply text-lg italic pl-4 border-l-4 border-gray-300 my-4;
   }
-}
 
+  a:not(.btn-primary):not(.btn-secondary):not(.btn-tertiary) {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  hr {
+    @apply border-t border-gray-300 my-6;
+  }
+}
 
 @utility btn {
   @apply inline-flex items-center justify-center rounded-full font-semibold text-center text-base leading-snug 
-  transition-all duration-300 ease-out transform-gpu active:scale-95 
+  transition-all duration-300 ease-out transform-gpu active:scale-95  cursor-pointer
   focus:outline-none focus:ring-2 focus:ring-offset-2 py-3.5 px-6 md:px-8;
 }
 

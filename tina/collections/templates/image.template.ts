@@ -6,20 +6,20 @@ export const ImageTemplate: Template = {
   ui: {
     itemProps(item) {
       return { label: 'Image ' + item?.image_name || '' };
-    }
+    },
   },
   fields: [
     {
       type: 'string',
       label: 'Name',
       name: 'image_name',
-      required: true
+      required: true,
     },
     {
       type: 'image',
       label: 'Image',
       name: 'image_ref',
-      required: true
+      required: true,
     },
     {
       type: 'number',
@@ -31,8 +31,8 @@ export const ImageTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
+        },
+      },
     },
     {
       type: 'number',
@@ -44,8 +44,8 @@ export const ImageTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
-    }
-  ]
+        },
+      },
+    },
+  ],
 };

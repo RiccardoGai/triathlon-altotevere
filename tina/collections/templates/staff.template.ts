@@ -5,14 +5,14 @@ export const StaffTemplate: Template = {
   label: 'Staff',
   ui: {
     itemProps: (item: Record<string, any>) => ({
-      label: 'Staff ' + item?.staff_title || ''
-    })
+      label: 'Staff ' + item?.staff_title || '',
+    }),
   },
   fields: [
     {
       type: 'string',
       label: 'Title',
-      name: 'staff_title'
+      name: 'staff_title',
     },
     {
       type: 'number',
@@ -25,8 +25,8 @@ export const StaffTemplate: Template = {
             return undefined as any;
           }
           return parseFloat(val as any);
-        }
-      }
+        },
+      },
     },
     {
       type: 'object',
@@ -35,46 +35,46 @@ export const StaffTemplate: Template = {
       name: 'staff_people',
       ui: {
         itemProps: (item: Record<string, any>) => ({
-          label: item?.staff_person_name || ''
-        })
+          label: item?.staff_person_name || '',
+        }),
       },
       fields: [
         {
           type: 'string',
           label: 'Name',
-          name: 'staff_person_name'
+          name: 'staff_person_name',
         },
         {
           type: 'string',
           label: 'Role',
-          name: 'staff_person_role'
+          name: 'staff_person_role',
         },
         {
           type: 'string',
           label: 'Description',
-          name: 'staff_person_description'
+          name: 'staff_person_description',
         },
         {
           type: 'image',
           label: 'Image',
-          name: 'staff_person_image'
+          name: 'staff_person_image',
         },
         {
           type: 'string',
           label: 'Website',
-          name: 'staff_person_website'
+          name: 'staff_person_website',
         },
         {
           type: 'string',
           label: 'Instagram',
-          name: 'staff_person_instagram'
+          name: 'staff_person_instagram',
         },
         {
           type: 'string',
           label: 'Facebook',
-          name: 'staff_person_facebook'
-        }
-      ]
-    }
-  ]
+          name: 'staff_person_facebook',
+        },
+      ],
+    },
+  ],
 };

@@ -11,12 +11,12 @@ const Global: Collection = {
     global: true,
     allowedActions: {
       create: false,
-      delete: false
+      delete: false,
     },
     beforeSubmit: async ({
       form,
       cms,
-      values
+      values,
     }: {
       form: Form;
       cms: TinaCMS;
@@ -24,20 +24,20 @@ const Global: Collection = {
     }) => {
       const auditValues = await auditBeforeSubmit({ form, cms, values });
       return auditValues;
-    }
+    },
   },
   fields: [
     ...auditFields,
     {
       type: 'image',
       label: 'Logo',
-      name: 'logo'
+      name: 'logo',
     },
     {
       type: 'reference',
       label: 'Home Page',
       name: 'home_page',
-      collections: ['page']
+      collections: ['page'],
     },
     {
       type: 'object',
@@ -45,13 +45,13 @@ const Global: Collection = {
       name: 'links',
       list: true,
       ui: {
-        itemProps: (item: Record<string, any>) => ({ label: item?.text })
+        itemProps: (item: Record<string, any>) => ({ label: item?.text }),
       },
       fields: [
         {
           type: 'string',
           label: 'Text',
-          name: 'text'
+          name: 'text',
         },
         {
           type: 'reference',
@@ -63,16 +63,13 @@ const Global: Collection = {
               const property = ((meta as any).name as string)?.split('.');
               if (property && allValues) {
                 property.pop();
-                const object = getPropertyFromObject(
-                  allValues,
-                  property?.join('.')
-                ) as GlobalLinks;
+                const object = getPropertyFromObject(allValues, property?.join('.')) as GlobalLinks;
                 if (value && (object?.links?.length ?? 0) > 0) {
                   return 'When you have a sub menu, you cannot have a link';
                 }
               }
-            }
-          }
+            },
+          },
         },
         {
           type: 'object',
@@ -84,43 +81,40 @@ const Global: Collection = {
               const property = ((meta as any).name as string)?.split('.');
               if (property && allValues) {
                 property.pop();
-                const object = getPropertyFromObject(
-                  allValues,
-                  property?.join('.')
-                ) as GlobalLinks;
+                const object = getPropertyFromObject(allValues, property?.join('.')) as GlobalLinks;
                 if (value && value.length > 0 && object.href) {
                   return 'When you have a link, you cannot have a sub menu';
                 }
               }
             },
-            itemProps: (item: Record<string, any>) => ({ label: item?.text })
+            itemProps: (item: Record<string, any>) => ({ label: item?.text }),
           },
           fields: [
             {
               type: 'string',
               label: 'Text',
               name: 'text',
-              required: true
+              required: true,
             },
             {
               type: 'reference',
               collections: ['page'],
               label: 'Href',
-              name: 'href'
-            }
-          ]
-        }
-      ]
+              name: 'href',
+            },
+          ],
+        },
+      ],
     },
     {
       type: 'string',
       label: 'Privacy Policy',
-      name: 'privacy_policy'
+      name: 'privacy_policy',
     },
     {
       type: 'string',
       label: 'Cookie Policy',
-      name: 'cookie_policy'
+      name: 'cookie_policy',
     },
     {
       type: 'object',
@@ -130,14 +124,14 @@ const Global: Collection = {
         {
           type: 'string',
           label: 'Facebook',
-          name: 'facebook'
+          name: 'facebook',
         },
         {
           type: 'string',
           label: 'Instagram',
-          name: 'instagram'
-        }
-      ]
+          name: 'instagram',
+        },
+      ],
     },
     {
       type: 'object',
@@ -147,21 +141,21 @@ const Global: Collection = {
         {
           type: 'string',
           label: 'Address',
-          name: 'address'
+          name: 'address',
         },
         {
           type: 'string',
           label: 'Phone',
-          name: 'phone'
+          name: 'phone',
         },
         {
           type: 'string',
           label: 'Email',
-          name: 'email'
-        }
-      ]
-    }
-  ]
+          name: 'email',
+        },
+      ],
+    },
+  ],
 };
 
 function getPropertyFromObject(object: any, key: string) {

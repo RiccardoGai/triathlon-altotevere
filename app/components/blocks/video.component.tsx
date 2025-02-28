@@ -1,10 +1,7 @@
-import {
-  PageBlocksGridGrid_ColumnsBlocksVideo,
-  PageBlocksVideo
-} from '@/tina/__generated__/types';
+import { PageBlocksGridGrid_ColumnsBlocksVideo, PageBlocksVideo } from '@/tina/__generated__/types';
 
 export default function VideoBlock({
-  data
+  data,
 }: {
   data: PageBlocksVideo | PageBlocksGridGrid_ColumnsBlocksVideo;
 }) {
@@ -16,7 +13,7 @@ export default function VideoBlock({
       autoPlay={data.autoplay ?? false}
       loop={data.loop ?? false}
       muted={data.muted ?? false}
-      preload='none'
+      preload="none"
     >
       <source src={data.video_ref} />
       Your browser does not support the video tag.

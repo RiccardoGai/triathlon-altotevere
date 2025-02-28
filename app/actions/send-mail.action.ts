@@ -24,6 +24,6 @@ export default async function sendEmail(formData: FormData) {
     from: 'richiestatriathlonaltotevere@resend.dev',
     to: (process.env.RESEND_MAIL_TO as string)?.split(';'),
     subject: 'Richiesta Contatto Triathlon Altotevere',
-    html: `Nome: ${name}<br><br>Email: ${email}<br><br>Messaggio: ${message}`
+    html: `Nome: ${name}<br><br>Email: ${email}<br><br>Messaggio: ${message}`,
   });
 }
