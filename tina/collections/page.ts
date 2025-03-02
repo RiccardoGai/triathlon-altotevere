@@ -1,6 +1,4 @@
 import type { Collection, Form, TinaCMS } from 'tinacms';
-import { auditBeforeSubmit, auditFields } from './audit.utility';
-import { seoFields } from './seo.utility';
 import { ContactFormTemplate } from './templates/contact-form.template';
 import { ContactInfoTemplate } from './templates/contact-info.template';
 import { GridTemplate } from './templates/grid.template';
@@ -14,6 +12,8 @@ import { RichTextTemplate } from './templates/rich-text.template';
 import { SponsorTemplate } from './templates/sponsor.template';
 import { StaffTemplate } from './templates/staff.template';
 import { VideoTemplate } from './templates/video.template';
+import { auditBeforeSubmit, auditFields } from './utils/audit.utils';
+import { seoFields } from './utils/seo.utils';
 
 const Page: Collection = {
   label: 'Pages',

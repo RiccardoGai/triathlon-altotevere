@@ -14,16 +14,9 @@ export default function ImageGalleryBlock({
   data: PageBlocksImageGallery | PageBlocksGridGrid_ColumnsBlocksImageGallery;
 }) {
   const [indexLightBox, setIndexLightBox] = useState(-1);
-  const [indexGridRowClass, setIndexGridRowClass] = useState(0);
   const gridRef = createRef<HTMLDivElement>();
   const [showMore, setShowMore] = useState(false);
-  const gridRowClass = [
-    '[grid-template-rows:repeat(3,minmax(auto,auto))]',
-    '[grid-template-rows:repeat(6,minmax(auto,auto))]',
-    '[grid-template-rows:repeat(9,minmax(auto,auto))]',
-    '[grid-template-rows:repeat(12,minmax(auto,auto))]',
-    '[grid-template-rows:repeat(15,minmax(auto,auto))]',
-  ];
+  const [visibleRows, setVisibleRows] = useState(2); // Mostra 2 righe inizialmente
 
   useEffect(() => {
     if (gridRef.current && gridRef.current.clientHeight < gridRef.current.scrollHeight) {
@@ -31,56 +24,61 @@ export default function ImageGalleryBlock({
     } else {
       setShowMore(false);
     }
-  }, [gridRef]);
+  }, [gridRef, visibleRows]);
 
   return (
-    <div data-tina-field={tinaField(data)}>
-      <div className={'mb-8 md:mx-auto md:mb-12 text-center'}>
+    <div data-tina-field={tinaField(data)} className="py-12">
+      {/* Titolo e Sottotitolo */}
+      <div className="mb-8 text-center">
         {data.image_gallery_title && (
-          <div className={'font-bold leading-tighter tracking-tighter  text-heading text-3xl'}>
-            {data.image_gallery_title}
-          </div>
+          <h2 className="text-4xl font-bold text-gray-900">{data.image_gallery_title}</h2>
         )}
-
         {data.image_gallery_subtitle && (
-          <div className={'mt-4 text-gray-500'}>{data.image_gallery_subtitle}</div>
+          <p className="mt-2 text-lg text-gray-600">{data.image_gallery_subtitle}</p>
         )}
       </div>
+
       <div
-        className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 ${gridRowClass[indexGridRowClass] ?? 'auto-rows-auto'} auto-rows-[0] overflow-y-hidden`}
         ref={gridRef}
+        className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 md:px-8 transition-all duration-300`}
+        style={{
+          gridAutoRows: 'minmax(auto, 200px)',
+          maxHeight: `${visibleRows * 220}px`,
+          overflow: 'hidden',
+        }}
       >
         {(data.image_gallery_images ?? []).map((image, i) => (
-          <div key={i} className="relative h-32 w-full md:h-64">
+          <div key={i} className="relative h-40 md:h-56 lg:h-64 w-full">
             <Image
               src={image!}
               alt=""
               loading="lazy"
               fill={true}
               onClick={() => setIndexLightBox(i)}
-              className="cursor-pointer object-cover rounded-lg border border-gray-200 hover:opacity-90"
-            ></Image>
+              className="cursor-pointer object-cover rounded-lg border border-gray-200 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+            />
           </div>
         ))}
       </div>
+
       {showMore && (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
           <Button
             type="button"
-            variant="secondary"
-            onClick={() => setIndexGridRowClass((current) => current + 1)}
+            variant="primary"
+            onClick={() => setVisibleRows((prev) => prev + 2)}
+            className="px-6 py-2 text-lg"
           >
             Mostra di più
           </Button>
         </div>
       )}
+
       <Lightbox
         open={indexLightBox >= 0}
         index={indexLightBox}
         close={() => setIndexLightBox(-1)}
-        slides={(data.image_gallery_images ?? []).map((image, i) => ({
-          src: image!,
-        }))}
+        slides={(data.image_gallery_images ?? []).map((image) => ({ src: image! }))}
       />
     </div>
   );

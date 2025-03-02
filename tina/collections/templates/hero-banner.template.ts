@@ -1,5 +1,5 @@
 import { Template } from 'tinacms';
-import { RichTextComponents } from './rich-text.template';
+import { RichTextInnerTemplates } from './rich-text.template';
 
 export const HeroBannerTemplate: Template = {
   name: 'heroBanner',
@@ -7,7 +7,7 @@ export const HeroBannerTemplate: Template = {
   fields: [
     { label: 'Tagline', name: 'hero_tagline', type: 'string' },
     { label: 'Title', name: 'hero_title', type: 'string' },
-    { label: 'SubTitle', name: 'hero_subtitle', type: 'rich-text', templates: RichTextComponents },
+    { label: 'SubTitle', name: 'hero_subtitle', type: 'rich-text', templates: RichTextInnerTemplates },
     {
       label: 'Height',
       name: 'hero_height',

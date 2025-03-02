@@ -14,6 +14,7 @@ export default function VideoBlock({
       loop={data.loop ?? false}
       muted={data.muted ?? false}
       preload="none"
+      className="object-cover transition-transform duration-300 rounded-lg shadow-lg"
     >
       <source src={data.video_ref} />
       Your browser does not support the video tag.

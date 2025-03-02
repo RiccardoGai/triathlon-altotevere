@@ -1,5 +1,5 @@
 import { Template } from 'tinacms';
-import { RichTextComponents } from './rich-text.template';
+import { RichTextInnerTemplates } from './rich-text.template';
 
 export const PriceTemplate: Template = {
   name: 'price',
@@ -20,7 +20,12 @@ export const PriceTemplate: Template = {
       ui: { itemProps: (item) => ({ label: item?.price_title }) },
       fields: [
         { type: 'string', label: 'Title', name: 'price_title', required: true },
-        { type: 'rich-text', label: 'Description', name: 'price_description', templates: RichTextComponents },
+        {
+          type: 'rich-text',
+          label: 'Description',
+          name: 'price_description',
+          templates: RichTextInnerTemplates,
+        },
         {
           label: 'Price',
           name: 'price_price',

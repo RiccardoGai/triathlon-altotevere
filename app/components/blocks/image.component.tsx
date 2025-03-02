@@ -14,16 +14,19 @@ export default function ImageBlock({
     width = undefined;
     height = undefined;
   }
+
   return (
-    <Image
-      data-tina-field={tinaField(data)}
-      src={data.image_ref}
-      width={width ?? undefined}
-      height={height ?? undefined}
-      fill={fill}
-      loading="lazy"
-      className="object-cover"
-      alt={data.image_name}
-    />
+    <div className="w-full max-w-screen-lg mx-auto overflow-hidden">
+      <Image
+        data-tina-field={tinaField(data)}
+        src={data.image_ref}
+        width={width ?? undefined}
+        height={height ?? undefined}
+        fill={fill}
+        loading="lazy"
+        className="object-cover transition-transform duration-300 rounded-lg shadow-lg"
+        alt={data.image_name}
+      />
+    </div>
   );
 }

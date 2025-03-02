@@ -1,8 +1,8 @@
 import moment from 'moment';
 import type { Collection, Form, TinaCMS } from 'tinacms';
-import { auditBeforeSubmit, auditFields } from './audit.utility';
-import { seoFields } from './seo.utility';
-import { RichTextComponents } from './templates/rich-text.template';
+import { RichTextInnerTemplates } from './templates/rich-text.template';
+import { auditBeforeSubmit, auditFields } from './utils/audit.utils';
+import { seoFields } from './utils/seo.utils';
 
 const Post: Collection = {
   label: 'Posts',
@@ -68,7 +68,7 @@ const Post: Collection = {
       description: 'A short description of the post, will be used in the post list and post highlight',
       required: true,
     },
-    { type: 'rich-text', name: 'body', label: 'Body', required: true, templates: RichTextComponents },
+    { type: 'rich-text', name: 'body', label: 'Body', required: true, templates: RichTextInnerTemplates },
     {
       type: 'image',
       name: 'image',

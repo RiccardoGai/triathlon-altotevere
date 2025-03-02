@@ -5,16 +5,18 @@
 :root {
   --color-primary: rgb(0, 77, 191);
   --color-secondary: rgb(39, 174, 96);
+  --color-tertiary: var(--color-slate-500);
   --color-accent: rgb(220, 38, 38);
   --color-text-default: #222222;
-  --color-text-footer: #bbbbbb;
   --color-bg-page: #f8f9fa;
-  --color-bg-footer: #0a0a0a;
+  --color-bg-footer: #0d1b2a;
+  --color-text-footer: #b0bec5;
 }
 
 @theme {
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
+  --color-tertiary: var(--color-tertiary);
   --color-accent: var(--color-accent);
   --color-default: var(--color-text-default);
   --color-page: var(--color-bg-page);
@@ -89,8 +91,8 @@
     @apply text-lg italic pl-4 border-l-4 border-gray-300 my-4;
   }
 
-  a:not(.btn-primary):not(.btn-secondary):not(.btn-tertiary) {
-    @apply text-primary underline underline-offset-2;
+  a:not(.btn-primary):not(.btn-secondary):not(.btn-tertiary):not(.btn-accent) {
+    @apply text-primary hover:underline underline-offset-2;
   }
 
   hr {
@@ -117,6 +119,12 @@
 }
 
 @utility btn-tertiary {
+  @apply btn bg-tertiary text-white border border-tertiary 
+  hover:bg-gray-400 hover:border-gray-500 hover:shadow-gray-200/50
+  focus:ring-gray-200 focus:ring-offset-white;
+}
+
+@utility btn-accent {
   @apply btn bg-accent text-white border border-accent 
   hover:bg-red-700 hover:border-red-800 hover:shadow-red-400/50
   focus:ring-red-500 focus:ring-offset-white;

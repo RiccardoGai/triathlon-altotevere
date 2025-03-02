@@ -15,6 +15,7 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
     '90%': `h-[90vh]`,
     '100%': `h-screen`,
   };
+
   const imagePositionClass = {
     center: `object-center`,
     top: `object-top`,
@@ -28,71 +29,70 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
       data-tina-field={tinaField(data, 'hero_image')}
       className={`${
         heightClass[(data?.hero_height as '50%' | '60%' | '70%' | '80%' | '90%' | '100%') ?? '100%']
-      } relative`}
-      style={{ background: 'linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.55))' }}
+      } relative flex items-center justify-center text-center`}
     >
+      <div className="absolute inset-0 bg-black/70"></div>
+
       <Image
         src={data.hero_image}
-        fill={true}
+        fill
         fetchPriority="high"
         loading="eager"
         sizes="100vw"
         className={`${
           imagePositionClass[
-            (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'object-center'
+            (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'center'
           ]
-        } object-cover -z-10 aspect-video`}
+        } object-cover -z-10`}
         alt={data.hero_title || ''}
         priority
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-items-center items-start md:items-center pt-14 md:pt-0 h-full">
-        <div className="text-center max-w-5xl mx-auto">
+      <div className="relative max-w-7xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto text-white">
           {data.hero_tagline && (
             <div
-              className="text-xl md:text-2xl text-white font-bold tracking-wide uppercase mb-8"
+              className="text-lg md:text-2xl font-semibold tracking-wide uppercase mb-4"
               data-tina-field={tinaField(data, 'hero_tagline')}
             >
               {data.hero_tagline}
             </div>
           )}
           {data.hero_title && (
-            <div
-              className="text-5xl md:text-6xl text-white font-bold mb-8 leading-tight!"
+            <h1
+              className="text-4xl md:text-6xl font-extrabold leading-tight mb-6"
               data-tina-field={tinaField(data, 'hero_title')}
             >
               {data.hero_title}
+            </h1>
+          )}
+          {data.hero_subtitle && (
+            <div
+              className="text-lg md:text-xl opacity-90 mb-8"
+              data-tina-field={tinaField(data, 'hero_subtitle')}
+            >
+              <TinaMarkdown content={data.hero_subtitle} />
             </div>
           )}
-          <div className="max-w-3xl mx-auto">
-            {data.hero_subtitle && (
-              <div className="text-xl text-white mb-8" data-tina-field={tinaField(data, 'hero_subtitle')}>
-                <TinaMarkdown content={data.hero_subtitle} />
-              </div>
-            )}
-            {data.hero_actions && (
-              <div
-                className="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4"
-                data-tina-field={tinaField(data, 'hero_actions')}
-              >
-                {data.hero_actions.map((action, index) => (
-                  <div key={index} className="flex w-full sm:w-auto">
-                    <Button
-                      type="link"
-                      href={
-                        action?.hero_action_external_href ??
-                        parseSystemInfoToHref(action?.hero_action_href?._sys)
-                      }
-                      variant={action?.hero_action_variant as any}
-                      className="w-full sm:mb-0 text-lg"
-                    >
-                      <span>{action?.hero_action_text!}</span>
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          {data.hero_actions && (
+            <div
+              className="flex flex-col sm:flex-row justify-center gap-4"
+              data-tina-field={tinaField(data, 'hero_actions')}
+            >
+              {data.hero_actions.map((action, index) => (
+                <Button
+                  key={index}
+                  type="link"
+                  href={
+                    action?.hero_action_external_href ?? parseSystemInfoToHref(action?.hero_action_href?._sys)
+                  }
+                  variant={action?.hero_action_variant as any}
+                >
+                  {action?.hero_action_text!}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Section>

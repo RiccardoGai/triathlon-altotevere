@@ -1,6 +1,6 @@
 import type { Collection, Form, TinaCMS } from 'tinacms';
 import { GlobalLinks } from '../__generated__/types';
-import { auditBeforeSubmit, auditFields } from './audit.utility';
+import { auditBeforeSubmit, auditFields } from './utils/audit.utils';
 
 const Global: Collection = {
   label: 'Global',

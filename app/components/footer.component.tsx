@@ -14,74 +14,85 @@ export default function Footer() {
   const globalResponse = useGlobalTinaContext();
   const { data } = useTina(globalResponse);
   const global = data.global as Global;
-  const linkClassNames = 'block text-text-footer hover:underline text-sm';
+
   return (
-    <footer className="relative border-t border-gray-200 not-prose bg-footer text-text-footer">
+    <footer className="relative border-t border-gray-300 bg-footer text-text-footer py-10">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 pt-4">
-          <div className="mb-2 md:mb-4">
-            <Link className="font-bold text-xl" href="/">
+          <div>
+            <Link className="font-bold text-2xl text-white" href="/">
               {CONFIG.APP_NAME}
             </Link>
-            <div className="grid grid-rows-4 grid-flow-col gap-y-2 gap-x-5gap-x-10 mt-4">
-              <Link
-                data-tina-field={tinaField(global, 'privacy_policy')}
-                className={linkClassNames}
-                target="_blank"
-                href={global?.privacy_policy ?? '#'}
-              >
-                Privacy
-              </Link>
-              <Link
-                data-tina-field={tinaField(global, 'cookie_policy')}
-                className={linkClassNames + ' md:row-span-3'}
-                target="_blank"
-                href={global?.cookie_policy ?? '#'}
-              >
-                Cookie Policy
-              </Link>
-              {global?.links?.map((link, i) => (
+            <div className="flex md:flex-row flex-col gap-5 md:gap-24 mt-4">
+              <div className="flex flex-col gap-5">
                 <Link
-                  data-tina-field={tinaField(link!)}
-                  key={i}
-                  className={linkClassNames}
-                  href={parseSystemInfoToHref(link?.href?._sys)}
+                  data-tina-field={tinaField(global, 'privacy_policy')}
+                  className="block text-sm text-gray-400 hover:text-white transition font-semibold"
+                  target="_blank"
+                  href={global?.privacy_policy ?? '#'}
                 >
-                  {link?.text}
+                  Privacy Policy
                 </Link>
-              ))}
+
+                <Link
+                  data-tina-field={tinaField(global, 'cookie_policy')}
+                  className="block text-sm text-gray-400 hover:text-white transition font-semibold md:row-span-3"
+                  target="_blank"
+                  href={global?.cookie_policy ?? '#'}
+                >
+                  Cookie Policy
+                </Link>
+              </div>
+
+              <div className="flex flex-col flex-wrap md:max-h-36 gap-5">
+                {global?.links?.map((link, i) => (
+                  <div key={i}>
+                    <Link
+                      data-tina-field={tinaField(link!)}
+                      className="block text-sm text-gray-400 hover:text-white transition font-semibold"
+                      href={parseSystemInfoToHref(link?.href?._sys)}
+                    >
+                      {link?.text}
+                    </Link>
+                    {link?.links && link.links.length > 0 && (
+                      <ul className="mt-1 space-y-1">
+                        {link.links.map((sublink, j) => (
+                          <li key={j}>
+                            <Link
+                              className="block text-xs text-gray-500 hover:text-gray-300 transition"
+                              href={parseSystemInfoToHref(sublink?.href?._sys)}
+                            >
+                              {sublink?.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+
           <div className="flex flex-col justify-start items-start md:items-end">
             {global?.contact_info && (
-              <div className="mt-4" data-tina-field={tinaField(global.contact_info)}>
+              <div data-tina-field={tinaField(global.contact_info)} className="mt-4 space-y-4">
                 {global?.contact_info?.address && (
-                  <div className="grid grid-flow-col auto-cols-max items-center mb-4">
-                    <FontAwesomeIcon icon={faLocationDot} color="var(--color-text-footer)" size="lg" />
-                    <p className=" text-sm ml-3">{global?.contact_info?.address}</p>
-                  </div>
+                  <ContactItem icon={faLocationDot} text={global.contact_info.address} />
                 )}
                 {global?.contact_info?.phone && (
-                  <div className="grid grid-flow-col auto-cols-max items-center mb-4">
-                    <FontAwesomeIcon icon={faPhone} color="var(--color-text-footer)" size="lg" />
-                    <p className=" text-sm ml-3">{global?.contact_info?.phone}</p>
-                  </div>
+                  <ContactItem icon={faPhone} text={global.contact_info.phone} />
                 )}
                 {global?.contact_info?.email && (
-                  <div className="grid grid-flow-col auto-cols-max items-center mb-4">
-                    <FontAwesomeIcon icon={faEnvelope} color="var(--color-text-footer)" size="lg" />
-                    <Link
-                      target="_blank"
-                      href={'mailto:' + global?.contact_info?.email}
-                      className="ml-3 text-sm block  hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2"
-                    >
-                      {global?.contact_info?.email}
-                    </Link>
-                  </div>
+                  <ContactItem
+                    icon={faEnvelope}
+                    text={global.contact_info.email}
+                    link={`mailto:${global.contact_info.email}`}
+                  />
                 )}
-                {<Social data-tina-field={tinaField(global.social)} social={global?.social!}></Social>}
               </div>
             )}
+            <Social social={global?.social!} />
           </div>
         </div>
       </Container>
@@ -89,27 +100,28 @@ export default function Footer() {
   );
 }
 
-const Social = ({ social }: { social: GlobalSocial }) => {
-  const linkClassNames =
-    'focus:outline-hidden focus:ring-4 focus:ring-gray-200 rounded-lg text-sm inline-flex items-center mr-3 mb-4';
-  return (
-    <div>
-      <Link
-        data-tina-field={tinaField(social, 'facebook')}
-        className={linkClassNames}
-        href={social?.facebook ?? '#'}
-        target="_blank"
-      >
-        <FontAwesomeIcon icon={faFacebook} color="var(--color-text-footer)" size="xl" />
+const ContactItem = ({ icon, text, link }: { icon: any; text: string; link?: string }) => (
+  <div className="flex items-center space-x-3 text-gray-400 hover:text-white transition">
+    <FontAwesomeIcon icon={icon} className="text-lg" />
+    {link ? (
+      <Link href={link} className="text-sm hover:underline">
+        {text}
       </Link>
-      <Link
-        data-tina-field={tinaField(social, 'instagram')}
-        className={linkClassNames}
-        href={social?.instagram ?? '#'}
-        target="_blank"
-      >
-        <FontAwesomeIcon icon={faInstagram} color="var(--color-text-footer)" size="xl" />
-      </Link>
-    </div>
-  );
-};
+    ) : (
+      <p className="text-sm">{text}</p>
+    )}
+  </div>
+);
+
+const Social = ({ social }: { social: GlobalSocial }) => (
+  <div className="mt-6 flex space-x-4">
+    {social?.facebook && <SocialIcon href={social.facebook} icon={faFacebook} />}
+    {social?.instagram && <SocialIcon href={social.instagram} icon={faInstagram} />}
+  </div>
+);
+
+const SocialIcon = ({ href, icon }: { href: string; icon: any }) => (
+  <Link href={href} target="_blank" className="text-gray-400 hover:text-white transition text-xl">
+    <FontAwesomeIcon icon={icon} />
+  </Link>
+);

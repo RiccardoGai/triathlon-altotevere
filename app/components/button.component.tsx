@@ -9,7 +9,7 @@ export default function Button({
   children,
   ...props
 }: (React.HTMLProps<HTMLButtonElement> | React.HTMLProps<HTMLAnchorElement>) & {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'accent' | 'link';
   className?: string;
   type: 'button' | 'submit' | 'reset' | 'link';
   href?: string;
@@ -19,6 +19,7 @@ export default function Button({
     primary: 'btn-primary',
     secondary: 'btn-secondary',
     tertiary: 'btn-tertiary',
+    accent: 'btn-accent',
     link: 'cursor-pointer hover:text-primary',
   };
 

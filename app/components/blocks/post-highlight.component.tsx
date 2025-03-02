@@ -43,45 +43,55 @@ export default function PostHighlightBlock({ data }: { data: PageBlocksPostHighl
     fetchItems();
   }, [data]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center text-gray-500">Caricamento...</p>;
   if (error) return <></>;
+
   return (
-    <div className={`grid grid-cols-auto-fit-200px gap-16`}>
-      {items?.map((item, i) => <PostItem key={i} data={item!} />)}
+    <div className="container mx-auto px-4 py-12">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {items?.map((item, i) => <PostItem key={i} data={item!} />)}
+      </div>
     </div>
   );
 }
 
 function PostItem({ data }: { data: Post }) {
   return (
-    <article className="mb-6 transition text-center">
-      <div className="relative h-48 md:h-64 rounded-sm shadow-md mb-6">
+    <article className="bg-white rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl flex flex-col">
+      <div className="relative h-48 md:h-64">
         {data.image && (
           <Image
             data-tina-field={tinaField(data, 'image')}
             src={data.image}
             fill
             loading="lazy"
-            className="object-cover"
+            className="object-cover w-full h-full"
             alt={data.title || ''}
           />
         )}
       </div>
-      <div className="mb-1">
-        <span
-          className="text-xs text-gray-400 tracking-wider uppercase font-semibold"
-          data-tina-field={tinaField(data, 'date')}
+      <div className="p-6 text-center flex flex-col grow gap-2">
+        <div className="mb-1">
+          <span
+            className="text-xs text-gray-400 uppercase font-semibold"
+            data-tina-field={tinaField(data, 'date')}
+          >
+            {data.date && formatDate(data.date, 'D MMMM, YYYY')}
+          </span>
+        </div>
+        <h3
+          className="mb-2 text-xl font-bold leading-tight sm:text-2xl text-gray-900 hover:text-blue-600 transition-colors duration-200"
+          data-tina-field={tinaField(data, 'title')}
         >
-          {data.date && formatDate(data.date, 'D MMMM, YYYY')}
-        </span>
+          {data.title}
+        </h3>
+        <p className="text-gray-600 line-clamp-3">{data.excerpt}</p>
+        <Link className="mt-auto" href={'/news/' + parseSystemInfoToHref(data._sys)}>
+          <Button type="button" variant="primary" className="mt-4 w-full">
+            Scopri di più
+          </Button>
+        </Link>
       </div>
-      <h3 className="mb-2 text-xl font-bold leading-tight sm:text-2xl ">{data.title}</h3>
-      <p className="text-gray-500 line-clamp-3">{data.excerpt}</p>
-      <Link href={'/news/' + parseSystemInfoToHref(data._sys)}>
-        <Button type="button" variant="primary" className="mt-5">
-          Scopri di più
-        </Button>
-      </Link>
     </article>
   );
 }

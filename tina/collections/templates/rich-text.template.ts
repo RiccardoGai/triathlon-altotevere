@@ -1,6 +1,7 @@
 import { RichTextTemplate as RichTextComponent } from '@tinacms/schema-tools';
 import { Template } from 'tinacms';
-export const RichTextComponents: RichTextComponent<any>[] = [
+
+export const RichTextInnerTemplates: RichTextComponent<any>[] = [
   {
     name: 'Button',
     label: 'Button',
@@ -38,7 +39,7 @@ export const RichTextTemplate: Template = {
       name: 'rich_text_text',
       type: 'rich-text',
       required: true,
-      templates: RichTextComponents,
+      templates: RichTextInnerTemplates,
     },
   ],
 };
