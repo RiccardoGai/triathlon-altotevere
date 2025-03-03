@@ -1,9 +1,9 @@
 import { PageBlocksHeroBanner } from '@/tina/__generated__/types';
 import Image from 'next/image';
 import { tinaField } from 'tinacms/dist/react';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { parseSystemInfoToHref } from '../../utils/utils';
 import Button from '../button.component';
+import Markdown from '../markdown.component';
 import Section from '../section.component';
 
 export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }) {
@@ -71,7 +71,7 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
               className="text-lg md:text-xl opacity-90 mb-8"
               data-tina-field={tinaField(data, 'hero_subtitle')}
             >
-              <TinaMarkdown content={data.hero_subtitle} />
+              <Markdown data={data.hero_subtitle} />
             </div>
           )}
           {data.hero_actions && (

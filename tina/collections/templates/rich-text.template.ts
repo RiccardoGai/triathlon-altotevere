@@ -22,6 +22,44 @@ export const RichTextInnerTemplates: RichTextComponent<any>[] = [
       { label: 'External Href', name: 'rich_text_button_external_href', type: 'string' },
     ],
   },
+  {
+    name: 'Image',
+    label: 'Image',
+    fields: [
+      {
+        type: 'image',
+        label: 'Image',
+        name: 'rich_text_image_ref',
+        required: true,
+      },
+      {
+        type: 'number',
+        label: 'Width',
+        name: 'rich_text_width',
+        ui: {
+          parse: (val) => {
+            if (isNaN(parseFloat(val as any))) {
+              return undefined as any;
+            }
+            return parseFloat(val as any);
+          },
+        },
+      },
+      {
+        type: 'number',
+        label: 'Height',
+        name: 'rich_text_height',
+        ui: {
+          parse: (val) => {
+            if (isNaN(parseFloat(val as any))) {
+              return undefined as any;
+            }
+            return parseFloat(val as any);
+          },
+        },
+      },
+    ],
+  },
 ];
 
 export const RichTextTemplate: Template = {

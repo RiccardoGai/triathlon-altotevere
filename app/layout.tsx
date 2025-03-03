@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { IubendaProvider } from '@mep-agency/next-iubenda';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Montserrat } from 'next/font/google';
 import Footer from './components/footer.component';
 import Header from './components/header.component';
@@ -26,6 +26,14 @@ export const metadata: Metadata = {
     'Triathlon Altotevere è una società che promuove il triathlon per tutti,qualunque sia l’età, la capacità, l’ esperienza. Insegna la disciplina diuno sport che richiede impegno, sacrificio e umiltà per portare ogni persona a migliorare se stessa in gara e fuori.',
   keywords:
     'triathlon, altotevere, sport, gara, competizione, nuoto, bici, corsa, allenamento, agonismo, amatoriale, divertimento, passione, sacrificio, impegno, umiltà, miglioramento, gara, competizione, agonismo, amatoriale, divertimento, passione, sacrificio, impegno, umiltà, miglioramento',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  userScalable: false,
+  viewportFit: 'contain',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

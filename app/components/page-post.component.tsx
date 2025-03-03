@@ -11,12 +11,12 @@ import {
 } from 'next-share';
 import { usePathname } from 'next/navigation';
 import { tinaField, useTina } from 'tinacms/dist/react';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { CONFIG } from '../config/config';
 import { ITinaResponse } from '../models/tina-response.interface';
 import { formatDate } from '../utils/utils';
 import HeroBannerBlock from './blocks/hero-banner.component';
 import Container from './container.component';
+import Markdown from './markdown.component';
 import Section from './section.component';
 
 export default function PagePost({ props }: { props: ITinaResponse<PostQuery, PostQueryVariables> }) {
@@ -36,7 +36,7 @@ export default function PagePost({ props }: { props: ITinaResponse<PostQuery, Po
       ></HeroBannerBlock>
       <Section>
         <Container className="tina-markdown-content px-6 sm:px-20 md:px-40 lg:px-60">
-          <TinaMarkdown content={post.body} />
+          <Markdown data={post.body} />
         </Container>
       </Section>
       <Section>

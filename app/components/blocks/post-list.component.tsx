@@ -10,7 +10,8 @@ import { tinaField } from 'tinacms/dist/react';
 import Button from '../button.component';
 
 const ITEMS_PER_PAGE = 10;
-const MAX_PAGES_TO_SHOW = 6;
+const MAX_PAGES_TO_SHOW_DESKTOP = 6;
+const MAX_PAGES_TO_SHOW_MOBILE = 1;
 
 export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
   const [items, setItems] = useState<Post[]>([]);
@@ -144,16 +145,26 @@ function Pagination({
   hasPreviousPage,
   currentPage,
   totalPages,
-  maxPagesToShow = MAX_PAGES_TO_SHOW,
   handlePageChange,
 }: {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   currentPage: number;
   totalPages: number;
-  maxPagesToShow?: number;
   handlePageChange: (page: number) => void;
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const maxPagesToShow = isMobile ? MAX_PAGES_TO_SHOW_MOBILE : MAX_PAGES_TO_SHOW_DESKTOP;
   const pages = [];
   const btnClassNames =
     'flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 shadow-md';
@@ -174,12 +185,26 @@ function Pagination({
         );
       }
     } else {
-      const startPage = Math.max(currentPage - Math.round(maxPagesToShow / 2), 1);
-      const endPage = Math.min(currentPage + Math.ceil(maxPagesToShow / 2) - 1, totalPages);
+      let startPage = Math.max(currentPage - Math.floor(maxPagesToShow / 2), 1);
+      let endPage = Math.min(currentPage + Math.floor(maxPagesToShow / 2), totalPages);
+
+      if (endPage - startPage + 1 < maxPagesToShow) {
+        if (startPage === 1) {
+          endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+        } else if (endPage === totalPages) {
+          startPage = Math.max(endPage - maxPagesToShow + 1, 1);
+        }
+      }
 
       if (startPage > 1) {
         pages.push(
-          <Button type="button" key={1} variant="tertiary" onClick={() => handlePageChange(1)}>
+          <Button
+            type="button"
+            key={1}
+            className={`${btnClassNames}`}
+            variant="tertiary"
+            onClick={() => handlePageChange(1)}
+          >
             1
           </Button>
         );

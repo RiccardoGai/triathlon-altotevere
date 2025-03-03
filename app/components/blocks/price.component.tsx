@@ -2,8 +2,8 @@ import { parseSystemInfoToHref } from '@/app/utils/utils';
 import { PageBlocksGridGrid_ColumnsBlocksPrice, PageBlocksPrice } from '@/tina/__generated__/types';
 import Link from 'next/link';
 import { tinaField } from 'tinacms/dist/react';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import Button from '../button.component';
+import Markdown from '../markdown.component';
 
 export default function PriceBlock({
   data,
@@ -59,7 +59,7 @@ export default function PriceBlock({
                     <div className="text-gray-600 text-base leading-relaxed tina-markdown-content">
                       <div className="text-center">
                         <div className="text-left inline-block">
-                          <TinaMarkdown content={price.price_description} />
+                          <Markdown data={price.price_description} />
                         </div>
                       </div>
                     </div>
