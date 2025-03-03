@@ -12,15 +12,13 @@ export default function StaffBlock({
   data: PageBlocksStaff | PageBlocksGridGrid_ColumnsBlocksStaff;
 }) {
   return (
-    <div data-tina-field={tinaField(data)} className="py-12 bg-gray-100">
-      {/* Titolo Staff */}
+    <div data-tina-field={tinaField(data)} className="py-12">
       {data.staff_title && (
         <div className="mb-8 text-center">
           <h2 className="text-4xl font-extrabold text-gray-900">{data.staff_title}</h2>
         </div>
       )}
 
-      {/* Container Staff */}
       <div
         className={`grid grid-cols-1 gap-6 md:grid-cols-${data.staff_number_per_row ?? 1} lg:grid-cols-3 justify-center px-4`}
       >
@@ -30,7 +28,6 @@ export default function StaffBlock({
             className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-xl"
             data-tina-field={tinaField(staff)}
           >
-            {/* Immagine Profilo */}
             <div className="relative w-32 h-32 md:w-40 md:h-40 mb-4">
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
@@ -42,7 +39,6 @@ export default function StaffBlock({
               />
             </div>
 
-            {/* Informazioni Staff */}
             <div className="text-center">
               <h3
                 className="text-xl font-bold text-gray-900"
@@ -70,7 +66,6 @@ export default function StaffBlock({
               )}
             </div>
 
-            {/* Link Social */}
             <div className="mt-4 flex space-x-4">
               {staff?.staff_person_website && (
                 <Link

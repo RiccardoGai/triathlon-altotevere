@@ -20,7 +20,7 @@ export default function ContactInfoBlock({
   const global = globalData.global as Global;
 
   return (
-    <div data-tina-field={tinaField(data)} className="bg-gray-100 p-8 rounded-lg shadow-md">
+    <div data-tina-field={tinaField(data)} className="p-8 rounded-lg shadow-md">
       <div className="text-2xl font-extrabold text-gray-900 mb-6">{CONFIG.APP_NAME}</div>
       {global?.contact_info && (
         <div data-tina-field={tinaField(global.contact_info)} className="space-y-4">

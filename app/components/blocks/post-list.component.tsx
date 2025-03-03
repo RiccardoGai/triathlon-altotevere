@@ -28,19 +28,7 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
       });
 
       const items = data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
-      const fake = [
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-        ...items,
-      ];
-      setItems(fake as Post[]);
+      setItems(items as Post[]);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -67,7 +55,7 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
   if (error) return <p className="text-center text-red-500">Errore nel caricamento dei post.</p>;
 
   return (
-    <div className="bg-gray-100 py-12">
+    <div className="py-12">
       <div className="container mx-auto px-4">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {currentItems.map((item, i) => (
