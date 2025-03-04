@@ -36,9 +36,15 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
       <Image
         src={data.hero_image}
         fill
-        fetchPriority="high"
         loading="eager"
-        sizes="100vw"
+        sizes="(max-width: 640px) 640px, 
+         (max-width: 750px) 750px, 
+         (max-width: 828px) 828px, 
+         (max-width: 1080px) 1080px, 
+         (max-width: 1200px) 1200px, 
+         (max-width: 1920px) 1920px, 
+         (max-width: 2048px) 2048px, 
+         3840px"
         className={`${
           imagePositionClass[
             (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'center'
