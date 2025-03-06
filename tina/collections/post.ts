@@ -1,7 +1,8 @@
 import moment from 'moment';
 import type { Collection, Form, TinaCMS } from 'tinacms';
-import { auditBeforeSubmit, auditFields } from './audit.utility';
-import { seoFields } from './seo.utility';
+import { RichTextInnerTemplates } from './templates/rich-text.template';
+import { auditBeforeSubmit, auditFields } from './utils/audit.utils';
+import { seoFields } from './utils/seo.utils';
 
 const Post: Collection = {
   label: 'Posts',
@@ -12,10 +13,10 @@ const Post: Collection = {
     filename: {
       slugify: (values: Record<string, any>) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
-      }
+      },
     },
     router: ({
-      document
+      document,
     }: {
       document: {
         _sys: {
@@ -35,7 +36,7 @@ const Post: Collection = {
     beforeSubmit: async ({
       form,
       cms,
-      values
+      values,
     }: {
       form: Form;
       cms: TinaCMS;
@@ -47,48 +48,34 @@ const Post: Collection = {
         auditValues.date = new Date().toISOString();
       }
       return auditValues;
-    }
+    },
   },
   fields: [
     ...auditFields,
     ...seoFields,
-    {
-      type: 'string',
-      name: 'title',
-      label: 'Title',
-      required: true
-    },
+    { type: 'string', name: 'title', label: 'Title', required: true },
     {
       type: 'datetime',
       name: 'date',
       label: 'Date',
-      description:
-        'If not provided a valid date, the current date will be used',
-      ui: {
-        dateFormat: 'DD/MM/YYYY'
-      }
+      description: 'If not provided a valid date, the current date will be used',
+      ui: { dateFormat: 'DD/MM/YYYY' },
     },
     {
       type: 'string',
       name: 'excerpt',
       label: 'Excerpt',
-      description:
-        'A short description of the post, will be used in the post list and post highlight',
-      required: true
+      description: 'A short description of the post, will be used in the post list and post highlight',
+      required: true,
     },
-    {
-      type: 'rich-text',
-      name: 'body',
-      label: 'Body',
-      required: true
-    },
+    { type: 'rich-text', name: 'body', label: 'Body', required: true, templates: RichTextInnerTemplates },
     {
       type: 'image',
       name: 'image',
       label: 'Image',
       description:
         'The image that will be displayed in the post list, post highlight and hero banner, make sure the image is 16:9 aspect ratio',
-      required: true
+      required: true,
     },
     {
       type: 'string',
@@ -100,9 +87,9 @@ const Post: Collection = {
         { label: 'Center', value: 'center' },
         { label: 'Bottom', value: 'bottom' },
         { label: 'Left', value: 'left' },
-        { label: 'Right', value: 'right' }
-      ]
-    }
-  ]
+        { label: 'Right', value: 'right' },
+      ],
+    },
+  ],
 };
 export default Post;

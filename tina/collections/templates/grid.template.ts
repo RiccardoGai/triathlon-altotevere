@@ -13,15 +13,15 @@ export const GridTemplate: Template = {
   name: 'grid',
   label: 'Grid',
   ui: {
-    itemProps: (item: Record<string, any>) => ({
-      label: 'Grid ' + item?.grid_name || ''
-    })
+    itemProps(item) {
+      return { label: 'Grid ' + item?.grid_name || '' };
+    },
   },
   fields: [
     {
       type: 'string',
       label: 'Name',
-      name: 'grid_name'
+      name: 'grid_name',
     },
     {
       label: 'Columns',
@@ -29,22 +29,20 @@ export const GridTemplate: Template = {
       type: 'object',
       list: true,
       ui: {
-        itemProps: (item: Record<string, any>) => ({
-          label: item?.grid_column_name ?? ''
-        })
+        itemProps: (item) => ({ label: item?.grid_column_name || '' }),
       },
       fields: [
         {
           type: 'string',
           label: 'Name',
-          name: 'grid_column_name'
+          name: 'grid_column_name',
         },
         {
           label: 'Size',
           name: 'grid_column_size',
           type: 'string',
           options: ['25%', '50%', '75%', '100%'],
-          required: true
+          required: true,
         },
         {
           type: 'object',
@@ -52,7 +50,7 @@ export const GridTemplate: Template = {
           name: 'blocks',
           label: 'Content',
           ui: {
-            visualSelector: true
+            visualSelector: true,
           },
           templates: [
             RichTextTemplate,
@@ -63,10 +61,10 @@ export const GridTemplate: Template = {
             ImageGalleryTemplate,
             SponsorTemplate,
             StaffTemplate,
-            ContactInfoTemplate
-          ]
-        }
-      ]
-    }
-  ]
+            ContactInfoTemplate,
+          ],
+        },
+      ],
+    },
+  ],
 };

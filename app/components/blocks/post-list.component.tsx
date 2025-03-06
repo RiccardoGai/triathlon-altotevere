@@ -10,7 +10,8 @@ import { tinaField } from 'tinacms/dist/react';
 import Button from '../button.component';
 
 const ITEMS_PER_PAGE = 10;
-const MAX_PAGES_TO_SHOW = 6;
+const MAX_PAGES_TO_SHOW_DESKTOP = 6;
+const MAX_PAGES_TO_SHOW_MOBILE = 1;
 
 export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
   const [items, setItems] = useState<Post[]>([]);
@@ -21,19 +22,13 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      // Sort by descending date doesn't work well, for now we download all the posts and sort them in memory
       const data = await client.queries.postConnection({
-        //first: afterCursor ? ITEMS_PER_PAGE : null,
         last: Number.MAX_SAFE_INTEGER,
-        // before: beforeCursor,
-        sort: nameof<Post>('date')
+        sort: nameof<Post>('date'),
       });
 
-      const items =
-        data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
-
+      const items = data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
       setItems(items as Post[]);
-      //setPageInfo(data.data.postConnection.pageInfo);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -56,71 +51,75 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
     setCurrentPage(page);
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Sorry, an error is occurred</p>;
+  if (loading) return <p className="text-center text-gray-500">Caricamento...</p>;
+  if (error) return <p className="text-center text-red-500">Errore nel caricamento dei post.</p>;
+
   return (
-    <>
-      {currentItems &&
-        currentItems.map((item, i) => <PostItem key={i} data={item!} />)}
-      <Pagination
-        hasNextPage={hasNextPage}
-        hasPreviousPage={hasPreviousPage}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={handlePageChange}
-      />
-    </>
+    <div className="py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {currentItems.map((item, i) => (
+            <PostItem key={i} data={item!} />
+          ))}
+        </div>
+        <Pagination
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        />
+      </div>
+    </div>
   );
 }
 
 function PostItem({ data }: { data: Post }) {
   return (
-    <article
-      className={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 mb-8 ${data.image ? 'md:grid-cols-3' : ''}`}
-    >
+    <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col">
       {data.image && (
-        <div className='relative h-48 md:h-72 rounded shadow-md'>
+        <div className="relative h-48 md:h-56 w-full">
           <Image
             data-tina-field={tinaField(data, 'image')}
             title={data.title}
             src={data.image}
-            className='absolute inset-0 w-full h-full object-cover aspect-video'
+            className="absolute inset-0 w-full h-full object-cover"
             fill={true}
             alt={data.title}
-            loading='lazy'
-            decoding='async'
+            loading="lazy"
+            decoding="async"
           />
         </div>
       )}
-      <div className='mt-2 md:col-span-2'>
-        <header>
-          <div className='mb-1'>
+      <div className="p-6 flex flex-col grow gap-2">
+        <div>
+          <div className="mb-1">
             <span
-              className='text-xs text-gray-400 tracking-wider uppercase font-semibold'
+              className="text-xs text-gray-400 tracking-wider uppercase font-semibold"
               data-tina-field={tinaField(data, 'date')}
             >
               {data.date && formatDate(data.date, 'D MMMM, YYYY')}
             </span>
           </div>
           <h2
-            className='text-xl sm:text-2xl font-bold leading-tight mb-2 '
+            className="text-xl font-bold leading-tight mb-2 text-gray-900 hover:text-blue-600 transition-colors duration-200"
             data-tina-field={tinaField(data, 'title')}
           >
             {data.title}
           </h2>
-        </header>
+        </div>
 
         {data.excerpt && (
           <p
             data-tina-field={tinaField(data, 'excerpt')}
-            className='flex-grow text-gray-500 md:line-clamp-5 line-clamp-3 leading-relaxed'
+            className="text-gray-600 line-clamp-3 leading-relaxed"
           >
             {data.excerpt}
           </p>
         )}
 
-        <Link href={'/news/' + parseSystemInfoToHref(data._sys)}>
-          <Button type='button' variant='secondary' className='mt-4'>
+        <Link className="mt-auto" href={'/news/' + parseSystemInfoToHref(data._sys)}>
+          <Button type="button" variant="primary" className="w-full">
             Leggi
           </Button>
         </Link>
@@ -134,67 +133,86 @@ function Pagination({
   hasPreviousPage,
   currentPage,
   totalPages,
-  maxPagesToShow = MAX_PAGES_TO_SHOW,
-  handlePageChange
+  handlePageChange,
 }: {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   currentPage: number;
   totalPages: number;
-  maxPagesToShow?: number;
   handlePageChange: (page: number) => void;
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const maxPagesToShow = isMobile ? MAX_PAGES_TO_SHOW_MOBILE : MAX_PAGES_TO_SHOW_DESKTOP;
   const pages = [];
-  const btnClassNames = 'p-0 w-12 h-12 flex items-center justify-center';
+  const btnClassNames =
+    'flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 shadow-md';
+
   if (totalPages > 1) {
     if (totalPages <= maxPagesToShow) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(
           <Button
-            type='button'
+            type="button"
             key={i}
+            variant={currentPage === i ? 'primary' : 'tertiary'}
             onClick={() => handlePageChange(i)}
-            className={btnClassNames}
-            variant={currentPage === i ? 'primary' : 'secondary'}
+            className={`${btnClassNames}`}
           >
             {i}
           </Button>
         );
       }
     } else {
-      const startPage = Math.max(
-        currentPage - Math.round(maxPagesToShow / 2),
-        1
-      );
-      const endPage = Math.min(
-        currentPage + Math.ceil(maxPagesToShow / 2) - 1,
-        totalPages
-      );
+      let startPage = Math.max(currentPage - Math.floor(maxPagesToShow / 2), 1);
+      let endPage = Math.min(currentPage + Math.floor(maxPagesToShow / 2), totalPages);
+
+      if (endPage - startPage + 1 < maxPagesToShow) {
+        if (startPage === 1) {
+          endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+        } else if (endPage === totalPages) {
+          startPage = Math.max(endPage - maxPagesToShow + 1, 1);
+        }
+      }
+
       if (startPage > 1) {
         pages.push(
           <Button
-            type='button'
-            variant='secondary'
-            className={btnClassNames}
+            type="button"
             key={1}
+            className={`${btnClassNames}`}
+            variant="tertiary"
             onClick={() => handlePageChange(1)}
           >
             1
           </Button>
         );
         if (startPage > 2) {
-          pages.push(<span key='dots1'>...</span>);
+          pages.push(
+            <span key="dots1" className="text-gray-500">
+              ...
+            </span>
+          );
         }
       }
 
       for (let i = startPage; i <= endPage; i++) {
         pages.push(
           <Button
-            type='button'
+            type="button"
             key={i}
+            variant={currentPage === i ? 'primary' : 'tertiary'}
             onClick={() => handlePageChange(i)}
-            className={btnClassNames}
-            variant={currentPage === i ? 'primary' : 'secondary'}
+            className={`${btnClassNames}`}
           >
             {i}
           </Button>
@@ -203,15 +221,19 @@ function Pagination({
 
       if (endPage < totalPages) {
         if (endPage < totalPages - 1) {
-          pages.push(<span key='dots2'>...</span>);
+          pages.push(
+            <span key="dots2" className="text-gray-500">
+              ...
+            </span>
+          );
         }
         pages.push(
           <Button
-            type='button'
+            type="button"
             key={totalPages}
-            variant='secondary'
-            className={btnClassNames}
+            variant="tertiary"
             onClick={() => handlePageChange(totalPages)}
+            className={`${btnClassNames}`}
           >
             {totalPages}
           </Button>
@@ -221,27 +243,28 @@ function Pagination({
   }
 
   return (
-    <div className='flex flex-row items-center justify-center gap-2'>
+    <div className="flex flex-row items-center justify-center gap-2 mt-6">
       {hasPreviousPage && (
         <Button
-          type='button'
-          variant='secondary'
-          className={btnClassNames}
+          type="button"
+          variant="tertiary"
+          className={`${btnClassNames}`}
           onClick={() => handlePageChange(currentPage - 1)}
         >
-          <FontAwesomeIcon icon={faArrowLeft} className='w-4 h-4' />
+          <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" />
         </Button>
       )}
 
       {pages}
+
       {hasNextPage && (
         <Button
-          type='button'
-          variant='secondary'
-          className={btnClassNames}
+          type="button"
+          variant="tertiary"
+          className={`${btnClassNames}`}
           onClick={() => handlePageChange(currentPage + 1)}
         >
-          <FontAwesomeIcon icon={faArrowRight} className='w-4 h-4' />
+          <FontAwesomeIcon icon={faArrowRight} className="w-5 h-5" />
         </Button>
       )}
     </div>

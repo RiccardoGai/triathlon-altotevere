@@ -8,7 +8,7 @@ export const PostHighlightTemplate: Template = {
       label: 'Number of Posts',
       name: 'post_highlight_number_of_posts',
       type: 'number',
-      required: true
+      required: true,
     },
     {
       label: 'Pinned Post',
@@ -19,8 +19,8 @@ export const PostHighlightTemplate: Template = {
       list: true,
       ui: {
         itemProps: (item) => ({
-          label: item?.post_highlight_pinned_post_post?.title
-        })
+          label: item?.post_highlight_pinned_post_post?.title,
+        }),
       },
       fields: [
         {
@@ -28,9 +28,9 @@ export const PostHighlightTemplate: Template = {
           name: 'post_highlight_pinned_post_post',
           type: 'reference',
           collections: ['post'],
-          required: true
-        }
-      ]
-    }
-  ]
+          required: true,
+        },
+      ],
+    },
+  ],
 };

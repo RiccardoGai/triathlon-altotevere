@@ -1,9 +1,5 @@
 'use client';
-import {
-  PageBlocks,
-  PageQuery,
-  PageQueryVariables
-} from '@/tina/__generated__/types';
+import { PageBlocks, PageQuery, PageQueryVariables } from '@/tina/__generated__/types';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { ITinaResponse } from '../../models/tina-response.interface';
 import Container from '../container.component';
@@ -22,11 +18,7 @@ import SponsorBlock from './sponsor.component';
 import StaffBlock from './staff.component';
 import VideoBlock from './video.component';
 
-export default function PageBlock({
-  props
-}: {
-  props: ITinaResponse<PageQuery, PageQueryVariables>;
-}) {
+export default function PageBlock({ props }: { props: ITinaResponse<PageQuery, PageQueryVariables> }) {
   const { data } = useTina(props);
 
   return (
@@ -38,7 +30,7 @@ export default function PageBlock({
               <Block data-tina-field={tinaField(block)} key={i} {...block} />
             ) : (
               <Section key={i}>
-                <Container>
+                <Container className={i !== 0 ? '' : 'py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 2xl:py-20'}>
                   <Block {...block} data-tina-field={tinaField(block)} />
                 </Container>
               </Section>

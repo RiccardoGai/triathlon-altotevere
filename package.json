@@ -7,16 +7,18 @@
     "build": "tinacms build && next build",
     "start": "tinacms build && next start ",
     "lint": "next lint",
+    "prettier": "prettier --write \"app/**/*.{ts,tsx,html,scss}\" \"tina/collections/**/*.ts\"",
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-brands-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@tinacms/cli": "^1.6.5",
-    "@vercel/analytics": "^1.3.1",
-    "@vercel/speed-insights": "^1.0.12",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@tailwindcss/postcss": "^4.0.3",
+    "@tinacms/cli": "^1.9.2",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "moment": "^2.30.1",
     "next": "^14.1.4",
     "next-share": "^0.27.0",
@@ -24,12 +26,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "resend": "^3.2.0",
-    "tinacms": "^2.2.9",
-    "yet-another-react-lightbox": "^3.17.3"
+    "tinacms": "^2.7.2",
+    "yet-another-react-lightbox": "^3.21.7"
   },
   "devDependencies": {
     "@mep-agency/next-iubenda": "^1.0.0-alpha5",
-    "@tailwindcss/typography": "^0.5.12",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^18.2.75",
     "@types/react-dom": "^18.2.24",
@@ -37,10 +39,10 @@
     "eslint": "^8",
     "eslint-config-next": "^14.1.4",
     "postcss": "^8",
-    "prettier": "^3.0.3",
+    "prettier": "^3.5.2",
     "sass": "^1.69.5",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss": "^3.3.5",
+    "tailwindcss": "^4.0.9",
     "typescript": "^5"
   }
 }

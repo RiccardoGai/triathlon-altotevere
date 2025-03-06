@@ -7,23 +7,19 @@ import {
   TwitterIcon,
   TwitterShareButton,
   WhatsappIcon,
-  WhatsappShareButton
+  WhatsappShareButton,
 } from 'next-share';
 import { usePathname } from 'next/navigation';
 import { tinaField, useTina } from 'tinacms/dist/react';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { CONFIG } from '../config/config';
 import { ITinaResponse } from '../models/tina-response.interface';
 import { formatDate } from '../utils/utils';
 import HeroBannerBlock from './blocks/hero-banner.component';
 import Container from './container.component';
+import Markdown from './markdown.component';
 import Section from './section.component';
 
-export default function PagePost({
-  props
-}: {
-  props: ITinaResponse<PostQuery, PostQueryVariables>;
-}) {
+export default function PagePost({ props }: { props: ITinaResponse<PostQuery, PostQueryVariables> }) {
   const { data } = useTina(props);
   const currentUrl = CONFIG.SITE_URL + usePathname();
   const post = data.post;
@@ -31,21 +27,21 @@ export default function PagePost({
     <div data-tina-field={tinaField(post)}>
       <HeroBannerBlock
         data={{
-          hero_image: post.image,
+          hero_image: post.image!,
           hero_height: '50%',
           hero_title: post.title,
           hero_tagline: post.date && formatDate(post.date, 'D MMMM, YYYY'),
-          hero_image_position: post.hero_image_position
+          hero_image_position: post.hero_image_position,
         }}
       ></HeroBannerBlock>
       <Section>
-        <Container className='tina-markdown-content px-6 sm:px-20 md:px-40 lg:px-60'>
-          <TinaMarkdown content={post.body} />
+        <Container className="tina-markdown-content px-6 sm:px-20 md:px-40 lg:px-60">
+          <Markdown data={post.body} />
         </Container>
       </Section>
       <Section>
-        <Container className='px-6 sm:px-16'>
-          <div className='grid gap-6 grid-flow-col auto-cols-min justify-center border-y py-6'>
+        <Container className="px-6 sm:px-16">
+          <div className="grid gap-6 grid-flow-col auto-cols-min justify-center border-y py-6">
             <FacebookShareButton url={currentUrl} quote={post.title}>
               <FacebookIcon size={32} round />
             </FacebookShareButton>

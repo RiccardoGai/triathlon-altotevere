@@ -1,6 +1,4 @@
 import type { Collection, Form, TinaCMS } from 'tinacms';
-import { auditBeforeSubmit, auditFields } from './audit.utility';
-import { seoFields } from './seo.utility';
 import { ContactFormTemplate } from './templates/contact-form.template';
 import { ContactInfoTemplate } from './templates/contact-info.template';
 import { GridTemplate } from './templates/grid.template';
@@ -14,6 +12,8 @@ import { RichTextTemplate } from './templates/rich-text.template';
 import { SponsorTemplate } from './templates/sponsor.template';
 import { StaffTemplate } from './templates/staff.template';
 import { VideoTemplate } from './templates/video.template';
+import { auditBeforeSubmit, auditFields } from './utils/audit.utils';
+import { seoFields } from './utils/seo.utils';
 
 const Page: Collection = {
   label: 'Pages',
@@ -22,7 +22,7 @@ const Page: Collection = {
   format: 'mdx',
   ui: {
     router: ({
-      document
+      document,
     }: {
       document: {
         _sys: {
@@ -42,12 +42,12 @@ const Page: Collection = {
     filename: {
       slugify: (values: Record<string, any>) => {
         return `${values?.title?.toLowerCase().replace(/ /g, '-')}`;
-      }
+      },
     },
     beforeSubmit: async ({
       form,
       cms,
-      values
+      values,
     }: {
       form: Form;
       cms: TinaCMS;
@@ -55,7 +55,7 @@ const Page: Collection = {
     }) => {
       const auditValues = await auditBeforeSubmit({ form, cms, values });
       return auditValues;
-    }
+    },
   },
   fields: [
     ...auditFields,
@@ -66,7 +66,7 @@ const Page: Collection = {
       name: 'blocks',
       label: 'Sections',
       ui: {
-        visualSelector: true
+        visualSelector: true,
       },
       templates: [
         HeroBannerTemplate,
@@ -81,9 +81,9 @@ const Page: Collection = {
         ImageGalleryTemplate,
         SponsorTemplate,
         StaffTemplate,
-        ContactInfoTemplate
-      ]
-    }
-  ]
+        ContactInfoTemplate,
+      ],
+    },
+  ],
 };
 export default Page;

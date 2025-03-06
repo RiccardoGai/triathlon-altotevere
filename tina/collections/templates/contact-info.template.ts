@@ -8,8 +8,8 @@ export const ContactInfoTemplate: Template = {
       name: 'empty',
       type: 'string',
       ui: {
-        component: null
-      }
-    }
-  ]
+        component: null,
+      },
+    },
+  ],
 };

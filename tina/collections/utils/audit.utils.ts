@@ -5,36 +5,36 @@ export const auditFields = [
     name: 'createdBy',
     type: 'string',
     ui: {
-      component: null
-    }
+      component: null,
+    },
   },
   {
     name: 'createdOn',
     type: 'datetime',
     ui: {
-      component: null
-    }
+      component: null,
+    },
   },
   {
     name: 'updatedBy',
     type: 'string',
     ui: {
-      component: null
-    }
+      component: null,
+    },
   },
   {
     name: 'updatedOn',
     type: 'datetime',
     ui: {
-      component: null
-    }
-  }
+      component: null,
+    },
+  },
 ] as TinaField[];
 
 export const auditBeforeSubmit = async ({
   form,
   cms,
-  values
+  values,
 }: {
   form: Form;
   cms: TinaCMS;
@@ -49,11 +49,11 @@ export const auditBeforeSubmit = async ({
     ...values,
     ...(form.crudType === 'create' && {
       createdBy: user,
-      createdOn: new Date().toISOString()
+      createdOn: new Date().toISOString(),
     }),
     ...(form.crudType === 'update' && {
       updatedBy: user,
-      updatedOn: new Date().toISOString()
-    })
+      updatedOn: new Date().toISOString(),
+    }),
   };
 };

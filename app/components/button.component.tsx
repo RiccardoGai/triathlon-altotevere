@@ -9,7 +9,7 @@ export default function Button({
   children,
   ...props
 }: (React.HTMLProps<HTMLButtonElement> | React.HTMLProps<HTMLAnchorElement>) & {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'accent' | 'link';
   className?: string;
   type: 'button' | 'submit' | 'reset' | 'link';
   href?: string;
@@ -19,8 +19,11 @@ export default function Button({
     primary: 'btn-primary',
     secondary: 'btn-secondary',
     tertiary: 'btn-tertiary',
-    link: 'cursor-pointer hover:text-primary'
+    accent: 'btn-accent',
+    link: 'cursor-pointer hover:text-primary',
   };
+
+  const inExternalLink = type === 'link' && href?.startsWith('http');
 
   return (
     <>
@@ -36,6 +39,8 @@ export default function Button({
       {type === 'link' && (
         <Link
           className={twMerge(variants[variant] || '', className)}
+          passHref={inExternalLink}
+          target={inExternalLink ? '_blank' : undefined}
           href={href!}
           {...(props as React.HTMLProps<HTMLAnchorElement>)}
         >

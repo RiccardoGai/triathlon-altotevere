@@ -1,25 +1,83 @@
+import { RichTextTemplate as RichTextComponent } from '@tinacms/schema-tools';
 import { Template } from 'tinacms';
+
+export const RichTextInnerTemplates: RichTextComponent<any>[] = [
+  {
+    name: 'Button',
+    label: 'Button',
+    fields: [
+      { name: 'rich_text_button_text', label: 'Text', type: 'string', required: true },
+      {
+        name: 'rich_text_button_variant',
+        label: 'Variant',
+        type: 'string',
+        required: true,
+        options: [
+          { label: 'Primary', value: 'primary' },
+          { label: 'Secondary', value: 'secondary' },
+          { label: 'Tertiary', value: 'tertiary' },
+        ],
+      },
+      { name: 'rich_text_button_href', label: 'Href', type: 'reference', collections: ['page'] },
+      { label: 'External Href', name: 'rich_text_button_external_href', type: 'string' },
+    ],
+  },
+  {
+    name: 'Image',
+    label: 'Image',
+    fields: [
+      {
+        type: 'image',
+        label: 'Image',
+        name: 'rich_text_image_ref',
+        required: true,
+      },
+      {
+        type: 'number',
+        label: 'Width',
+        name: 'rich_text_width',
+        ui: {
+          parse: (val) => {
+            if (isNaN(parseFloat(val as any))) {
+              return undefined as any;
+            }
+            return parseFloat(val as any);
+          },
+        },
+      },
+      {
+        type: 'number',
+        label: 'Height',
+        name: 'rich_text_height',
+        ui: {
+          parse: (val) => {
+            if (isNaN(parseFloat(val as any))) {
+              return undefined as any;
+            }
+            return parseFloat(val as any);
+          },
+        },
+      },
+    ],
+  },
+];
 
 export const RichTextTemplate: Template = {
   name: 'richText',
   label: 'Rich Text',
   ui: {
-    itemProps: (item: Record<string, any>) => ({
-      label: 'Rich Text ' + item?.rich_text_name || ''
-    })
+    itemProps(item) {
+      return { label: 'Rich Text ' + item?.rich_text_name || '' };
+    },
   },
   fields: [
-    {
-      label: 'Name',
-      name: 'rich_text_name',
-      type: 'string',
-      required: true
-    },
+    { label: 'Name', name: 'rich_text_name', type: 'string', required: true },
     {
       label: 'Text',
       name: 'rich_text_text',
       type: 'rich-text',
-      required: true
-    }
-  ]
+      required: true,
+      templates: RichTextInnerTemplates,
+    },
+  ],
 };

@@ -1,93 +1,74 @@
 import { parseSystemInfoToHref } from '@/app/utils/utils';
-import {
-  PageBlocksGridGrid_ColumnsBlocksPrice,
-  PageBlocksPrice
-} from '@/tina/__generated__/types';
+import { PageBlocksGridGrid_ColumnsBlocksPrice, PageBlocksPrice } from '@/tina/__generated__/types';
 import Link from 'next/link';
 import { tinaField } from 'tinacms/dist/react';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import Button from '../button.component';
+import Markdown from '../markdown.component';
 
 export default function PriceBlock({
-  data
+  data,
 }: {
   data: PageBlocksPrice | PageBlocksGridGrid_ColumnsBlocksPrice;
 }) {
   return (
-    <>
-      <div
-        className={'mb-8 md:mx-auto md:mb-12 text-center'}
-        data-tina-field={tinaField(data)}
-      >
-        {data.price_title && (
-          <h2
-            className={
-              'font-bold leading-tighter tracking-tighter  text-heading text-3xl'
-            }
-          >
-            {data.price_title}
-          </h2>
-        )}
+    <div className="container mx-auto px-4 py-16 text-center" data-tina-field={tinaField(data)}>
+      {/* Titolo Prezzi */}
+      {data.price_title && <h2 className="text-4xl font-extrabold text-gray-900 mb-6">{data.price_title}</h2>}
 
-        {data.price_subtitle && (
-          <p className={'mt-4 text-gray-500'}>{data.price_subtitle}</p>
-        )}
-      </div>
-      <div className='flex items-stretch justify-center'>
-        <div className='grid grid-cols-auto-fit-200px gap-16 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3'>
-          {data.price_children &&
-            data.price_children.map((price, i) => (
-              <div
-                data-tina-field={tinaField(price!)}
-                key={i}
-                className='col-span-3 mx-auto flex w-full sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1'
-              >
-                {price && (
-                  <div className='rounded-lg backdrop-blur border border-gray-200 bg-white shadow px-6 py-8 flex w-full max-w-sm flex-col text-center'>
-                    {price.price_title && (
-                      <h3 className='text-center text-3xl font-bold uppercase leading-6 tracking-wider'>
-                        {price.price_title}
-                      </h3>
-                    )}
+      {/* Sottotitolo */}
+      {data.price_subtitle && <p className="text-lg text-gray-600 mb-12">{data.price_subtitle}</p>}
 
-                    {price.price_price && !price.price_contact_button && (
-                      <div className='my-4 md:my-8'>
-                        <div className='flex items-center justify-center text-center mb-1'>
-                          <span className='text-6xl font-extrabold'>
-                            {price.price_price}
-                          </span>
-                          <span className='text-5xl'>€</span>
+      {/* Opzioni Prezzi */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {data.price_children &&
+          data.price_children.map((price, i) => (
+            <div key={i} data-tina-field={tinaField(price!)} className="flex justify-center">
+              {price && (
+                <div
+                  className={`w-full max-w-sm bg-white rounded-lg shadow-lg p-8 border border-gray-200 hover:shadow-2xl transition-all 
+                    ${
+                      data.price_children?.length === 3 && i === 1
+                        ? 'scale-105 border-blue-500 shadow-xl' // Evidenzia il piano centrale
+                        : ''
+                    }`}
+                >
+                  {price.price_title && (
+                    <h3 className="text-2xl font-semibold text-gray-900 uppercase mb-4">
+                      {price.price_title}
+                    </h3>
+                  )}
+
+                  {price.price_price && !price.price_contact_button && (
+                    <div className="flex justify-center items-center mb-6">
+                      <span className="text-3xl font-extrabold text-gray-900">{price.price_price}</span>
+                      <span className="text-2xl ml-1 text-gray-700">€</span>
+                    </div>
+                  )}
+
+                  {price.price_contact_button && (
+                    <div className="mb-6">
+                      <Link href={parseSystemInfoToHref(price.price_contact_button._sys)}>
+                        <Button type="button" variant="primary" className="w-full py-3 text-lg font-medium">
+                          Richiedi un preventivo
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+
+                  {price.price_description && (
+                    <div className="text-gray-600 text-base leading-relaxed tina-markdown-content">
+                      <div className="text-center">
+                        <div className="text-left inline-block">
+                          <Markdown data={price.price_description} />
                         </div>
                       </div>
-                    )}
-
-                    {price.price_contact_button && (
-                      <div className='my-4 md:my-8'>
-                        <Link
-                          href={parseSystemInfoToHref(
-                            price.price_contact_button._sys
-                          )}
-                        >
-                          <Button type='button' variant='primary'>
-                            Richiedi un preventivo
-                          </Button>
-                        </Link>
-                      </div>
-                    )}
-
-                    {price.price_description && (
-                      <div className='sm:text-lg text-gray-600 text-center tina-markdown-content'>
-                        <TinaMarkdown
-                          content={price.price_description}
-                        ></TinaMarkdown>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
       </div>
-    </>
+    </div>
   );
 }
