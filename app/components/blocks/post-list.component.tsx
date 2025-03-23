@@ -22,10 +22,13 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const data = await client.queries.postConnection({
-        last: Number.MAX_SAFE_INTEGER,
-        sort: nameof<Post>('date'),
-      });
+      const data = await client.queries.postConnection(
+        {
+          last: Number.MAX_SAFE_INTEGER,
+          sort: nameof<Post>('date'),
+        },
+        { fetchOptions: { next: { revalidate: 60 } } }
+      );
 
       const items = data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
       setItems(items as Post[]);

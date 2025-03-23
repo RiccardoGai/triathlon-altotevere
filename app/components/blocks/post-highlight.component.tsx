@@ -23,10 +23,13 @@ export default function PostHighlightBlock({ data }: { data: PageBlocksPostHighl
       if (postToFetch > 0) {
         setLoading(true);
         try {
-          const data = await client.queries.postConnection({
-            last: postToFetch,
-            sort: nameof<Post>('date'),
-          });
+          const data = await client.queries.postConnection(
+            {
+              last: postToFetch,
+              sort: nameof<Post>('date'),
+            },
+            { fetchOptions: { next: { revalidate: 60 } } }
+          );
 
           const items = data.data.postConnection.edges?.map((edge) => edge!.node) ?? [];
 

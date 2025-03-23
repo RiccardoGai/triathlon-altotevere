@@ -5,9 +5,12 @@ import { default as SlugPage } from './[...slug]/page';
 import { CONFIG } from './config/config';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const globalResponse = await client.queries.global({
-    relativePath: 'global.mdx',
-  });
+  const globalResponse = await client.queries.global(
+    {
+      relativePath: 'global.mdx',
+    },
+    { fetchOptions: { next: { revalidate: 60 } } }
+  );
   const homePage = globalResponse.data.global.home_page;
   const seo = homePage?.seo;
   return {
@@ -30,9 +33,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   // const globalResponse = useGlobalTinaContext();
-  const globalResponse = await client.queries.global({
-    relativePath: 'global.mdx',
-  });
+  const globalResponse = await client.queries.global(
+    {
+      relativePath: 'global.mdx',
+    },
+    { fetchOptions: { next: { revalidate: 60 } } }
+  );
   return (
     <SlugPage
       params={{
