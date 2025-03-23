@@ -14,9 +14,12 @@ export const generateStaticParams = async () => {
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
   try {
-    const postData = await client.queries.post({
-      relativePath: `${path.join(...params.slug)}.mdx`,
-    });
+    const postData = await client.queries.post(
+      {
+        relativePath: `${path.join(...params.slug)}.mdx`,
+      },
+      { fetchOptions: { next: { revalidate: 60 } } }
+    );
     const post = postData.data.post;
     const seo = post.seo;
     return {
@@ -45,9 +48,12 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
   try {
-    const postData = await client.queries.post({
-      relativePath: `${path.join(...params.slug)}.mdx`,
-    });
+    const postData = await client.queries.post(
+      {
+        relativePath: `${path.join(...params.slug)}.mdx`,
+      },
+      { fetchOptions: { next: { revalidate: 60 } } }
+    );
 
     return <PagePost props={postData} />;
   } catch (error) {

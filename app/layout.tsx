@@ -37,14 +37,16 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const globalResponse = await client.queries.global({
-    relativePath: 'global.mdx',
-  });
+  const globalResponse = await client.queries.global(
+    {
+      relativePath: 'global.mdx',
+    },
+    { fetchOptions: { next: { revalidate: 60 } } }
+  );
   return (
     <html lang="it">
       <head>
         <meta name="google-site-verification" content="yQHdS31nK4yZ5sUdZam4iHF3VQ-hscbZ3fZzZe4AcDY" />
-        <meta name="google-adsense-account" content="ca-pub-7831086226943392" />
       </head>
       <body className={`${font.className} antialiased text-default bg-page tracking-tight flex flex-col`}>
         <IubendaProvider bannerConfig={CONFIG.IUBENDA}>

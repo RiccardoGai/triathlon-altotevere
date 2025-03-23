@@ -6,7 +6,9 @@ import PageBlock from '../components/blocks/page-block.component';
 import { CONFIG } from '../config/config';
 
 export const generateStaticParams = async () => {
-  const pages = (await client.queries.pageConnection()).data.pageConnection.edges ?? [];
+  const pages =
+    (await client.queries.pageConnection({}, { fetchOptions: { next: { revalidate: 60 } } })).data
+      .pageConnection.edges ?? [];
   return pages.map((page) => ({
     slug: page?.node?._sys.breadcrumbs,
   }));
@@ -14,9 +16,12 @@ export const generateStaticParams = async () => {
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
   try {
-    const page = await client.queries.page({
-      relativePath: `${path.join(...params.slug)}.mdx`,
-    });
+    const page = await client.queries.page(
+      {
+        relativePath: `${path.join(...params.slug)}.mdx`,
+      },
+      { fetchOptions: { next: { revalidate: 60 } } }
+    );
     const seo = page.data.page.seo;
     return {
       title: seo?.title,
@@ -42,9 +47,12 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
   try {
-    const page = await client.queries.page({
-      relativePath: `${path.join(...params.slug)}.mdx`,
-    });
+    const page = await client.queries.page(
+      {
+        relativePath: `${path.join(...params.slug)}.mdx`,
+      },
+      { fetchOptions: { next: { revalidate: 60 } } }
+    );
     return <PageBlock props={page} />;
   } catch (error) {
     console.error(error);
