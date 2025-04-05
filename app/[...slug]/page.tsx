@@ -5,6 +5,8 @@ import path from 'path';
 import PageBlock from '../components/blocks/page-block.component';
 import { CONFIG } from '../config/config';
 
+export const revalidate = true;
+
 export const generateStaticParams = async () => {
   const pages =
     (await client.queries.pageConnection({}, { fetchOptions: { next: { revalidate: 60 } } })).data
