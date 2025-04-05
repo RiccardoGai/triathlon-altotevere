@@ -12,7 +12,7 @@ import { CONFIG } from './config/config';
 import GlobalTinaProvider from './providers/global-tina.providers';
 import './styles/index.scss';
 
-export const revalidate = true;
+export const revalidate = 0;
 
 config.autoAddCss = false;
 

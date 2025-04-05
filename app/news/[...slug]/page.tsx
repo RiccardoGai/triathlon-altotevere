@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import path from 'path';
 
-export const revalidate = true;
+export const revalidate = 0;
 
 export const generateStaticParams = async () => {
   const posts = (await client.queries.postConnection()).data.postConnection.edges ?? [];

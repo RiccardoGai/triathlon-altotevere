@@ -5,7 +5,7 @@ import path from 'path';
 import PageBlock from '../components/blocks/page-block.component';
 import { CONFIG } from '../config/config';
 
-export const revalidate = true;
+export const revalidate = 0;
 
 export const generateStaticParams = async () => {
   const pages =
