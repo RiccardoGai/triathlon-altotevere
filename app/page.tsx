@@ -4,6 +4,8 @@ import path from 'path';
 import { default as SlugPage } from './[...slug]/page';
 import { CONFIG } from './config/config';
 
+export const revalidate = true;
+
 export async function generateMetadata(): Promise<Metadata> {
   const globalResponse = await client.queries.global(
     {
