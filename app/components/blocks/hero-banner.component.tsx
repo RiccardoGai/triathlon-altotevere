@@ -90,7 +90,7 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
                   key={index}
                   type="link"
                   href={
-                    action?.hero_action_external_href ?? parseSystemInfoToHref(action?.hero_action_href?._sys)
+                    action?.hero_action_external_href || parseSystemInfoToHref(action?.hero_action_href?._sys)
                   }
                   variant={action?.hero_action_variant as any}
                 >
