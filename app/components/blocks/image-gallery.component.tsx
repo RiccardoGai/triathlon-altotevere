@@ -16,7 +16,9 @@ export default function ImageGalleryBlock({
   const [indexLightBox, setIndexLightBox] = useState(-1);
   const gridRef = createRef<HTMLDivElement>();
   const [showMore, setShowMore] = useState(false);
-  const [visibleRows, setVisibleRows] = useState(2); // Mostra 2 righe inizialmente
+  const [visibleRows, setVisibleRows] = useState(
+    data.image_gallery_show_more_button ? 2 : Number.MAX_SAFE_INTEGER
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -62,7 +64,7 @@ export default function ImageGalleryBlock({
         ))}
       </div>
 
-      {showMore && (
+      {showMore && data.image_gallery_show_more_button && (
         <div className="flex justify-center mt-6">
           <Button
             type="button"
