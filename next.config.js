@@ -2,6 +2,7 @@
 const nextConfig = {
   transpilePackages: ['@mep-agency/next-iubenda'],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
