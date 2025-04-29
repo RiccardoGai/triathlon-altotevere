@@ -45,20 +45,20 @@ export default function Header() {
                 <Image
                   data-tina-field={tinaField(global, 'logo')}
                   src={global.logo}
-                  width={70}
-                  height={70}
+                  width={96}
+                  height={96}
                   alt={CONFIG.APP_NAME}
                   loading="eager"
-                  className="w-full h-auto hidden md:block"
+                  className="hidden md:block"
                 />
                 <Image
                   data-tina-field={tinaField(global, 'logo')}
                   src={global.logo}
-                  width={50}
-                  height={50}
+                  width={70}
+                  height={70}
                   alt={CONFIG.APP_NAME}
                   loading="eager"
-                  className="w-full h-auto md:hidden"
+                  className="md:hidden"
                 />
               </>
             ) : (
