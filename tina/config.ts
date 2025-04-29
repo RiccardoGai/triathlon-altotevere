@@ -13,23 +13,23 @@ export default defineConfig({
 
   build: {
     outputFolder: 'admin',
-    publicFolder: 'public'
+    publicFolder: 'public',
   },
   media: {
-    tina: {
-      publicFolder: 'public',
-      mediaRoot: 'uploads'
-    }
+    loadCustomStore: async () => {
+      const pack = await import('next-tinacms-cloudinary');
+      return pack.TinaCloudCloudinaryMediaStore;
+    },
   },
   schema: {
-    collections: [Global, Page, Post]
+    collections: [Global, Page, Post],
   },
   search: {
     tina: {
       indexerToken: process.env.TINA_SEARCH_TOKEN!,
-      stopwordLanguages: ['ita']
+      stopwordLanguages: ['ita'],
     },
     indexBatchSize: 100,
-    maxSearchIndexFieldLength: 100
-  }
+    maxSearchIndexFieldLength: 100,
+  },
 });
