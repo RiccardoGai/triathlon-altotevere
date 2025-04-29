@@ -19,16 +19,17 @@ export default function ImageGalleryBlock({
   const [visibleRows, setVisibleRows] = useState(2); // Mostra 2 righe inizialmente
 
   useEffect(() => {
-    if (gridRef.current && gridRef.current.clientHeight < gridRef.current.scrollHeight) {
-      setShowMore(true);
-    } else {
-      setShowMore(false);
-    }
+    setTimeout(() => {
+      if (gridRef.current && gridRef.current.clientHeight < gridRef.current.scrollHeight) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
+    }, 100);
   }, [gridRef, visibleRows]);
 
   return (
     <div data-tina-field={tinaField(data)} className="py-12">
-      {/* Titolo e Sottotitolo */}
       <div className="mb-8 text-center">
         {data.image_gallery_title && (
           <h2 className="text-4xl font-bold text-gray-900">{data.image_gallery_title}</h2>
@@ -66,7 +67,7 @@ export default function ImageGalleryBlock({
           <Button
             type="button"
             variant="primary"
-            onClick={() => setVisibleRows((prev) => prev + 2)}
+            onClick={() => setVisibleRows((prev) => prev + 1000)}
             className="px-6 py-2 text-lg"
           >
             Mostra di più
