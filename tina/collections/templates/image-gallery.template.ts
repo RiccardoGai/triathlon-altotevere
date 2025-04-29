@@ -20,6 +20,11 @@ export const ImageGalleryTemplate: Template = {
       name: 'image_gallery_subtitle',
     },
     {
+      type: 'boolean',
+      label: 'Show More Button',
+      name: 'image_gallery_show_more_button',
+    },
+    {
       label: 'Images',
       name: 'image_gallery_images',
       type: 'image',
