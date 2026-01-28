@@ -12,25 +12,30 @@ export default function SponsorBlock({
   const height = data.sponsor_image_height ?? 200;
 
   return (
-    <div data-tina-field={tinaField(data)}>
+    <div data-tina-field={tinaField(data)} className="py-16 md:py-20">
+      {/* Header */}
       {data.sponsor_title && (
-        <div className="mb-8 text-center">
-          <h2 className="font-bold text-2xl text-gray-900 leading-tight">{data.sponsor_title}</h2>
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+            {data.sponsor_title}
+          </h2>
+          <div className="mt-4 mx-auto w-16 h-1 bg-gradient-to-r from-primary to-primary-dark rounded-full" />
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-4 md:px-8">
+      {/* Sponsor grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 px-4 md:px-8">
         {(data.sponsor_image ?? []).map((image, i) =>
           image?.sponsor_image_image ? (
             <div
               key={i}
-              className="flex flex-col items-center text-center bg-white shadow-md rounded-lg p-4 min-h-full"
+              className="group relative bg-white rounded-xl p-6 flex flex-col items-center justify-center text-center border-2 border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
             >
               {image?.sponsor_image_href ? (
                 <Link
                   href={image?.sponsor_image_href ?? '#'}
                   target="_blank"
-                  className="group relative flex-grow flex items-center"
+                  className="flex-grow flex items-center justify-center w-full"
                 >
                   <Image
                     src={image?.sponsor_image_image}
@@ -38,34 +43,36 @@ export default function SponsorBlock({
                     loading="lazy"
                     width={width}
                     height={height}
-                    className="object-contain w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain w-full h-auto max-h-20 grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-300"
                   />
                 </Link>
               ) : (
-                <div className="relative flex-grow flex items-center">
+                <div className="flex-grow flex items-center justify-center w-full">
                   <Image
                     src={image?.sponsor_image_image}
                     alt={image?.sponsor_image_name || ''}
                     loading="lazy"
                     width={width}
                     height={height}
-                    className="object-contain w-full h-auto"
+                    className="object-contain w-full h-auto max-h-20 grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-300"
                   />
                 </div>
               )}
 
               {image?.sponsor_image_name && (
-                <div className="mt-2">
+                <div className="mt-4 pt-3 border-t border-gray-100 w-full">
                   {image?.sponsor_image_href ? (
                     <Link
                       href={image.sponsor_image_href}
                       target="_blank"
-                      className="text-sm font-medium text-primary hover:underline underline-offset-2 flex items-center gap-1 transition-colors duration-200"
+                      className="text-xs font-bold text-gray-500 group-hover:text-primary uppercase tracking-wider transition-colors duration-200"
                     >
                       {image.sponsor_image_name}
                     </Link>
                   ) : (
-                    <p className="text-sm font-medium text-gray-700">{image.sponsor_image_name}</p>
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      {image.sponsor_image_name}
+                    </p>
                   )}
                 </div>
               )}

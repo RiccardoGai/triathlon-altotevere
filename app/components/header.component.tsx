@@ -17,6 +17,7 @@ export default function Header() {
   const global = data.global as Global;
   const currentPath = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScreenSizeChange = () => {
@@ -33,20 +34,28 @@ export default function Header() {
 
   const onNavClick = () => {
     setMenuOpen(false);
+    setOpenDropdown(null);
+  };
+
+  const onDropdownToggle = (index: number) => {
+    setOpenDropdown((prev) => (prev === index ? null : index));
   };
 
   return (
-    <header className="sticky top-0 z-40 flex-none mx-auto w-full transition-opacity ease-in-out bg-page shadow-lg">
-      <div className="relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between">
-        <div className="flex justify-between">
-          <Link href="/" className="flex items-center" onClick={onNavClick}>
+    <header className="sticky top-0 z-40 flex-none mx-auto w-full bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+      {/* Accent stripe - brand energy element */}
+      <div className="h-1 bg-gradient-to-r from-primary via-primary-dark to-primary" />
+
+      <div className="relative text-default py-3 px-4 md:px-8 mx-auto w-full md:flex md:justify-between md:items-center max-w-7xl">
+        <div className="flex justify-between items-center">
+          <Link href="/" className="flex items-center group" onClick={onNavClick}>
             {global.logo ? (
               <>
                 <Image
                   data-tina-field={tinaField(global, 'logo')}
                   src={global.logo}
-                  width={96}
-                  height={96}
+                  width={80}
+                  height={80}
                   alt={CONFIG.APP_NAME}
                   loading="eager"
                   className="hidden md:block"
@@ -54,16 +63,19 @@ export default function Header() {
                 <Image
                   data-tina-field={tinaField(global, 'logo')}
                   src={global.logo}
-                  width={70}
-                  height={70}
+                  width={56}
+                  height={56}
                   alt={CONFIG.APP_NAME}
                   loading="eager"
                   className="md:hidden"
                 />
               </>
             ) : (
-              <span data-tina-field={tinaField(global, 'logo')} className="font-bold text-lg">
-                LOGO
+              <span
+                data-tina-field={tinaField(global, 'logo')}
+                className="font-extrabold text-xl tracking-tight"
+              >
+                TRIATHLON <span className="text-secondary">ALTOTEVERE</span>
               </span>
             )}
           </Link>
@@ -71,62 +83,72 @@ export default function Header() {
             <ToggleMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           </div>
         </div>
+
         <nav
           className={`items-center w-full md:w-auto ${
-            menuOpen ? 'block' : 'hidden'
-          } md:flex text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:mx-5`}
+            menuOpen ? 'block mt-4 pb-4 border-t border-gray-100 pt-4' : 'hidden'
+          } md:flex md:mt-0 md:pb-0 md:border-0 md:pt-0 text-default overflow-y-auto overflow-x-hidden md:overflow-visible`}
         >
           <ul
-            className="flex flex-col md:flex-row md:self-center w-full md:w-auto text-lg md:text-[0.9375rem] tracking-[0.01rem] font-medium"
+            className="flex flex-col md:flex-row md:self-center md:items-center w-full md:w-auto gap-1 md:gap-0"
             data-tina-field={tinaField(global, 'links')}
           >
             {global.links?.map((link, index) => (
-              <li key={index}>
+              <li key={index} className={`relative ${link?.links?.length ? 'nav-dropdown' : ''}`}>
                 {link?.links?.length ? (
                   <>
-                    <div className="group">
-                      <button
-                        className="text-black hover:text-primary cursor-pointer px-4 py-3 flex items-center text-lg w-full md:w-auto"
-                        data-tina-field={tinaField(link!)}
-                      >
-                        {link.text}
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          className="w-3.5 h-3.5 ml-2 rtl:ml-0 rtl:mr-0.5 hidden md:inline"
-                          style={{ fontSize: 20 }}
-                        />
-                      </button>
+                    <button
+                      className="text-default hover:text-primary cursor-pointer px-4 py-2.5 flex items-center text-sm font-semibold uppercase tracking-wide w-full md:w-auto transition-colors duration-200"
+                      data-tina-field={tinaField(link!)}
+                      onClick={() => onDropdownToggle(index)}
+                    >
+                      {link.text}
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={`nav-dropdown-icon w-3 h-3 ml-1.5 transition-transform duration-200 ${
+                          openDropdown === index ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
 
-                      <ul className="md:backdrop-blur-md rounded-sm md:absolute pl-4 md:pl-0 block md:hidden md:group-hover:block font-medium md:bg-page/90 md:min-w-[200px] md:drop-shadow-xl bg-page md:border md:border-gray-200">
-                        {link?.links?.map((subLink, subIndex) => (
-                          <li key={`${index}_${subIndex}`}>
-                            <Link
-                              data-tina-field={tinaField(subLink!)}
-                              onClick={onNavClick}
-                              className={`first:rounded-t last:rounded-b hover:text-primary py-2 px-5 block whitespace-nowrap text-lg ${
-                                parseSystemInfoToHref(subLink?.href?._sys) === currentPath
-                                  ? 'text-primary'
-                                  : ''
-                              }`}
-                              href={parseSystemInfoToHref(subLink?.href?._sys)}
-                            >
-                              {subLink?.text}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <ul
+                      className={`nav-dropdown-menu pl-4 md:pl-0 md:absolute md:top-full md:left-0 md:bg-white md:min-w-[220px] md:shadow-xl md:rounded-lg md:border md:border-gray-100 md:py-2 md:z-50 ${
+                        openDropdown === index ? 'max-md:block' : 'max-md:hidden'
+                      }`}
+                    >
+                      {link?.links?.map((subLink, subIndex) => (
+                        <li key={`${index}_${subIndex}`}>
+                          <Link
+                            data-tina-field={tinaField(subLink!)}
+                            onClick={onNavClick}
+                            className={`block py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
+                              parseSystemInfoToHref(subLink?.href?._sys) === currentPath
+                                ? 'text-primary'
+                                : 'text-gray-600 hover:text-primary'
+                            }`}
+                            href={parseSystemInfoToHref(subLink?.href?._sys)}
+                          >
+                            {subLink?.text}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </>
                 ) : (
                   <Link
                     data-tina-field={tinaField(link!)}
                     onClick={onNavClick}
-                    className={`hover:text-primary px-4 py-3 flex items-center text-lg ${
-                      parseSystemInfoToHref(link?.href?._sys) === currentPath ? 'text-primary' : ''
+                    className={`relative px-4 py-2.5 flex items-center text-sm font-semibold uppercase tracking-wide transition-colors duration-200 text-center ${
+                      parseSystemInfoToHref(link?.href?._sys) === currentPath
+                        ? 'text-primary'
+                        : 'text-default hover:text-primary'
                     }`}
                     href={parseSystemInfoToHref(link?.href?._sys)}
                   >
                     {link?.text}
+                    {parseSystemInfoToHref(link?.href?._sys) === currentPath && (
+                      <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-light rounded-full hidden md:block" />
+                    )}
                   </Link>
                 )}
               </li>
@@ -151,29 +173,31 @@ function ToggleMenu({
 
   return (
     <button
-      className="flex flex-col h-12 w-12 rounded-sm justify-center items-center cursor-pointer group"
+      className={`relative flex flex-col h-10 w-10 rounded-lg justify-center items-center cursor-pointer transition-all duration-300 ${
+        menuOpen ? 'bg-primary' : 'bg-gray-100 hover:bg-gray-200'
+      }`}
       aria-label="Toggle Menu"
       onClick={onToggleMenuClick}
     >
       <span className="sr-only">Toggle Menu</span>
       <span
         aria-hidden="true"
-        className={`h-0.5 w-6 my-1 rounded-full bg-black transition-transform duration-300 ease-in-out ${
-          menuOpen ? 'rotate-45 translate-y-2.5' : ''
+        className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-out ${
+          menuOpen ? 'rotate-45 translate-y-1.5 bg-white' : 'bg-gray-700'
         }`}
-      ></span>
+      />
       <span
         aria-hidden="true"
-        className={`h-0.5 w-6 my-1 rounded-full bg-black transition-opacity duration-200 ${
-          menuOpen ? 'opacity-0' : 'opacity-100'
+        className={`h-0.5 w-5 my-1 rounded-full transition-all duration-200 ${
+          menuOpen ? 'opacity-0 bg-white' : 'opacity-100 bg-gray-700'
         }`}
-      ></span>
+      />
       <span
         aria-hidden="true"
-        className={`h-0.5 w-6 my-1 rounded-full bg-black transition-transform duration-300 ease-in-out ${
-          menuOpen ? '-rotate-45 -translate-y-2.5' : ''
+        className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-out ${
+          menuOpen ? '-rotate-45 -translate-y-1.5 bg-white' : 'bg-gray-700'
         }`}
-      ></span>
+      />
     </button>
   );
 }

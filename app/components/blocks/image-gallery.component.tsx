@@ -31,19 +31,24 @@ export default function ImageGalleryBlock({
   }, [gridRef, visibleRows]);
 
   return (
-    <div data-tina-field={tinaField(data)} className="py-12">
-      <div className="mb-8 text-center">
+    <div data-tina-field={tinaField(data)} className="py-16 md:py-20">
+      {/* Header */}
+      <div className="mb-12 text-center">
         {data.image_gallery_title && (
-          <h2 className="text-4xl font-bold text-gray-900">{data.image_gallery_title}</h2>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
+            {data.image_gallery_title}
+          </h2>
         )}
         {data.image_gallery_subtitle && (
-          <p className="mt-2 text-lg text-gray-600">{data.image_gallery_subtitle}</p>
+          <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">{data.image_gallery_subtitle}</p>
         )}
+        <div className="mt-6 mx-auto w-20 h-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
       </div>
 
+      {/* Gallery grid */}
       <div
         ref={gridRef}
-        className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 md:px-8 transition-all duration-300`}
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-4 md:px-8 transition-all duration-500"
         style={{
           gridAutoRows: 'minmax(auto, 200px)',
           maxHeight: `${visibleRows * 220}px`,
@@ -51,28 +56,42 @@ export default function ImageGalleryBlock({
         }}
       >
         {(data.image_gallery_images ?? []).map((image, i) => (
-          <div key={i} className="relative h-40 md:h-56 lg:h-64 w-full">
+          <div
+            key={i}
+            className="group relative h-40 md:h-56 lg:h-64 w-full overflow-hidden rounded-xl cursor-pointer"
+            onClick={() => setIndexLightBox(i)}
+          >
             <Image
               src={image!}
               alt=""
               loading="lazy"
               fill={true}
-              onClick={() => setIndexLightBox(i)}
-              className="cursor-pointer object-cover rounded-lg border border-gray-200 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+              className="object-cover transition-all duration-500 group-hover:scale-110"
             />
+            {/* Hover overlay */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300">
+                <svg className="w-5 h-5 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              </div>
+            </div>
           </div>
         ))}
       </div>
 
+      {/* Show more button */}
       {showMore && data.image_gallery_show_more_button && (
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-10">
           <Button
             type="button"
-            variant="primary"
+            variant="tertiary"
             onClick={() => setVisibleRows((prev) => prev + 1000)}
-            className="px-6 py-2 text-lg"
           >
-            Mostra di più
+            <span>Mostra altre foto</span>
+            <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </Button>
         </div>
       )}

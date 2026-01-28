@@ -3,27 +3,75 @@
 @plugin '@tailwindcss/typography';
 
 :root {
+  /* === TRIATHLON ALTOTEVERE DESIGN SYSTEM === */
+  /* Team colors: Blue, White, Black */
+
+  /* Primary: Team Blue - Trust, professionalism, swimming */
   --color-primary: rgb(0, 77, 191);
+  --color-primary-dark: rgb(0, 55, 140);
+  --color-primary-light: rgb(60, 120, 210);
+
+  /* Secondary: Vibrant Green - Energy, nature, endurance, growth */
   --color-secondary: rgb(39, 174, 96);
-  --color-tertiary: var(--color-slate-500);
-  --color-accent: rgb(220, 38, 38);
-  --color-text-default: #222222;
-  --color-bg-page: #f8f9fa;
-  --color-bg-footer: #0d1b2a;
-  --color-text-footer: #b0bec5;
+  --color-secondary-dark: rgb(30, 140, 75);
+  --color-secondary-light: rgb(72, 199, 125);
+
+  /* Tertiary: Slate - Professionalism, balance */
+  --color-tertiary: rgb(100, 116, 139);
+  --color-tertiary-dark: rgb(71, 85, 105);
+
+  /* Accent: Team Black - Power, elegance, competition */
+  --color-accent: rgb(23, 23, 23);
+  --color-accent-dark: rgb(10, 10, 10);
+
+  /* Success: Same as secondary for consistency */
+  --color-success: rgb(39, 174, 96);
+
+  /* Neutral palette */
+  --color-text-default: #1a1a2e;
+  --color-text-muted: #64748b;
+  --color-bg-page: #fafbfc;
+  --color-bg-card: #ffffff;
+  --color-bg-dark: #0f172a;
+  --color-bg-footer: #0a0f1a;
+  --color-text-footer: #94a3b8;
+
+  /* Gradients for dynamic feel */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  --gradient-energy: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  --gradient-hero: linear-gradient(180deg, rgba(10, 15, 26, 0.3) 0%, rgba(10, 15, 26, 0.85) 100%);
+  --gradient-card: linear-gradient(180deg, transparent 0%, rgba(10, 15, 26, 0.9) 100%);
 }
 
 @theme {
+  /* Colors */
   --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-light: var(--color-primary-light);
   --color-secondary: var(--color-secondary);
+  --color-secondary-dark: var(--color-secondary-dark);
+  --color-secondary-light: var(--color-secondary-light);
   --color-tertiary: var(--color-tertiary);
+  --color-tertiary-dark: var(--color-tertiary-dark);
   --color-accent: var(--color-accent);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-success: var(--color-success);
   --color-default: var(--color-text-default);
+  --color-muted: var(--color-text-muted);
   --color-page: var(--color-bg-page);
+  --color-card: var(--color-bg-card);
+  --color-dark: var(--color-bg-dark);
   --color-footer: var(--color-bg-footer);
   --color-text-footer: var(--color-text-footer);
 
+  /* Grid utilities */
   --grid-template-columns-auto-fit-200px: repeat(auto-fit, minmax(200px, 1fr));
+
+  /* Shadows - more dramatic for sports feel */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-glow-primary: 0 0 30px rgba(0, 77, 191, 0.3);
+  --shadow-glow-secondary: 0 0 30px rgba(39, 174, 96, 0.3);
 }
 
 /*
@@ -100,32 +148,253 @@
   }
 }
 
+/* === BUTTON SYSTEM === */
+/* Modern, energetic buttons with subtle skew for dynamic feel */
+
 @utility btn {
-  @apply inline-flex items-center justify-center rounded-full font-semibold text-center text-base leading-snug 
-  transition-all duration-300 ease-out transform-gpu active:scale-95  cursor-pointer
-  focus:outline-none focus:ring-2 focus:ring-offset-2 py-3.5 px-6 md:px-8;
+  @apply inline-flex items-center justify-center font-bold text-center text-sm uppercase tracking-wider
+  transition-all duration-300 ease-out transform-gpu cursor-pointer
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  py-4 px-8 md:px-10
+  rounded-full
+  relative overflow-hidden;
 }
 
 @utility btn-primary {
-  @apply btn bg-primary text-white border border-primary 
-  hover:bg-blue-700 hover:border-blue-800 hover:shadow-blue-400/50
-  focus:ring-blue-500 focus:ring-offset-white;
+  @apply btn bg-primary text-white border-2 border-primary
+  hover:bg-primary-dark hover:border-primary-dark hover:-translate-y-1
+  hover:shadow-xl hover:shadow-primary/30
+  active:translate-y-0 active:shadow-md
+  focus:ring-primary focus:ring-offset-white;
 }
 
 @utility btn-secondary {
-  @apply btn bg-secondary text-white border border-secondary 
-  hover:bg-green-700 hover:border-green-800 hover:shadow-green-400/50
-  focus:ring-green-500 focus:ring-offset-white;
+  @apply btn bg-secondary text-white border-2 border-secondary
+  hover:bg-secondary-dark hover:border-secondary-dark hover:-translate-y-1
+  hover:shadow-xl hover:shadow-secondary/30
+  active:translate-y-0 active:shadow-md
+  focus:ring-secondary focus:ring-offset-white;
 }
 
 @utility btn-tertiary {
-  @apply btn bg-tertiary text-white border border-tertiary 
-  hover:bg-gray-400 hover:border-gray-500 hover:shadow-gray-200/50
-  focus:ring-gray-200 focus:ring-offset-white;
+  @apply btn bg-white text-default border-2 border-gray-200
+  hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-1
+  hover:shadow-lg
+  active:translate-y-0
+  focus:ring-gray-400 focus:ring-offset-white;
 }
 
 @utility btn-accent {
-  @apply btn bg-accent text-white border border-accent 
-  hover:bg-red-700 hover:border-red-800 hover:shadow-red-400/50
-  focus:ring-red-500 focus:ring-offset-white;
+  @apply btn bg-accent text-white border-2 border-accent
+  hover:bg-accent-dark hover:border-accent-dark hover:-translate-y-1
+  hover:shadow-xl hover:shadow-black/20
+  active:translate-y-0 active:shadow-md
+  focus:ring-accent focus:ring-offset-white;
+}
+
+/* Outline variant for hero sections - white border on dark backgrounds */
+@utility btn-outline {
+  @apply btn bg-white/10 backdrop-blur-sm text-white border-2 border-white
+  hover:bg-white hover:text-primary hover:-translate-y-1
+  hover:shadow-xl
+  active:translate-y-0
+  focus:ring-white focus:ring-offset-transparent;
+}
+
+/* Ghost variant for subtle actions */
+@utility btn-ghost {
+  @apply btn bg-transparent text-primary border-2 border-primary/30
+  hover:bg-primary/10 hover:border-primary hover:-translate-y-1
+  active:translate-y-0
+  focus:ring-primary focus:ring-offset-white;
+}
+
+/* === ANIMATION UTILITIES === */
+/* Smooth, energetic animations for sports brand feel */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(39, 174, 96, 0.5);
+  }
+}
+
+@utility animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+@utility animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out forwards;
+}
+
+@utility animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Stagger delays for list animations */
+@utility animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+@utility animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+@utility animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+@utility animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+/* === CARD UTILITIES === */
+/* Consistent card styling across components */
+
+@utility card {
+  @apply bg-white rounded-lg overflow-hidden
+  shadow-[var(--shadow-card)]
+  transition-all duration-300 ease-out;
+}
+
+@utility card-hover {
+  @apply hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1;
+}
+
+@utility card-interactive {
+  @apply card card-hover cursor-pointer;
+}
+
+/* === SECTION UTILITIES === */
+/* Consistent section styling */
+
+@utility section-padding {
+  @apply py-16 md:py-24;
+}
+
+@utility section-title {
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold text-default tracking-tight;
+}
+
+@utility section-subtitle {
+  @apply text-lg md:text-xl text-muted mt-4 max-w-2xl;
+}
+
+/* === BADGE UTILITIES === */
+/* For tags, categories, dates */
+
+@utility badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm;
+}
+
+@utility badge-primary {
+  @apply badge bg-primary/10 text-primary;
+}
+
+@utility badge-secondary {
+  @apply badge bg-secondary/10 text-secondary;
+}
+
+@utility badge-dark {
+  @apply badge bg-dark text-white;
+}
+
+/* === OVERLAY UTILITIES === */
+/* For hero sections and cards */
+
+@utility overlay-gradient {
+  background: var(--gradient-hero);
+}
+
+@utility overlay-dark {
+  @apply bg-black/60;
+}
+
+/* === DIVIDER UTILITIES === */
+/* Decorative elements */
+
+@utility divider-accent {
+  @apply w-16 h-1 bg-secondary rounded-full;
+}
+
+@utility divider-accent-lg {
+  @apply w-24 h-1.5 bg-secondary rounded-full;
+}
+
+/* === DROPDOWN MENU === */
+/* Header dropdown behavior */
+@layer components {
+  /* Mobile: always visible */
+  .nav-dropdown-menu {
+    display: block;
+  }
+
+  /* Desktop: hidden by default, visible on hover */
+  @media (min-width: 768px) {
+    .nav-dropdown-menu {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .nav-dropdown:hover .nav-dropdown-menu {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-dropdown:hover .nav-dropdown-icon {
+      transform: rotate(180deg);
+    }
+  }
 }

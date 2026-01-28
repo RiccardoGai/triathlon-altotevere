@@ -12,92 +12,106 @@ export default function StaffBlock({
   data: PageBlocksStaff | PageBlocksGridGrid_ColumnsBlocksStaff;
 }) {
   return (
-    <div data-tina-field={tinaField(data)} className="py-12">
+    <div data-tina-field={tinaField(data)} className="py-16 md:py-20">
       {data.staff_title && (
-        <div className="mb-8 text-center">
-          <h2 className="text-4xl font-extrabold text-gray-900">{data.staff_title}</h2>
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
+            {data.staff_title}
+          </h2>
+          <div className="mt-4 mx-auto w-20 h-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
         </div>
       )}
 
       <div
-        className={`grid grid-cols-1 gap-6 md:grid-cols-${data.staff_number_per_row ?? 1} lg:grid-cols-3 justify-center px-4`}
+        className={`grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-${data.staff_number_per_row ?? 3} justify-center px-4`}
       >
         {(data.staff_people ?? []).map((staff, i) => (
           <div
             key={i}
-            className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-xl"
+            className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             data-tina-field={tinaField(staff)}
           >
-            <div className="relative w-32 h-32 md:w-40 md:h-40 mb-4">
+            {/* Image container with overlay */}
+            <div className="relative h-72 md:h-80 overflow-hidden">
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
                 src={staff?.staff_person_image || ''}
                 alt={staff?.staff_person_name || ''}
                 loading="lazy"
-                className="rounded-full object-cover border-4 border-gray-200 hover:border-blue-500 transition-all"
+                className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                 fill={true}
               />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+              {/* Content overlay at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3
+                  className="text-xl md:text-2xl font-bold mb-1"
+                  data-tina-field={tinaField(staff, 'staff_person_name')}
+                >
+                  {staff?.staff_person_name}
+                </h3>
+
+                {staff?.staff_person_role && (
+                  <p
+                    className="text-secondary font-bold text-sm uppercase tracking-wider"
+                    data-tina-field={tinaField(staff, 'staff_person_role')}
+                  >
+                    {staff?.staff_person_role}
+                  </p>
+                )}
+              </div>
+
+              {/* Social links - appear on hover */}
+              <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
+                {staff?.staff_person_website && (
+                  <Link
+                    data-tina-field={tinaField(staff, 'staff_person_website')}
+                    href={staff?.staff_person_website}
+                    target="_blank"
+                    className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-gray-700 hover:bg-primary hover:text-white transition-all duration-200 shadow-lg"
+                  >
+                    <FontAwesomeIcon icon={faGlobe} className="w-4 h-4" />
+                  </Link>
+                )}
+                {staff?.staff_person_facebook && (
+                  <Link
+                    data-tina-field={tinaField(staff, 'staff_person_facebook')}
+                    href={staff?.staff_person_facebook}
+                    target="_blank"
+                    className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-gray-700 hover:bg-[#1877f2] hover:text-white transition-all duration-200 shadow-lg"
+                  >
+                    <FontAwesomeIcon icon={faFacebook} className="w-4 h-4" />
+                  </Link>
+                )}
+                {staff?.staff_person_instagram && (
+                  <Link
+                    data-tina-field={tinaField(staff, 'staff_person_instagram')}
+                    href={staff?.staff_person_instagram}
+                    target="_blank"
+                    className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-gray-700 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 hover:text-white transition-all duration-200 shadow-lg"
+                  >
+                    <FontAwesomeIcon icon={faInstagram} className="w-4 h-4" />
+                  </Link>
+                )}
+              </div>
             </div>
 
-            <div className="text-center">
-              <h3
-                className="text-xl font-bold text-gray-900"
-                data-tina-field={tinaField(staff, 'staff_person_name')}
-              >
-                {staff?.staff_person_name}
-              </h3>
-
-              {staff?.staff_person_role && (
+            {/* Description below image if exists */}
+            {staff?.staff_person_description && (
+              <div className="p-6 bg-gray-50">
                 <p
-                  className="mt-1 text-sm text-blue-600 font-medium uppercase"
-                  data-tina-field={tinaField(staff, 'staff_person_role')}
-                >
-                  {staff?.staff_person_role}
-                </p>
-              )}
-
-              {staff?.staff_person_description && (
-                <p
-                  className="mt-3 text-gray-600 leading-relaxed text-sm"
+                  className="text-gray-600 leading-relaxed text-sm"
                   data-tina-field={tinaField(staff, 'staff_person_description')}
                 >
                   {staff?.staff_person_description}
                 </p>
-              )}
-            </div>
+              </div>
+            )}
 
-            <div className="mt-4 flex space-x-4">
-              {staff?.staff_person_website && (
-                <Link
-                  data-tina-field={tinaField(staff, 'staff_person_website')}
-                  href={staff?.staff_person_website}
-                  target="_blank"
-                  className="text-gray-500 hover:text-blue-500 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faGlobe} size="lg" />
-                </Link>
-              )}
-              {staff?.staff_person_facebook && (
-                <Link
-                  data-tina-field={tinaField(staff, 'staff_person_facebook')}
-                  href={staff?.staff_person_facebook}
-                  target="_blank"
-                  className="text-gray-500 hover:text-blue-600 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faFacebook} size="lg" />
-                </Link>
-              )}
-              {staff?.staff_person_instagram && (
-                <Link
-                  data-tina-field={tinaField(staff, 'staff_person_instagram')}
-                  href={staff?.staff_person_instagram}
-                  target="_blank"
-                  className="text-gray-500 hover:text-pink-500 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faInstagram} size="lg" />
-                </Link>
-              )}
-            </div>
+            {/* Accent bar */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
           </div>
         ))}
       </div>

@@ -54,13 +54,30 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
     setCurrentPage(page);
   };
 
-  if (loading) return <p className="text-center text-gray-500">Caricamento...</p>;
-  if (error) return <p className="text-center text-red-500">Errore nel caricamento dei post.</p>;
+  if (loading) {
+    return (
+      <div className="py-20">
+        <div className="flex items-center justify-center gap-3">
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
+          <div className="w-2 h-2 bg-secondary rounded-full animate-bounce animation-delay-100" />
+          <div className="w-2 h-2 bg-accent rounded-full animate-bounce animation-delay-200" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 text-center">
+        <p className="text-red-500 font-medium">Errore nel caricamento dei post.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-12">
+    <div className="py-16 md:py-20">
       <div className="container mx-auto px-4">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {currentItems.map((item, i) => (
             <PostItem key={i} data={item!} />
           ))}
@@ -79,54 +96,70 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
 
 function PostItem({ data }: { data: Post }) {
   return (
-    <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col">
+    <article className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
       {data.image && (
-        <div className="relative h-48 md:h-56 w-full">
+        <div className="relative h-52 md:h-56 w-full overflow-hidden">
           <Image
             data-tina-field={tinaField(data, 'image')}
             title={data.title}
             src={data.image}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             fill={true}
             alt={data.title}
             loading="lazy"
             decoding="async"
           />
-        </div>
-      )}
-      <div className="p-6 flex flex-col grow gap-2">
-        <div>
-          <div className="mb-1">
-            <span
-              className="text-xs text-gray-400 tracking-wider uppercase font-semibold"
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Date badge */}
+          {data.date && (
+            <div
+              className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-sm shadow-md"
               data-tina-field={tinaField(data, 'date')}
             >
-              {data.date && formatDate(data.date, 'D MMMM, YYYY')}
-            </span>
-          </div>
-          <h2
-            className="text-xl font-bold leading-tight mb-2 text-gray-900 hover:text-blue-600 transition-colors duration-200"
-            data-tina-field={tinaField(data, 'title')}
-          >
-            {data.title}
-          </h2>
+              <span className="text-xs font-bold text-primary uppercase tracking-wide">
+                {formatDate(data.date, 'D MMM YYYY')}
+              </span>
+            </div>
+          )}
         </div>
+      )}
+
+      <div className="p-6 flex flex-col grow">
+        <h2
+          className="text-lg md:text-xl font-bold leading-snug mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300"
+          data-tina-field={tinaField(data, 'title')}
+        >
+          {data.title}
+        </h2>
 
         {data.excerpt && (
           <p
             data-tina-field={tinaField(data, 'excerpt')}
-            className="text-gray-600 line-clamp-3 leading-relaxed"
+            className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4"
           >
             {data.excerpt}
           </p>
         )}
 
-        <Link className="mt-auto" href={'/news/' + parseSystemInfoToHref(data._sys)}>
-          <Button type="button" variant="primary" className="w-full">
-            Leggi
-          </Button>
+        <Link
+          className="mt-auto inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary-dark transition-colors duration-200 group/link"
+          href={'/news/' + parseSystemInfoToHref(data._sys)}
+        >
+          <span>Leggi l&apos;articolo</span>
+          <svg
+            className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
         </Link>
       </div>
+
+      {/* Accent line */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
     </article>
   );
 }
@@ -158,7 +191,7 @@ function Pagination({
   const maxPagesToShow = isMobile ? MAX_PAGES_TO_SHOW_MOBILE : MAX_PAGES_TO_SHOW_DESKTOP;
   const pages = [];
   const btnClassNames =
-    'flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 shadow-md';
+    'flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 text-sm font-bold';
 
   if (totalPages > 1) {
     if (totalPages <= maxPagesToShow) {
@@ -246,15 +279,15 @@ function Pagination({
   }
 
   return (
-    <div className="flex flex-row items-center justify-center gap-2 mt-6">
+    <div className="flex flex-row items-center justify-center gap-2 mt-12 pt-8 border-t border-gray-200">
       {hasPreviousPage && (
         <Button
           type="button"
           variant="tertiary"
-          className={`${btnClassNames}`}
+          className={`${btnClassNames} hover:bg-primary hover:text-white hover:border-primary`}
           onClick={() => handlePageChange(currentPage - 1)}
         >
-          <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" />
+          <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
         </Button>
       )}
 
@@ -264,10 +297,10 @@ function Pagination({
         <Button
           type="button"
           variant="tertiary"
-          className={`${btnClassNames}`}
+          className={`${btnClassNames} hover:bg-primary hover:text-white hover:border-primary`}
           onClick={() => handlePageChange(currentPage + 1)}
         >
-          <FontAwesomeIcon icon={faArrowRight} className="w-5 h-5" />
+          <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
         </Button>
       )}
     </div>
