@@ -9,7 +9,7 @@ export default function Button({
   children,
   ...props
 }: (React.HTMLProps<HTMLButtonElement> | React.HTMLProps<HTMLAnchorElement>) & {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'accent' | 'link';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'accent' | 'outline' | 'ghost' | 'link';
   className?: string;
   type: 'button' | 'submit' | 'reset' | 'link';
   href?: string;
@@ -20,7 +20,9 @@ export default function Button({
     secondary: 'btn-secondary',
     tertiary: 'btn-tertiary',
     accent: 'btn-accent',
-    link: 'cursor-pointer hover:text-primary',
+    outline: 'btn-outline',
+    ghost: 'btn-ghost',
+    link: 'inline-flex items-center font-semibold cursor-pointer text-primary hover:text-primary-dark transition-colors duration-200',
   };
 
   const inExternalLink = type === 'link' && href?.startsWith('http');
