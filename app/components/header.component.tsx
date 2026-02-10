@@ -1,5 +1,5 @@
 'use client';
-import { Global } from '@/tina/__generated__/types';
+import { Global, GlobalLinksLinks } from '@/tina/__generated__/types';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
@@ -118,18 +118,43 @@ export default function Header() {
                     >
                       {link?.links?.map((subLink, subIndex) => (
                         <li key={`${index}_${subIndex}`}>
-                          <Link
-                            data-tina-field={tinaField(subLink!)}
-                            onClick={onNavClick}
-                            className={`block py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
-                              parseSystemInfoToHref(subLink?.href?._sys) === currentPath
-                                ? 'text-primary'
-                                : 'text-gray-600 hover:text-primary'
-                            }`}
-                            href={parseSystemInfoToHref(subLink?.href?._sys)}
-                          >
-                            {subLink?.text}
-                          </Link>
+                          {(subLink as GlobalLinksLinks)?.links?.length ? (
+                            <>
+                              <span className="block py-2 px-4 text-xs font-bold uppercase tracking-wider text-gray-400 mt-2 border-t border-gray-100 pt-3">
+                                {subLink?.text}
+                              </span>
+                              <ul className="pl-2 md:pl-0">
+                                {(subLink as GlobalLinksLinks)?.links?.map((subSubLink, subSubIndex) => (
+                                  <li key={`${index}_${subIndex}_${subSubIndex}`}>
+                                    <Link
+                                      onClick={onNavClick}
+                                      className={`block py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
+                                        parseSystemInfoToHref(subSubLink?.href?._sys) === currentPath
+                                          ? 'text-primary'
+                                          : 'text-gray-600 hover:text-primary'
+                                      }`}
+                                      href={parseSystemInfoToHref(subSubLink?.href?._sys)}
+                                    >
+                                      {subSubLink?.text}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </>
+                          ) : (
+                            <Link
+                              data-tina-field={tinaField(subLink!)}
+                              onClick={onNavClick}
+                              className={`block py-2.5 px-4 text-sm font-medium transition-all duration-200 ${
+                                parseSystemInfoToHref(subLink?.href?._sys) === currentPath
+                                  ? 'text-primary'
+                                  : 'text-gray-600 hover:text-primary'
+                              }`}
+                              href={parseSystemInfoToHref(subLink?.href?._sys)}
+                            >
+                              {subLink?.text}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>

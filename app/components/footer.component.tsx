@@ -1,5 +1,5 @@
 'use client';
-import { Global, GlobalSocial } from '@/tina/__generated__/types';
+import { Global, GlobalLinksLinks, GlobalSocial } from '@/tina/__generated__/types';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -54,16 +54,40 @@ export default function Footer() {
                     </Link>
                     {link?.links && link.links.length > 0 && (
                       <ul className="mt-2 space-y-2">
-                        {link.links.map((sublink, j) => (
-                          <li key={j}>
-                            <Link
-                              className="text-gray-500 hover:text-gray-300 transition-colors duration-200 text-sm"
-                              href={parseSystemInfoToHref(sublink?.href?._sys)}
-                            >
-                              {sublink?.text}
-                            </Link>
-                          </li>
-                        ))}
+                        {link.links.map((sublink, j) => {
+                          const sub = sublink as GlobalLinksLinks;
+                          if (sub?.links && sub.links.length > 0) {
+                            return (
+                              <li key={j}>
+                                <span className="text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                                  {sub?.text}
+                                </span>
+                                <ul className="mt-1 space-y-1">
+                                  {sub.links.map((subSubLink, k) => (
+                                    <li key={k}>
+                                      <Link
+                                        className="text-gray-500 hover:text-gray-300 transition-colors duration-200 text-sm"
+                                        href={parseSystemInfoToHref(subSubLink?.href?._sys)}
+                                      >
+                                        {subSubLink?.text}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </li>
+                            );
+                          }
+                          return (
+                            <li key={j}>
+                              <Link
+                                className="text-gray-500 hover:text-gray-300 transition-colors duration-200 text-sm"
+                                href={parseSystemInfoToHref(sublink?.href?._sys)}
+                              >
+                                {sublink?.text}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     )}
                   </div>
@@ -84,7 +108,11 @@ export default function Footer() {
                     />
                   )}
                   {global?.contact_info?.phone && (
-                    <ContactItem icon={faPhone} text={global.contact_info.phone} link={`tel:${global.contact_info.phone}`} />
+                    <ContactItem
+                      icon={faPhone}
+                      text={global.contact_info.phone}
+                      link={`tel:${global.contact_info.phone}`}
+                    />
                   )}
                   {global?.contact_info?.email && (
                     <ContactItem

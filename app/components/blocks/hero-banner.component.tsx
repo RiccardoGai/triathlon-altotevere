@@ -24,6 +24,11 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
     right: `object-right`,
   };
 
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov'];
+  const isVideo = data.hero_image
+    ? videoExtensions.some((ext) => data.hero_image!.toLowerCase().endsWith(ext))
+    : false;
+
   return (
     <Section
       data-tina-field={tinaField(data, 'hero_image')}
@@ -35,26 +40,46 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 z-10" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent z-10" />
 
-      <Image
-        src={data.hero_image}
-        fill
-        loading="eager"
-        sizes="(max-width: 640px) 640px,
-         (max-width: 750px) 750px,
-         (max-width: 828px) 828px,
-         (max-width: 1080px) 1080px,
-         (max-width: 1200px) 1200px,
-         (max-width: 1920px) 1920px,
-         (max-width: 2048px) 2048px,
-         3840px"
-        className={`${
-          imagePositionClass[
-            (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'center'
-          ]
-        } object-cover`}
-        alt={data.hero_title || ''}
-        priority
-      />
+      {isVideo ? (
+        <video
+          src={data.hero_image!}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          // @ts-expect-error — fetchPriority is supported in modern browsers but not yet in React types
+          fetchPriority="high"
+          className={`absolute inset-0 min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
+            imagePositionClass[
+              (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'center'
+            ]
+          } object-cover`}
+        />
+      ) : (
+        data.hero_image && (
+          <Image
+            src={data.hero_image}
+            fill
+            loading="eager"
+            sizes="(max-width: 640px) 640px,
+             (max-width: 750px) 750px,
+             (max-width: 828px) 828px,
+             (max-width: 1080px) 1080px,
+             (max-width: 1200px) 1200px,
+             (max-width: 1920px) 1920px,
+             (max-width: 2048px) 2048px,
+             3840px"
+            className={`${
+              imagePositionClass[
+                (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'center'
+              ]
+            } object-cover`}
+            alt={data.hero_title || ''}
+            priority
+          />
+        )
+      )}
 
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 pb-16 md:pb-24">
         <div className="max-w-4xl text-white">

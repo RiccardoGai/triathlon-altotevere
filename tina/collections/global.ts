@@ -102,6 +102,29 @@ const Global: Collection = {
               label: 'Href',
               name: 'href',
             },
+            {
+              type: 'object',
+              label: 'Links',
+              name: 'links',
+              list: true,
+              ui: {
+                itemProps: (item: Record<string, any>) => ({ label: item?.text }),
+              },
+              fields: [
+                {
+                  type: 'string',
+                  label: 'Text',
+                  name: 'text',
+                  required: true,
+                },
+                {
+                  type: 'reference',
+                  collections: ['page'],
+                  label: 'Href',
+                  name: 'href',
+                },
+              ],
+            },
           ],
         },
       ],

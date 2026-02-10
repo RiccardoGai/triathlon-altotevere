@@ -47,12 +47,12 @@ export const HeroBannerTemplate: Template = {
         { label: 'External Href', name: 'hero_action_external_href', type: 'string' },
       ],
     },
-    { type: 'image', label: 'Image', name: 'hero_image', required: true },
+    { type: 'image', label: 'Image / Video', name: 'hero_image', required: true },
     {
       type: 'string',
       name: 'hero_image_position',
       label: 'Image Position',
-      description: 'The position of the image in the hero banner',
+      description: 'The position of the image in the hero banner (only for images)',
       options: [
         { label: 'Top', value: 'top' },
         { label: 'Center', value: 'center' },
