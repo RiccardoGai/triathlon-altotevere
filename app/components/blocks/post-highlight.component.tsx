@@ -61,7 +61,7 @@ export default function PostHighlightBlock({ data }: { data: PageBlocksPostHighl
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-20">
-      <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         {items?.map((item, i) => <PostItem key={i} data={item!} index={i} />)}
       </div>
     </div>
@@ -75,7 +75,7 @@ function PostItem({ data, index }: { data: Post; index: number }) {
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Image container with overlay */}
-      <div className="relative h-52 md:h-60 overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden">
         {data.image && (
           <>
             <Image

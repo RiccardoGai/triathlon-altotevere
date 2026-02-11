@@ -23,7 +23,7 @@ export default function StaffBlock({
       )}
 
       <div
-        className={`grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-${data.staff_number_per_row ?? 3} justify-center px-4`}
+        className={`grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-${data.staff_number_per_row ?? 3} justify-center px-4 max-w-7xl mx-auto`}
       >
         {(data.staff_people ?? []).map((staff, i) => (
           <div
@@ -32,7 +32,7 @@ export default function StaffBlock({
             data-tina-field={tinaField(staff)}
           >
             {/* Image container with overlay */}
-            <div className="relative h-72 md:h-80 overflow-hidden">
+            <div className="relative aspect-[3/4] overflow-hidden">
               <Image
                 data-tina-field={tinaField(staff, 'staff_person_image')}
                 src={staff?.staff_person_image || ''}

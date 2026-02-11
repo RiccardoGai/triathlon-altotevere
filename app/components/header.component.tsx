@@ -98,7 +98,7 @@ export default function Header() {
                 {link?.links?.length ? (
                   <>
                     <button
-                      className="text-default hover:text-primary cursor-pointer px-4 py-2.5 flex items-center text-sm font-semibold uppercase tracking-wide w-full md:w-auto transition-colors duration-200"
+                      className="text-default text-left hover:text-primary cursor-pointer px-4 py-2.5 flex items-center text-sm font-semibold uppercase tracking-wide w-full md:w-auto transition-colors duration-200"
                       data-tina-field={tinaField(link!)}
                       onClick={() => onDropdownToggle(index)}
                     >

@@ -132,9 +132,6 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
           )}
         </div>
       </div>
-
-      {/* Bottom gradient fade for smooth transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-page to-transparent z-20" />
     </Section>
   );
 }

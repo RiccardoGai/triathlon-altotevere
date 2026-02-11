@@ -77,7 +77,7 @@ export default function PostListBlock({ data }: { data: PageBlocksPostList }) {
   return (
     <div className="py-16 md:py-20">
       <div className="container mx-auto px-4">
-        <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
           {currentItems.map((item, i) => (
             <PostItem key={i} data={item!} />
           ))}
@@ -98,7 +98,7 @@ function PostItem({ data }: { data: Post }) {
   return (
     <article className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
       {data.image && (
-        <div className="relative h-52 md:h-56 w-full overflow-hidden">
+        <div className="relative aspect-[16/10] w-full overflow-hidden">
           <Image
             data-tina-field={tinaField(data, 'image')}
             title={data.title}

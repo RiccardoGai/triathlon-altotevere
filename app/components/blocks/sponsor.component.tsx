@@ -43,7 +43,7 @@ export default function SponsorBlock({
                     loading="lazy"
                     width={width}
                     height={height}
-                    className="object-contain w-full h-auto max-h-20 grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-300"
+                    className="object-contain w-full h-auto max-h-20 opacity-70 group-hover:opacity-100 transition-all duration-300"
                   />
                 </Link>
               ) : (
@@ -54,7 +54,7 @@ export default function SponsorBlock({
                     loading="lazy"
                     width={width}
                     height={height}
-                    className="object-contain w-full h-auto max-h-20 grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-300"
+                    className="object-contain w-full h-auto max-h-20 opacity-70 group-hover:opacity-100 transition-all duration-300"
                   />
                 </div>
               )}
