@@ -23,6 +23,7 @@ export default function ImageBlock({
         width={width ?? undefined}
         height={height ?? undefined}
         fill={fill}
+        {...(fill && { sizes: '(max-width: 1024px) 100vw, 1024px' })}
         loading="lazy"
         className="object-cover transition-transform duration-300 rounded-lg shadow-lg"
         alt={data.image_name}

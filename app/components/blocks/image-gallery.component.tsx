@@ -66,6 +66,7 @@ export default function ImageGalleryBlock({
               alt=""
               loading="lazy"
               fill={true}
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
               className="object-cover transition-all duration-500 group-hover:scale-110"
             />
             {/* Hover overlay */}

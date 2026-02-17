@@ -2,7 +2,8 @@
 const nextConfig = {
   transpilePackages: ['@mep-agency/next-iubenda'],
   images: {
-    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './app/utils/cloudinary-loader.ts',
     remotePatterns: [
       {
         protocol: 'https',
@@ -17,7 +18,6 @@ const nextConfig = {
         pathname: '**',
       },
     ],
-    // loader: 'custom',
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   },

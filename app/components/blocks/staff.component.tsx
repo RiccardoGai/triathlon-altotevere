@@ -38,6 +38,7 @@ export default function StaffBlock({
                 src={staff?.staff_person_image || ''}
                 alt={staff?.staff_person_name || ''}
                 loading="lazy"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                 fill={true}
               />

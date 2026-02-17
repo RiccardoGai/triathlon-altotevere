@@ -29,6 +29,22 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
     ? videoExtensions.some((ext) => data.hero_image!.toLowerCase().endsWith(ext))
     : false;
 
+  // Map hero height to a crop aspect ratio so Cloudinary sends only the pixels
+  // that will actually be visible, instead of the full-height original.
+  // Values approximate (viewport-width / height-in-vh) for common screens.
+  const heroAspectRatio: Record<string, string> = {
+    '50%': '16:8',   // ~2:1
+    '60%': '16:9',   // ~1.78:1
+    '70%': '16:10',  // ~1.6:1
+    '80%': '16:11',  // ~1.45:1
+    '90%': '16:12',  // ~1.33:1
+    '100%': '16:13', // ~1.23:1
+  };
+
+  const heroHeight = (data?.hero_height as string) ?? '100%';
+  const cropParam = heroAspectRatio[heroHeight] ? `?_ar=${heroAspectRatio[heroHeight]}` : '';
+  const heroImageSrc = data.hero_image ? `${data.hero_image}${cropParam}` : undefined;
+
   return (
     <Section
       data-tina-field={tinaField(data, 'hero_image')}
@@ -59,17 +75,10 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
       ) : (
         data.hero_image && (
           <Image
-            src={data.hero_image}
+            src={heroImageSrc!}
             fill
             loading="eager"
-            sizes="(max-width: 640px) 640px,
-             (max-width: 750px) 750px,
-             (max-width: 828px) 828px,
-             (max-width: 1080px) 1080px,
-             (max-width: 1200px) 1200px,
-             (max-width: 1920px) 1920px,
-             (max-width: 2048px) 2048px,
-             3840px"
+            sizes="100vw"
             className={`${
               imagePositionClass[
                 (data?.hero_image_position as 'center' | 'top' | 'bottom' | 'left' | 'right') ?? 'center'
