@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { tinaField } from 'tinacms/dist/react';
 import { formatDate, nameof, parseSystemInfoToHref } from '../../utils/utils';
-import Button from '../button.component';
 
 export default function PostHighlightBlock({ data }: { data: PageBlocksPostHighlight }) {
   const [items, setItems] = useState<Post[]>([]);
@@ -115,9 +114,7 @@ function PostItem({ data, index }: { data: Post; index: number }) {
         </h3>
 
         {data.excerpt && (
-          <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
-            {data.excerpt}
-          </p>
+          <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">{data.excerpt}</p>
         )}
 
         <Link

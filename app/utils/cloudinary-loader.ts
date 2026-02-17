@@ -49,9 +49,9 @@ export default function cloudinaryLoader({ src, width, quality }: CloudinaryLoad
   }
 
   const params = [
-    'f_auto',                         // Best format (WebP / AVIF) for the browser
-    `q_${quality ?? 'auto'}`,         // Automatic quality or explicit quality
-    `w_${width}`,                     // Width requested by the browser
+    'f_auto', // Best format (WebP / AVIF) for the browser
+    `q_${quality ?? 'auto'}`, // Automatic quality or explicit quality
+    `w_${width}`, // Width requested by the browser
   ];
 
   if (aspectRatio) {
@@ -60,13 +60,10 @@ export default function cloudinaryLoader({ src, width, quality }: CloudinaryLoad
     params.push(`c_${cropMode ?? 'fill'}`);
     params.push(`g_${gravity ?? 'auto'}`);
   } else {
-    params.push('c_limit');           // Don't upscale, only downscale
+    params.push('c_limit'); // Don't upscale, only downscale
   }
 
   // Insert transformation params right after "/upload/"
   // Cloudinary URL pattern: .../image/upload/[existing_transforms/]v123/path.ext
-  return cleanSrc.replace(
-    /\/image\/upload\//,
-    `/image/upload/${params.join(',')}/`
-  );
+  return cleanSrc.replace(/\/image\/upload\//, `/image/upload/${params.join(',')}/`);
 }

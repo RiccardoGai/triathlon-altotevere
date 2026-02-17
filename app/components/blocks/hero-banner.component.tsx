@@ -33,11 +33,11 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
   // that will actually be visible, instead of the full-height original.
   // Values approximate (viewport-width / height-in-vh) for common screens.
   const heroAspectRatio: Record<string, string> = {
-    '50%': '16:8',   // ~2:1
-    '60%': '16:9',   // ~1.78:1
-    '70%': '16:10',  // ~1.6:1
-    '80%': '16:11',  // ~1.45:1
-    '90%': '16:12',  // ~1.33:1
+    '50%': '16:8', // ~2:1
+    '60%': '16:9', // ~1.78:1
+    '70%': '16:10', // ~1.6:1
+    '80%': '16:11', // ~1.45:1
+    '90%': '16:12', // ~1.33:1
     '100%': '16:13', // ~1.23:1
   };
 
