@@ -113,7 +113,7 @@ export default function HeroBannerBlock({ data }: { data: PageBlocksHeroBanner }
           )}
           {data.hero_subtitle && (
             <div
-              className="text-base md:text-lg lg:text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed animate-fade-in-up animation-delay-200"
+              className="text-base md:text-lg lg:text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed animate-fade-in-up animation-delay-200 whitespace-pre"
               data-tina-field={tinaField(data, 'hero_subtitle')}
             >
               <Markdown data={data.hero_subtitle} />
