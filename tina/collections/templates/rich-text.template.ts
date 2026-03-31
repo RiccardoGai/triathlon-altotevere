@@ -20,6 +20,7 @@ export const RichTextInnerTemplates: RichTextComponent<any>[] = [
       },
       { name: 'rich_text_button_href', label: 'Href', type: 'reference', collections: ['page'] },
       { label: 'External Href', name: 'rich_text_button_external_href', type: 'string' },
+      { label: 'File (PDF, ecc.)', name: 'rich_text_button_file', type: 'image' },
     ],
   },
   {

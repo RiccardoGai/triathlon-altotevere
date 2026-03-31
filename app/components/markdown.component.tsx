@@ -16,8 +16,10 @@ const MdButton = (unknowProps: unknown) => {
   // @NOTE this is a tina bug, the href is not being parsed correctly
   const href = String(
     props?.rich_text_button_external_href ||
-      (props?.rich_text_button_href as string)?.replace('content/pages', '')?.replace('.mdx', '')
+      (props?.rich_text_button_href as string)?.replace('content/pages', '')?.replace('.mdx', '') ||
+      props?.rich_text_button_file
   );
+
   const text = String(props?.rich_text_button_text);
   return (
     <Button
