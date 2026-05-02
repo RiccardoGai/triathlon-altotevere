@@ -12,9 +12,7 @@ export default function PdfViewerBlock({ data }: { data: PageBlocksPdfViewer }) 
 
   return (
     <div data-tina-field={tinaField(data)} className="w-full flex flex-col gap-4">
-      {data.pdf_viewer_name && (
-        <h2 className="text-2xl font-bold">{data.pdf_viewer_name}</h2>
-      )}
+      {data.pdf_viewer_name && <h2 className="text-2xl font-bold">{data.pdf_viewer_name}</h2>}
 
       {pdfs.length > 1 && (
         <div className="flex flex-wrap gap-2">
@@ -23,9 +21,7 @@ export default function PdfViewerBlock({ data }: { data: PageBlocksPdfViewer }) 
               key={i}
               onClick={() => setActiveIndex(i)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                i === activeIndex
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                i === activeIndex ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {pdf?.pdf_label ?? `PDF ${i + 1}`}
