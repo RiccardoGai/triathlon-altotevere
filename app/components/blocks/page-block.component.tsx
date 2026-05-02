@@ -7,6 +7,7 @@ import Section from '../section.component';
 import ContactFormBlock from './contact-form.component';
 import ContactInfoBlock from './contact-info.component';
 import GridBlock from './grid.component';
+import PdfViewerBlock from './pdf-viewer.component';
 import HeroBannerBlock from './hero-banner.component';
 import ImageGalleryBlock from './image-gallery.component';
 import ImageBlock from './image.component';
@@ -69,6 +70,8 @@ const Block = (block: PageBlocks) => {
       return <StaffBlock data={block} />;
     case 'PageBlocksContactInfo':
       return <ContactInfoBlock data={block} />;
+    case 'PageBlocksPdfViewer':
+      return <PdfViewerBlock data={block} />;
     default:
       return null;
   }

@@ -11,6 +11,7 @@ import { PriceTemplate } from './templates/price.template';
 import { RichTextTemplate } from './templates/rich-text.template';
 import { SponsorTemplate } from './templates/sponsor.template';
 import { StaffTemplate } from './templates/staff.template';
+import { PdfViewerTemplate } from './templates/pdf-viewer.template';
 import { VideoTemplate } from './templates/video.template';
 import { auditBeforeSubmit, auditFields } from './utils/audit.utils';
 import { seoFields } from './utils/seo.utils';
@@ -82,6 +83,7 @@ const Page: Collection = {
         SponsorTemplate,
         StaffTemplate,
         ContactInfoTemplate,
+        PdfViewerTemplate,
       ],
     },
   ],
