@@ -34,7 +34,7 @@ export default function PdfViewerBlock({ data }: { data: PageBlocksPdfViewer }) 
         <div className="w-full rounded-lg shadow-lg overflow-hidden border border-gray-200">
           <iframe
             key={activePdf.pdf_url}
-            src={activePdf.pdf_url}
+            src={`https://docs.google.com/viewer?url=${encodeURIComponent(activePdf.pdf_url)}&embedded=true`}
             className="w-full"
             style={{ height: data.height ? `${data.height}px` : '800px' }}
             title={activePdf.pdf_label ?? 'PDF'}
